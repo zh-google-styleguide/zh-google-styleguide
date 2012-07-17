@@ -14,12 +14,12 @@ Google Objective-C Style Guide 中文版
 :翻译:
     .. line-block::
 
-        ewangke
-        brantyoung
+        `ewangke <http://ke.indiebros.com/>`_
+        `brantyoung <http://yangyubo.com>`_
 
 :项目主页:
     - `Google Style Guide <http://google-styleguide.googlecode.com>`_
-    - `Google 开源项目风格指南 - 中文版 <http://codinn.com/projects/google-styleguide/>`_
+    - `Google 开源项目风格指南 - 中文版 <http://github.com/brantyoung/zh-google-styleguide>`_
 
 
 译者的话
@@ -60,7 +60,7 @@ Cocoa 是 Mac OS X 上主要的应用程序框架之一。它由一组 Objective
 
 Google 已经发布了遵守本指南开源代码，它们属于 `Google Toolbox for Mac project <http://code.google.com/p/google-toolbox-for-mac/>`_ 项目（本文以缩写 GTM 指代）。GTM 代码库中的代码通常为了可以在不同项目中复用。
 
-注意，本指南不是 Objective-C 教程。我们假定读者对 Objective-C 非常熟悉。如果你刚刚接触 Objective-C 或者需要温习，请阅读 `The Objective-C Programming Language <http://developer.apple.com/documentation/Cocoa/Conceptual/ObjectiveC/index.html>`_。
+注意，本指南不是 Objective-C 教程。我们假定读者对 Objective-C 非常熟悉。如果你刚刚接触 Objective-C 或者需要温习，请阅读 `The Objective-C Programming Language <http://developer.apple.com/documentation/Cocoa/Conceptual/ObjectiveC/index.html>`_ 。
 
 例子
 ========
@@ -110,7 +110,7 @@ Google 已经发布了遵守本指南开源代码，它们属于 `Google Toolbox
 
     @end
 
-一个源文件的例子，展示了 ``@implementation`` 部分如何进行正确的注释、留白。同时也包括了基于引用实现的一些重要方法，如 ``getters``、``setters``、``init`` 以及 ``dealloc``。
+一个源文件的例子，展示了 ``@implementation`` 部分如何进行正确的注释、留白。同时也包括了基于引用实现的一些重要方法，如 ``getters`` 、 ``setters`` 、 ``init`` 以及 ``dealloc`` 。
 
 .. code-block:: objc
 

@@ -1,5 +1,5 @@
 Google 开源项目风格指南 (中文版)
-=============================
+================================
 
 .. note:: 声明.
 
@@ -16,16 +16,15 @@ Google 开源项目风格指南 (中文版)
 
 我们已经发布了三份 **中文版** 的风格指南:
 
-#. `C++ 风格指南 <http://codinn.com/projects/google-cpp-styleguide/>`_
+#. :doc:`Google C++ 风格指南 </google-cpp-styleguide/contents>`
 
-#. `Objective-C 风格指南 <http://codinn.com/projects/google-objc-styleguide/>`_
+#. :doc:`Google Objective-C 风格指南 </google-objc-styleguide/contents>`
 
-#. `Google Python 风格指南 <http://codinn.com/projects/google-python-style-guide/>`_
+#. :doc:`Google Python 风格指南 </google-python-styleguide/contents>`
 
 
 中文版项目采用 reStructuredText 纯文本标记语法, 并使用 Sphinx 生成 HTML / CHM / PDF 等文档格式.
 
 * 英文版项目还包含 `cpplint <http://google-styleguide.googlecode.com/svn/trunk/cpplint>`_ - 一个用来帮助适应风格准则的工具, 以及 `google-c-style.el <http://google-styleguide.googlecode.com/svn/trunk/google-c-style.el>`_, Google 风格的 Emacs 配置文件.
 
-* 另外, 招募自愿者翻译 `JavaScript Style Guide <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml>`_ 以及 `XML Document Format Style Guide <http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html>`_, 有意者请联系 `brant <http://yangyubo.com>`_.
-
+* 另外, 招募自愿者翻译 `JavaScript Style Guide <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml>`_ 以及 `XML Document Format Style Guide <http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html>`_, 有意者请联系 `brantyoung <http://yangyubo.com>`_.

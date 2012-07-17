@@ -1,16 +1,16 @@
 .. 请确保至少包含基本的 `toctree` 指令.
 
-.. _contents:
+.. _cpp_contents:
 
 
-内容目录
-========
+C++ 风格指南 - 内容目录
+==========================
 
 .. contents::
     :backlinks: none
 
 .. toctree::
-   
+
    index
    headers
    scoping
@@ -22,4 +22,3 @@
    formatting
    exceptions
    end
-   

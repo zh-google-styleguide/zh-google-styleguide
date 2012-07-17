@@ -5,7 +5,7 @@
 
 :原作者:
     .. line-block::
-        
+
          Benjy Weinberger
          Craig Silverstein
          Gregory Eitzmann
@@ -14,13 +14,13 @@
 
 :翻译:
     .. line-block::
-        
-        YuleFox
-        yospaly
+
+        `YuleFox <http://www.yulefox.com>`_
+        `brantyoung <http://yangyubo.com>`_
 
 :项目主页:
     - `Google Style Guide <http://google-styleguide.googlecode.com>`_
-    - `Google 开源项目风格指南 - 中文版 <http://zh-google-styleguide.googlecode.com>`_
+    - `Google 开源项目风格指南 - 中文版 <http://github.com/brantyoung/zh-google-styleguide>`_
 
 0.1 译者前言
 ---------------
@@ -29,11 +29,11 @@ Google 经常会发布一些开源项目, 意味着会接受来自其他代码�
 
 翻译初衷:
     规则的作用就是避免混乱. 但规则本身一定要权威, 有说服力, 并且是理性的. 我们所见过的大部分编程规范, 其内容或不够严谨, 或阐述过于简单, 或带有一定的武断性.
-    
+
     Google 保持其一贯的严谨精神, 5 万汉字的指南涉及广泛, 论证严密. 我们翻译该系列指南的主因也正是其严谨性. 严谨意味着指南的价值不仅仅局限于它罗列出的规范, 更具参考意义的是它为了列出规范而做的谨慎权衡过程.
-    
+
     指南不仅列出你要怎么做, 还告诉你为什么要这么做, 哪些情况下可以不这么做, 以及如何权衡其利弊. 其他团队未必要完全遵照指南亦步亦趋, 如前面所说, 这份指南是 Google 根据自身实际情况打造的, 适用于其主导的开源项目. 其他团队可以参照该指南, 或从中汲取灵感, 建立适合自身实际情况的规范.
-    
+
     我们在翻译的过程中, 收获颇多. 希望本系列指南中文版对你同样能有所帮助.
 
 我们翻译时也是尽力保持严谨, 但水平所限, bug 在所难免. 有任何意见或建议, 可与我们取得联系.
@@ -42,11 +42,11 @@ Google 经常会发布一些开源项目, 意味着会接受来自其他代码�
 
 中文版修订历史:
     - 2009-06 3.133 : YuleFox 的 1.0 版已经相当完善, 但原版在近一年的时间里, 其规范也发生了一些变化.
-        
-        yospaly 与 YuleFox 一拍即合, 以项目的形式来延续中文版 : `Google 开源项目风格指南 - 中文版项目 <http://zh-google-styleguide.googlecode.com>`_.
-        
-        主要变化是同步到 3.133 最新英文版本, 做部分勘误和改善可读性方面的修改, 并改进排版效果. yospaly 重新翻修, YuleFox 做后续评审.
-    
+
+        brantyoung 与 YuleFox 一拍即合, 以项目的形式来延续中文版 : `Google 开源项目风格指南 - 中文版项目 <http://github.com/brantyoung/zh-google-styleguide>`_.
+
+        主要变化是同步到 3.133 最新英文版本, 做部分勘误和改善可读性方面的修改, 并改进排版效果. brantyoung 重新翻修, YuleFox 做后续评审.
+
     - 2008-07 1.0 : 出自 `YuleFox 的 Blog <http://www.yulefox.com/?p=207>`_, 很多地方摘录的也是该版本.
 
 
@@ -66,4 +66,3 @@ C++ 是 Google 大部分开源项目的主要编程语言. 正如每个 C++ 程�
 Google 主导的开源项目均符合本指南的规定.
 
 注意: 本指南并非 C++ 教程, 我们假定读者已经对 C++ 非常熟悉.
-   

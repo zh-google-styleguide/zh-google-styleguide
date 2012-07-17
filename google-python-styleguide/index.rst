@@ -13,17 +13,16 @@ Google Python 风格指南 - 中文版
         Jeremy Hylton
         Matt Smart
         Mike Shields
-        
-:翻译:
-    郭桥
 
-    .. image:: guoqiao.gif
-        
+:翻译:
+    .. line-block::
+
+        `guoqiao <http://guoqiao.me/>`_
+
 :项目主页:
     - `Google Style Guide <http://google-styleguide.googlecode.com>`_
-    
-    - `Google 开源项目风格指南 - 中文版 <http://code.google.com/p/zh-google-styleguide/>`_
-    
+    - `Google 开源项目风格指南 - 中文版 <http://github.com/brantyoung/zh-google-styleguide>`_
+
 目录
 ================================
 
