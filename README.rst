@@ -21,11 +21,11 @@ Google 开源项目风格指南 (中文版)
 
 我们已经发布了三份 **中文版** 的风格指南:
 
-#. :doc:`Google C++ 风格指南 </google-cpp-styleguide/contents>`
+#. `Google C++ 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/>`_
 
-#. :doc:`Google Objective-C 风格指南 </google-objc-styleguide/contents>`
+#. `Google Objective-C 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-objc-styleguide/>`_
 
-#. :doc:`Google Python 风格指南 </google-python-styleguide/contents>`
+#. `Google Python 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-python-styleguide/>`_
 
 
 中文版项目采用 reStructuredText 纯文本标记语法, 并使用 Sphinx 生成 HTML / CHM / PDF 等文档格式.
