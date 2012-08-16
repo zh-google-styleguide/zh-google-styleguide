@@ -14,13 +14,15 @@ Google 开源项目风格指南 (中文版)
 英文版项目维护的是在 Google 使用的编程风格指南. 如果你正在修改的项目源自 Google, 你可能会被引导至
 英文版项目页面, 以了解项目所使用的风格.
 
-我们已经发布了三份 **中文版** 的风格指南:
+我们已经发布了四份 **中文版** 的风格指南:
 
 #. :doc:`Google C++ 风格指南 </google-cpp-styleguide/contents>`
 
 #. :doc:`Google Objective-C 风格指南 </google-objc-styleguide/contents>`
 
 #. :doc:`Google Python 风格指南 </google-python-styleguide/contents>`
+
+#. `Google JSON 风格指南 <https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md>`_
 
 
 中文版项目采用 reStructuredText 纯文本标记语法, 并使用 Sphinx 生成 HTML / CHM / PDF 等文档格式.
