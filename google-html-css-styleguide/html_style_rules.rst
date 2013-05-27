@@ -60,7 +60,7 @@ HTML合法性
 对于图片、视频、通过 ``canvas`` 实现的动画等多媒体来说，确保提供可访问的替代内容。对于图片，可提供有意义的替代文本（ ``alt`` ）；对于视频和音频，如有条件可提供对白和字幕。
 
 提供替代内容对辅助功能很重要：没有 ``alt`` ，一位盲人用户很难知道一张图片的内容，其他用户可能不能了解视频和音频的内容。
-（对于 ``alt`` 属性会引起冗余的图片和你不打算添加CSS的纯粹装饰性的图片，不用添加替代文本，写成 ``alt=””`` 即可。）
+（对于 ``alt`` 属性会引起冗余的图片和你不打算添加CSS的纯粹装饰性的图片，不用添加替代文本，写成 ``alt=""`` 即可。）
 
 .. code-block:: html
 
@@ -93,9 +93,9 @@ HTML合法性
   <link rel="stylesheet" href="print.css" media="print">
   <h1 style="font-size: 1em;">HTML sucks</h1>
   <p>I’ve read about this on a few sites but now I’m sure:
-   <u>HTML is stupid!!1</u>
+    <u>HTML is stupid!!1</u>
   <center>I can’t believe there’s no way to control the styling of
-   my website without doing everything all over again!</center>
+    my website without doing everything all over again!</center>
    
   <!-- 推荐 -->
   <!DOCTYPE html>
@@ -103,8 +103,8 @@ HTML合法性
   <link rel="stylesheet" href="default.css">
   <h1>My first CSS-only redesign</h1>
   <p>I’ve read about this on a few sites but today I’m actually
-   doing it: separating concerns and avoiding anything in the HTML of
-   my website that is presentational.
+    doing it: separating concerns and avoiding anything in the HTML of
+    my website that is presentational.
   <p>It’s awesome!
 
 实体引用
@@ -119,17 +119,17 @@ HTML合法性
 .. code-block:: html
 
   <!-- 不推荐 -->
-  The currency symbol for the Euro is “&eur;”.
+  The currency symbol for the Euro is &ldquo;&eur;&rdquo;.
   
   <!-- 推荐 -->
-  The currency symbol for the Euro is “€”.
+  The currency symbol for the Euro is "€".
 
 可选的标签
 ------------
 
 省略可选的标签（可选）。
 
-为了优化文件大小和可扫描，考虑省略可选标签。 `HTML5规范 <http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#syntax-tag-omission>`_定义了哪些标签可以被省略。
+为了优化文件大小和可扫描，考虑省略可选标签。 `HTML5规范 <http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#syntax-tag-omission>`_ 定义了哪些标签可以被省略。
 
 （这种方法可能要求一段宽限期去建立一个更加广泛的准则，因为它和Web开发人员通常所了解的有着显著不同。考虑到一致性和简单性，最好省略所有可选标签。）
 
@@ -158,7 +158,7 @@ type属性
 
 引用样式表（除非不是使用CSS）和脚本（除非不是使用JavaScript）不要使用type属性。
 
-HTML5将 `text/css <http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-type>`_和 `text/javascript <http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#attr-script-type>`_设置为默认值，在这种情况下指定type属性并不必要。甚至同样兼容老版本的浏览器。
+HTML5将 `text/css <http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-type>`_ 和 `text/javascript <http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#attr-script-type>`_ 设置为默认值，在这种情况下指定type属性并不必要。甚至同样兼容老版本的浏览器。
 
 .. code-block:: html
   <!-- 不推荐 -->
