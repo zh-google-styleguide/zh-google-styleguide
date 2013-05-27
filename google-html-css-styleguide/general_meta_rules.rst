@@ -8,7 +8,7 @@
 
 让你的编辑器使用无字节顺序标记的UTF-8编码。
 
-在HTML模板和文档中使用``<meta charset=”utf-8”>``指定编码。不需要为样式表指定编码，它默认是UTF-8。
+在HTML模板和文档中使用<meta charset=”utf-8”>指定编码。不需要为样式表指定编码，它默认是UTF-8。
 
 （想了解更多关于应该何时并如何指定编码，请查看Handling character encodings in HTML and CSS）
 
