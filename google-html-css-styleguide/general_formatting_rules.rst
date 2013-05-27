@@ -30,10 +30,10 @@
 
 .. code-block:: html
 
-  <!—不推荐 -->
+  <!-- 不推荐 -->
   <A HREF="/">Home</A>
   
-  <!—推荐 -->
+  <!-- 推荐 -->
   <img src="google.png" alt="Google">
 
 .. code-block:: css
@@ -53,8 +53,8 @@
 
 .. code-block:: html
 
-  <!— 不推荐  -->
+  <!-- 不推荐 -->
   <p>What?_
   
-  <!— 推荐  -->
+  <!-- 推荐 -->
   <p>Yes please.
