@@ -12,17 +12,12 @@ CSS元规则
 
   /* Header */
   
-  
   #adw-header {}
-  
   
   /* Footer */
   
-  
   #adw-footer {}
   
-  
   /* Gallery */
-  
   
   .adw-gallery {}
