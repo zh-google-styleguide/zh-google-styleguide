@@ -18,7 +18,7 @@ var关键字
 
 * 可以使用 ``@const`` 来标记一个常量 *指针* （指向变量或属性，自身不可变）
 
-* 由于IE的兼容问题，不要使用 `const关键字<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FStatements%2Fconst>`_
+* 由于IE的兼容问题，不要使用 `const关键字 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FStatements%2Fconst>`_
 
 描述
 ~~~~~~
@@ -35,7 +35,7 @@ var关键字
 常量指针（变量和属性）
 ########################
 
-用 ``@const`` 注释的变量和属性意味着它是不能更改的。使用const关键字可以保证在编译的时候保持一致。使用 `const<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FStatements%2Fconst>`_ 效果相同，但是由于IE的兼容问题，我们不使用const关键字。
+用 ``@const`` 注释的变量和属性意味着它是不能更改的。使用const关键字可以保证在编译的时候保持一致。使用 `const <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const?redirectlocale=en-US&redirectslug=JavaScript%2FReference%2FStatements%2Fconst>`_ 效果相同，但是由于IE的兼容问题，我们不使用const关键字。
 
 另外，不应该修改用 ``@const`` 注释的方法。
 
@@ -150,7 +150,7 @@ js语句要求以分号结尾，除非能够正确地推断分号的位置。在
         function foo() {}
     }
 
-虽然大多数脚本引擎支持功能区块内声明，但ECMAScript并未认可（见 `ECMA-262<http://www.ecma-international.org/publications/standards/Ecma-262.htm>`_ ，第13条和第14）。若与他人的及EcmaScript所建议的不一致，即可视为不好的实现方式。ECMAScript只允许函数声明语句列表, 在根语句列表脚本或者函数。相反，使用一个变量初始化函数表达式在块内定义一个函数块：
+虽然大多数脚本引擎支持功能区块内声明，但ECMAScript并未认可（见 `ECMA-262 <http://www.ecma-international.org/publications/standards/Ecma-262.htm>`_ ，第13条和第14）。若与他人的及EcmaScript所建议的不一致，即可视为不好的实现方式。ECMAScript只允许函数声明语句列表, 在根语句列表脚本或者函数。相反，使用一个变量初始化函数表达式在块内定义一个函数块：
 
 ::
 
@@ -213,7 +213,7 @@ js语句要求以分号结尾，除非能够正确地推断分号的位置。在
 
 多重原型继承是Javascript实现继承的方式。如果你有一个以用户定义的class B作为原型的用户自定义class D，则得到多重原型继承。这样的继承出现容易但难以正确创造！
 
-出于这个原因，最好是使用 `Closure库<https://developers.google.com/closure/library/?csw=1>`_ 中的 ``goog.inherits()`` 或类似的东西。
+出于这个原因，最好是使用 `Closure库 <https://developers.google.com/closure/library/?csw=1>`_ 中的 ``goog.inherits()`` 或类似的东西。
 
 ::
 
@@ -251,7 +251,7 @@ js语句要求以分号结尾，除非能够正确地推断分号的位置。在
 为什么？
 ~~~~~~~~~~
 
-当前的JavaScript引擎优化基于一个对象的“形状”， `给对象添加一个属性（包括覆盖原型设置的值）改变了形式，会降低性能<https://developers.google.com/v8/design#prop_access>`_ 。
+当前的JavaScript引擎优化基于一个对象的“形状”， `给对象添加一个属性（包括覆盖原型设置的值）改变了形式，会降低性能 <https://developers.google.com/v8/design#prop_access>`_ 。
 
 删除
 ----------
@@ -279,7 +279,7 @@ js语句要求以分号结尾，除非能够正确地推断分号的位置。在
 
 可以使用，但是要小心。
 
-创建闭包可能是JS最有用的和经常被忽视的功能。在 `这里<http://jibbering.com/faq/notes/closures/>`_ 很好地描述说明了闭包的工作。
+创建闭包可能是JS最有用的和经常被忽视的功能。在 `这里 <http://jibbering.com/faq/notes/closures/>`_ 很好地描述说明了闭包的工作。
 
 要记住的一件事情，一个闭包的指针指向包含它的范围。因此，附加一个闭包的DOM元素，可以创建一个循环引用，所以，内存会泄漏。例如，下面的代码：
 
