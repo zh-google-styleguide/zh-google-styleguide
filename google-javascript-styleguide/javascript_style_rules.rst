@@ -1208,9 +1208,7 @@ Class评论
 JSDoc标签参考
 ~~~~~~~~~~~~~~~
 
-表格
-
-.. list-table:: 
+.. list-table::
   :widths: 20 30 50
   :header-rows: 1
 
