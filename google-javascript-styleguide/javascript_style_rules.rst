@@ -758,6 +758,7 @@ JavaScript中的类型
     - 字符串
   * - String
     - ::
+
           new String('Hello')
           new String(42)
     - `String对象 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
@@ -775,6 +776,7 @@ JavaScript中的类型
     - `Boolean对象 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
   * - RegExp
     - ::
+
           new RegExp('hello')
           /world/g
     -
@@ -859,25 +861,30 @@ JavaScript中的类型
     -
   * - 接口
     - ::
-            /** @interface */
+
+          /** @interface */
           function SomeInterface() {}
 
           SomeInterface.prototype.draw = function() {};
     -
   * - project.MyClass
-    - /** @constructor \*/
-      project.MyClass = function () {}
+    - ::
 
-      new project.MyClass()
+          /** @constructor */
+          project.MyClass = function () {}
+
+          new project.MyClass()
     -
   * - project.MyEnum
-    - /** @enum {string} \*/
-      project.MyEnum = {
-        /** The color blue. \*/
-        BLUE: '#0000dd',
-        /** The color red. \*/
-        RED: '#dd0000'
-      };
+    - ::
+
+          /** @enum {string} */
+          project.MyEnum = {
+            /** The color blue. */
+            BLUE: '#0000dd',
+            /** The color red. */
+            RED: '#dd0000'
+          };
     - 枚举
 
       JSDoc中枚举的值都是可选的.
@@ -887,10 +894,14 @@ JavaScript中的类型
         document.createElement('div')
     - DOM元素
   * - Node
-    - document.body.firstChild
+    - ::
+
+        document.body.firstChild
     - DOM节点
   * - HTMLInputElement
-    - htmlDocument.getElementsByTagName('input')[0]
+    - ::
+
+        htmlDocument.getElementsByTagName('input')[0]
     - 指明类型的DOM元素
 
 类型转换
@@ -1070,9 +1081,9 @@ JSDoc 缩进
     /**
     * Illustrates line wrapping for long param/return descriptions.
     * @param {string} foo This is a param with a description too long to fit in
-    *    one line.
+    *     one line.
     * @return {number} This returns something that has a description too long to
-    *    fit in one line.
+    *     fit in one line.
     */
     project.MyClass.prototype.method = function(foo) {
       return 5;
@@ -1197,6 +1208,8 @@ Class评论
 JSDoc标签参考
 ~~~~~~~~~~~~~~~
 
+  
+
 .. list-table:: 
   :widths: 20 30 50
   :header-rows: 1
@@ -1214,7 +1227,7 @@ JSDoc标签参考
         /**
         * @fileoverview Utilities for handling textareas.
         * @author kuth@google.com (Uthur Pendragon)
-        \*/
+        */
     - 说明文件的作者是谁，一般只会在 ``@fileoverview`` 里用到。
   * - @code
     - {@code ...}
@@ -1228,7 +1241,7 @@ JSDoc标签参考
         * Throws {@code goog.iter.StopIteration} when it
         * passes the end of the range.
         * @return {Node} The node at the next position.
-        \*/
+        */
         goog.dom.RangeIterator.prototype.next = function() {
           // ...
         };
@@ -1245,7 +1258,7 @@ JSDoc标签参考
         /**
         * My namespace's favorite kind of beer.
         * @const {string}
-        \*/
+        */
         mynamespace.MY_BEER = 'stout';
 
         /** @const \*/ MyClass.MY_BEER = 'stout';
@@ -1253,7 +1266,7 @@ JSDoc标签参考
         /**
         * Initializes the request.
         * @const
-        \*/
+        */
         mynamespace.Request.prototype.initialize = function() {
           // This method cannot be overriden in a subclass.
         }
@@ -1276,7 +1289,7 @@ JSDoc标签参考
         /**
         * A rectangle.
         * @constructor
-        \*/
+        */
         function GM_Rect() {
           ...
         }
@@ -1288,10 +1301,10 @@ JSDoc标签参考
 
       ::
 
-        /** @define {boolean} \*/
+        /** @define {boolean} */
         var TR_FLAGS_ENABLE_DEBUG = true;
 
-        /** @define {boolean} \*/
+        /** @define {boolean} */
         goog.userAgent.ASSUME_IE = false;
     - 指明一个在编译时可以被覆盖的常量。
 
@@ -1309,7 +1322,7 @@ JSDoc标签参考
         *    the element are editable, but the element
         *    itself is not.
         * @deprecated Use isField().
-        \*/
+        */
         BN_EditUtil.isTopEditableField = function(node) {
           // ...
         };
@@ -1324,7 +1337,7 @@ JSDoc标签参考
         /**
         * @constructor
         * @dict
-        \*/
+        */
         function Foo(x) {
           this['x'] = x;
         }
@@ -1342,7 +1355,7 @@ JSDoc标签参考
         /**
         * Enum for tri-state values.
         * @enum {number}
-        \*/
+        */
         project.TriState = {
           TRUE: 1,
           FALSE: -1,
@@ -1356,7 +1369,7 @@ JSDoc标签参考
 
       ::
 
-        /** @export \*/
+        /** @export */
         foo.MyPublicClass.prototype.myPublicMethod = function() {
           // ...
         };
@@ -1379,7 +1392,7 @@ JSDoc标签参考
 
       ::
 
-        /** @expose \*/
+        /** @expose */
         MyClass.prototype.exposedProperty = 3;
     - 声明一个公开的属性，表示这个属性不可以被删除、重命名或者由编译器进行优化。相同名称的属性也不能由编译器通过任何方式进行优化。
 
@@ -1396,7 +1409,7 @@ JSDoc标签参考
         * Immutable empty node list.
         * @constructor
         * @extends goog.ds.BasicNodeList
-        \*/
+        */
         goog.ds.EmptyNodeList = function() {
           ...
         };
@@ -1411,7 +1424,7 @@ JSDoc标签参考
         /**
         * @fileoverview This is an externs file.
         * @externs
-        \*/
+        */
 
         var document;
     - 声明一个外部文件。
@@ -1426,7 +1439,7 @@ JSDoc标签参考
         * @fileoverview Utilities for doing things that require this very long
         * but not indented comment.
         * @author kuth@google.com (Uthur Pendragon)
-        \*/
+        */
     - 使注释提供文件级别的信息。
   * - @implements
     - @implements Type
@@ -1439,14 +1452,14 @@ JSDoc标签参考
         /**
         * A shape.
         * @interface
-        \*/
+        */
         function Shape() {};
         Shape.prototype.draw = function() {};
 
         /**
         * @constructor
         * @implements {Shape}
-        \*/
+        */
         function Square() {};
         Square.prototype.draw = function() {
           ...
@@ -1459,7 +1472,7 @@ JSDoc标签参考
 
       ::
 
-        /** @inheritDoc \*/
+        /** @inheritDoc */
         project.SubClass.prototype.toString() {
           // ...
         };
@@ -1476,7 +1489,7 @@ JSDoc标签参考
         /**
         * A shape.
         * @interface
-        \*/
+        */
         function Shape() {};
         Shape.prototype.draw = function() {};
 
@@ -1484,7 +1497,7 @@ JSDoc标签参考
         * A polygon.
         * @interface
         * @extends {Shape}
-        \*/
+        */
         function Polygon() {};
         Polygon.prototype.getSides = function() {};
     - 表示一个函数定义了一个接口。
@@ -1498,7 +1511,7 @@ JSDoc标签参考
 
         goog.object.extend(
             Button.prototype,
-            /** @lends {Button.prototype} \*/ {
+            /** @lends {Button.prototype} */ {
             isButton: function() { return true; }
             });
     - 表示对象的键是另外一个对象的属性。这个标记只能出现在对象字面量中。
@@ -1518,7 +1531,7 @@ JSDoc标签参考
         * Here is the full license text and copyright
         * notice for this file. Note that the notice can span several
         * lines and is only terminated by the closing star and slash:
-        \*/
+        */
     - 由 ``@licenseor`` 或 ``@preserve`` 标记的内容，会被编译器保留并放到文件的顶部。
 
       这个标记会让被标记的重要内容（例如法律许可或版权文本）原样输出，换行也是。
@@ -1529,7 +1542,7 @@ JSDoc标签参考
 
       ::
 
-        /** @noalias \*/
+        /** @noalias */
         function Range() {}
     - 用在外部文件当中，告诉编译器，这里的变量或者方法不可以重命名。
   * - @nosideeffects
@@ -1539,15 +1552,15 @@ JSDoc标签参考
 
       ::
 
-        /** @nosideeffects \*/
+        /** @nosideeffects */
         function noSideEffectsFn1() {
           // ...
         };
-        /** @nosideeffects \*/
+        /** @nosideeffects */
         var noSideEffectsFn2 = function() {
           // ...
         };
-        /** @nosideeffects \*/
+        /** @nosideeffects */
         a.prototype.noSideEffectsFn3 = function() {
           // ...
         };
@@ -1562,7 +1575,7 @@ JSDoc标签参考
         /**
         * @return {string} Human-readable representation of project.SubClass.
         * @override
-        \*/
+        */
         project.SubClass.prototype.toString() {
           // ...
         };
@@ -1579,7 +1592,7 @@ JSDoc标签参考
         * @param {number} groupNum Subgroup id to query.
         * @param {string|number|null} term An itemName,
         *    or itemId, or null to search everything.
-        \*/
+        */
         goog.Baz.prototype.query = function(groupNum, term) {
           // ...
         };
@@ -1597,7 +1610,7 @@ JSDoc标签参考
         /**
         * Handlers that are listening to this logger.
         * @private {!Array.<Function>}
-        \*/
+        */
         this.handlers\_ = [];
     - 与方法或属性名结尾使用一个下划线来联合表明该成员是 `私有的 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Visibility__private_and_protected_fields_>`_ 。随着工具对 ``@private`` 的认可，结尾的下划线可能最终被废弃。
   * - @protected
@@ -1613,7 +1626,7 @@ JSDoc标签参考
         * protected and final.
         * @param {Element} element Root element for the component.
         * @protected
-        \*/
+        */
         goog.ui.Component.prototype.setElementInternal = function(element) {
           // ...
         };
@@ -1659,7 +1672,7 @@ JSDoc标签参考
         /**
         * @constructor
         * @struct
-        \*/
+        */
         function Foo(x) {
           this.x = x;
         }
@@ -1667,7 +1680,7 @@ JSDoc标签参考
         var num = obj['x'];  // warning
         obj.y = "asdf";  // warning
 
-        Foo.prototype = /** @struct \*/ {
+        Foo.prototype = /** @struct */ {
           method1: function() {}
         };
         Foo.prototype.method2 = function() {};  // warning
@@ -1684,7 +1697,7 @@ JSDoc标签参考
         * Provides an abstracted interface to the
         * browsers' event systems.
         * @supported So far tested in IE6 and FF1.5
-        \*/
+        */
     - 用于在文件信息中说明该文档被哪些浏览器支持
   * - @suppress
     - @suppress {warning1|warning2}
@@ -1695,7 +1708,7 @@ JSDoc标签参考
 
         /**
         * @suppress {deprecated}
-        \*/
+        */
         function f() {
           deprecatedVersionOfF();
         }
@@ -1712,7 +1725,7 @@ JSDoc标签参考
         * @param {T} thisObj
         * @param {...*} var_args
         * @template T
-        \*/
+        */
         goog.bind = function(fn, thisObj, var_args) {
           ...
         };
@@ -1730,7 +1743,7 @@ JSDoc标签参考
         * Returns the roster widget element.
         * @this pinto.chat.RosterWidget
         * @return {Element}
-        \*/
+        */
         function() {
           return this.getWrappedComponent_().getElement();
         });
@@ -1746,7 +1759,7 @@ JSDoc标签参考
         /**
         * The message hex ID.
         * @type {string}
-        \*/
+        */
         var hexId = hexId;
     - 标识变量，属性或表达式的 `类型 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 。大多数类型不需要大括号，但有些项目为了保持一致性而要求所有类型都使用大括号。
   * - @typedef
@@ -1756,9 +1769,9 @@ JSDoc标签参考
 
       ::
 
-        /** @typedef {(string|number)} \*/
+        /** @typedef {(string|number)} */
         goog.NumberLike;
-        /** @param {goog.NumberLike} x A number or a string. \*/
+        /** @param {goog.NumberLike} x A number or a string. */
         goog.readNumber = function(x) {
           ...
         }
