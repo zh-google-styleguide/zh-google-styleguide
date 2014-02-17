@@ -2,7 +2,7 @@
 Google Python 风格指南 - 中文版
 ================================
 
-:版本: 2.19
+:版本: 2.59
 
 :原作者:
     .. line-block::
@@ -17,7 +17,8 @@ Google Python 风格指南 - 中文版
 :翻译:
     .. line-block::
 
-        `guoqiao <http://guoqiao.me/>`_
+        `guoqiao <http://guoqiao.me/>`_ v2.19
+        `xuxinkun <https://github.com/xuxinkun>`_ v2.59
 
 :项目主页:
     - `Google Style Guide <http://google-styleguide.googlecode.com>`_
@@ -27,7 +28,8 @@ Google Python 风格指南 - 中文版
 ================================
 
 .. toctree::
-
+        
+        background         
         python_language_rules
         python_style_rules
         parting_words

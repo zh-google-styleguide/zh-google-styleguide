@@ -15,9 +15,14 @@ Python风格规范
 .. tip::
     每行不超过80个字符    
    
-例外: 如果使用Python 2.4或更早的版本, 导入模块的行可能多于80个字符. 
+例外:
+ 
+#. 长的导入模块语句
+#. 注释里的URL
 
-Python会将圆括号, 中括号和花括号中的行隐式的连接起来, 你可以利用这个特点. 如果需要, 你可以在表达式外围增加一对额外的圆括号. 
+不要使用反斜杠连接行.
+
+Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <http://docs.python.org/2/reference/lexical_analysis.html#implicit-line-joining>`_ , 你可以利用这个特点. 如果需要, 你可以在表达式外围增加一对额外的圆括号. 
 
 .. code-block:: python
 
@@ -33,7 +38,20 @@ Python会将圆括号, 中括号和花括号中的行隐式的连接起来, 你�
 
     x = ('This will build a very long long '
          'long long long long long long string')
-     
+
+在注释中，如果必要，将长的URL放在一行上。
+
+.. code-block:: python
+
+    Yes:  # See details at
+          # http://www.example.com/us/developer/documentation/api/content/v2.0/csv_file_name_extension_full_specification.html
+
+.. code-block:: python
+  
+    No:  # See details at
+         # http://www.example.com/us/developer/documentation/api/content/\
+         # v2.0/csv_file_name_extension_full_specification.html     
+
 注意上面例子中的元素缩进; 你可以在本文的 :ref:`缩进 <indentation>` 部分找到解释. 
     
 括号
@@ -64,9 +82,9 @@ Python会将圆括号, 中括号和花括号中的行隐式的连接起来, 你�
          if not(x):
              bar()
          return (foo)
-
-.. _indentation:  
          
+.. _indentation:  
+
 缩进
 --------------------
 
@@ -77,25 +95,46 @@ Python会将圆括号, 中括号和花括号中的行隐式的连接起来, 你�
          
 .. code-block:: python
 
-    Yes:   # Aligned with opening delimiter
-           foo = long_function_name(var_one, var_two,
-                                    var_three, var_four)
-
-           # 4-space hanging indent; nothing on first line
-           foo = long_function_name(
-               var_one, var_two, var_three,
-               var_four)
+   Yes:   # Aligned with opening delimiter
+          foo = long_function_name(var_one, var_two,
+                                   var_three, var_four)
+   
+          # Aligned with opening delimiter in a dictionary
+          foo = {
+              long_dictionary_key: value1 +
+                                   value2,
+              ...
+          }
+   
+          # 4-space hanging indent; nothing on first line
+          foo = long_function_name(
+              var_one, var_two, var_three,
+              var_four)
+   
+          # 4-space hanging indent in a dictionary
+          foo = {
+              long_dictionary_key:
+                  long_dictionary_value,
+              ...
+          }
            
 .. code-block:: python
 
     No:    # Stuff on first line forbidden
-           foo = long_function_name(var_one, var_two,
-               var_three, var_four)
-
-           # 2-space hanging indent forbidden
-           foo = long_function_name(
-             var_one, var_two, var_three,
-             var_four)
+          foo = long_function_name(var_one, var_two,
+              var_three, var_four)
+   
+          # 2-space hanging indent forbidden
+          foo = long_function_name(
+            var_one, var_two, var_three,
+            var_four)
+   
+          # No hanging indent in a dictionary
+          foo = {
+              long_dictionary_key:
+                  long_dictionary_value,
+                  ...
+          }
          
 空行
 --------------------
@@ -103,7 +142,7 @@ Python会将圆括号, 中括号和花括号中的行隐式的连接起来, 你�
 .. tip::
     顶级定义之间空两行, 方法定义之间空一行
     
-顶级定义之间空两行, 比如函数或者类定义.  方法定义, 类定义与第一个方法之间, 都应该空一行. 函数或方法中, 某些地方要是你觉得合适, 就空一行.     
+顶级定义之间空两行, 比如函数或者类定义. 方法定义, 类定义与第一个方法之间, 都应该空一行. 函数或方法中, 某些地方要是你觉得合适, 就空一行.     
       
       
 空格
@@ -179,39 +218,38 @@ Python会将圆括号, 中括号和花括号中的行隐式的连接起来, 你�
 .. code-block:: python
 
     Yes:
-      foo = 1000  # comment
-      long_name = 2  # comment that should not be aligned
-
-      dictionary = {
-          "foo": 1,
-          "long_name": 2,
-          }
+         foo = 1000  # comment
+         long_name = 2  # comment that should not be aligned
+   
+         dictionary = {
+             "foo": 1,
+             "long_name": 2,
+             }
       
 .. code-block:: python
 
     No:
-      foo       = 1000  # comment
-      long_name = 2     # comment that should not be aligned
-
-      dictionary = {
-          "foo"      : 1,
-          "long_name": 2,
-          }
+         foo       = 1000  # comment
+         long_name = 2     # comment that should not be aligned
+   
+         dictionary = {
+             "foo"      : 1,
+             "long_name": 2,
+             }
           
-Python解释器
+Shebang
 --------------------
 
 .. tip::
-    每个模块都应该以#!/usr/bin/env python<version>开头
+    大部分.py文件不必以#!作为文件的开始. 根据 `PEP-394 <http://www.python.org/dev/peps/pep-0394/>`_ , 程序的main文件应该以 #!/usr/bin/python2或者 #!/usr/bin/python3开始.
 
-模块应该以一个构造行开始, 以指定执行这个程序用到的Python解释器:
+(译者注: 在计算机科学中, `Shebang <http://en.wikipedia.org/wiki/Shebang_(Unix)>`_ (也称为Hashbang)是一个由井号和叹号构成的字符串行(#!), 其出现在文本文件的第一行的前两个字符. 在文件中存在Shebang的情况下, 类Unix操作系统的程序载入器会分析Shebang后的内容, 将这些内容作为解释器指令, 并调用该指令, 并将载有Shebang的文件路径作为该解释器的参数. 例如, 以指令#!/bin/sh开头的文件在执行时会实际调用/bin/sh程序.)
 
-.. code-block:: python
-
-    #!/usr/bin/env python2.4
-    
-总是使用最特化的版本, 例如, 使用/usr/bin/python2.4, 而不是 /usr/bin/python2. 这样, 当升级到不同的Python版本时, 能轻松找到依赖关系, 同时也避免了使用时的迷惑. 例如, /usr/bin/python2是表示/usr/bin/python2.0.1还是/usr/bin/python2.3.0?    
-    
+#!先用于帮助内核找到Python解释器, 但是在导入模块时, 将会被忽略. 因此只有被直接执行的文件中才有必要加入#!.
+   
+   
+.. _comments:  
+ 
 注释
 --------------------
 
@@ -220,19 +258,37 @@ Python解释器
 
 **文档字符串**
 
-    Python有一种独一无二的的注释方式: 使用文档字符串. 文档字符串是包, 模块, 类或函数里的第一个语句. 这些字符串可以通过对象的__doc__成员被自动提取, 并且被pydoc所用. (你可以在你的模块上运行pydoc试一把, 看看它长什么样). 我们对文档字符串的惯例是使用三重双引号. 一个文档字符串应该这样组织: 首先是一行以句号, 问号或惊叹号结尾的概述. 接着是一个空行. 接着是文档字符串剩下的部分, 它应该与文档字符串的第一行的第一个引号对齐. 下面有更多文档字符串的格式化规范. 
+    Python有一种独一无二的的注释方式: 使用文档字符串. 文档字符串是包, 模块, 类或函数里的第一个语句. 这些字符串可以通过对象的__doc__成员被自动提取, 并且被pydoc所用. (你可以在你的模块上运行pydoc试一把, 看看它长什么样). 我们对文档字符串的惯例是使用三重双引号"""( `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 一个文档字符串应该这样组织: 首先是一行以句号, 问号或惊叹号结尾的概述(或者该文档字符串单纯只有一行). 接着是一个空行. 接着是文档字符串剩下的部分, 它应该与文档字符串的第一行的第一个引号对齐. 下面有更多文档字符串的格式化规范. 
     
 **模块**
 
-    每个文件应该包含下列项, 依次是:
-    
-    #. 版权声明(例如,  Copyright 2008 Google Inc.)
-    #. 一个许可样板. 根据项目使用的许可(例如,  Apache 2.0, BSD, LGPL, GPL), 选择合适的样板
-    #. 作者声明, 标识文件的原作者.
+    每个文件应该包含一个许可样板. 根据项目使用的许可(例如, Apache 2.0, BSD, LGPL, GPL), 选择合适的样板.
 
 **函数和方法**
+   
+    下文所指的函数,包括函数, 方法, 以及生成器.
+    
+    一个函数必须要有文档字符串, 除非它满足以下条件:
+    
+    #. 外部不可见
+    #. 非常短小
+    #. 简单明了
+    
+    A docstring should give enough information to write a call to the function without reading the function's code. A docstring should describe the function's calling syntax and its semantics, not its implementation. For tricky code, comments alongside the code are more appropriate than using docstrings.
+    文档字符串应该包含函数做什么, 以及输入和输出的详细描述. 通常, 不应该描述"怎么做", 除非是一些复杂的算法. 文档字符串应该提供足够的信息, 当别人编写代码调用该函数时, 他不需要看一行代码, 只要看文档字符串就可以了. 对于复杂的代码, 在代码旁边加注释会比使用文档字符串更有意义.
+    
+    关于函数的几个方面应该在特定的小节中进行描述记录， 这几个方面如下文所述. 每节应该以一个标题行开始. 标题行以冒号结尾. 除标题行外, 节的其他内容应被缩进2个空格. 
+    
+    Args:
+        列出每个参数的名字, 并在名字后使用一个冒号和一个空格, 分隔对该参数的描述.如果描述太长超过了单行80字符,使用2或者4个空格的悬挂缩进(与文件其他部分保持一致).
+        描述应该包括所需的类型和含义.
+        如果一个函数接受*foo(可变长度参数列表)或者**bar (任意关键字参数), 应该详细列出*foo和**bar.
 
-    如果不是既显然又简短, 任何函数或方法都需要一个文档字符串. 而且, 任何外部可访问的函数或方法, 不管多短多简单, 都需要文档字符串. 文档字符串应该包含函数做什么, 以及输入和输出的详细描述. 通常, 不应该描述"怎么做", 除非是一些复杂的算法. 对于技巧性的代码, 块注释或者行内注释是最重要的. 文档字符串应该提供足够的信息, 当别人编写代码调用该函数时, 他不需要看一行代码, 只要看文档字符串就可以了. 应该给参数单独写文档. 在冒号后跟上解释, 而且应该用统一的悬挂式2或4空格缩进. 文档字符串应该在需要特定类型的地方指定期望的类型.  "Raise:"部分应该列出该函数可能触发的所有异常. 生成器函数的文档字符串应该用"Yields:"而非"Returns:".
+    Returns: (或者 Yields: 用于生成器)
+        描述返回值的类型和语义. 如果函数返回None, 这一部分可以省略.
+
+    Raises:
+        列出与接口有关的所有异常.
 
     .. code-block:: python
 
@@ -296,7 +352,7 @@ Python解释器
 
 **块注释和行注释**
 
-    最需要写注释的是代码中那些技巧性的部分. 如果你在下次代码走查的时候必须解释一下, 那么你应该现在就给它写注释. 对于复杂的操作, 应该在其操作开始前写上若干行注释. 对于不是一目了然的代码, 应在其行尾添加注释. 
+    最需要写注释的是代码中那些技巧性的部分. 如果你在下次 `代码审查 <http://en.wikipedia.org/wiki/Code_review>`_ 的时候必须解释一下, 那么你应该现在就给它写注释. 对于复杂的操作, 应该在其操作开始前写上若干行注释. 对于不是一目了然的代码, 应在其行尾添加注释. 
 
     .. code-block:: python
 
@@ -322,17 +378,6 @@ Python解释器
 
 .. tip::
     如果一个类不继承自其它类, 就显式的从object继承. 嵌套类也一样.
-
-.. code-block:: python
-    
-    No: class SampleClass:
-            pass
-
-
-        class OuterClass:
-
-            class InnerClass:
-                pass
             
 .. code-block:: python
 
@@ -349,6 +394,16 @@ Python解释器
          class ChildClass(ParentClass):
              """Explicitly inherits from another class already."""
     
+.. code-block:: python
+    
+    No: class SampleClass:
+            pass
+
+
+        class OuterClass:
+
+            class InnerClass:
+                pass
 
 继承自 ``object`` 是为了使属性(properties)正常工作, 并且这样可以保护你的代码, 使其不受Python 3000的一个特殊的潜在不兼容性影响. 这样做也定义了一些特殊的方法, 这些方法实现了对象的默认语义, 包括 ``__new__, __init__, __delattr__, __getattribute__, __setattr__, __hash__, __repr__, and __str__`` .
 
@@ -356,30 +411,25 @@ Python解释器
 --------------------
 
 .. tip::
-    用%操作符格式化字符串, 即使参数都是字符串. 不过也不能一概而论, 你需要在+和%之间好好判定.
-    
-.. code-block:: python
-
-    No: x = '%s%s' % (a, b)  # use + in this case
-        x = imperative + ', ' + expletive + '!'
-        x = 'name: ' + name + '; score: ' + str(n)
+    即使参数都是字符串, 使用%操作符或者格式化方法格式化字符串. 不过也不能一概而论, 你需要在+和%之间好好判定.
 
 .. code-block:: python
     
     Yes: x = a + b
          x = '%s, %s!' % (imperative, expletive)
+         x = '{}, {}!'.format(imperative, expletive)
          x = 'name: %s; score: %d' % (name, n)
-    
+         x = 'name: {}; score: {}'.format(name, n)
+             
+.. code-block:: python
+
+    No: x = '%s%s' % (a, b)  # use + in this case
+        x = '{}{}'.format(a, b)  # use + in this case
+        x = imperative + ', ' + expletive + '!'
+        x = 'name: ' + name + '; score: ' + str(n)
 
 避免在循环中用+和+=操作符来累加字符串. 由于字符串是不可变的, 这样做会创建不必要的临时对象, 并且导致二次方而不是线性的运行时间. 作为替代方案, 你可以将每个子串加入列表, 然后在循环结束后用 ``.join`` 连接列表. (也可以将每个子串写入一个 ``cStringIO.StringIO`` 缓存中.)
 
-.. code-block:: python
-
-    No: employee_table = '<table>'
-        for last_name, first_name in employee_list:
-            employee_table += '<tr><td>%s, %s</td></tr>' % (last_name, first_name)
-        employee_table += '</table>'
-    
 .. code-block:: python
 
     Yes: items = ['<table>']
@@ -388,20 +438,83 @@ Python解释器
          items.append('</table>')
          employee_table = ''.join(items)
 
-为多行字符串使用三重双引号而非三重单引号. 不过要注意, 通常用隐式行连接更清晰, 因为多行字符串与程序其他部分的缩进方式不一致. 
+.. code-block:: python
+
+    No: employee_table = '<table>'
+        for last_name, first_name in employee_list:
+            employee_table += '<tr><td>%s, %s</td></tr>' % (last_name, first_name)
+        employee_table += '</table>'
+
+在同一个文件中, 保持使用字符串引号的一致性. 使用单引号'或者双引号"之一用以引用字符串, 并在同一文件中沿用. 在字符串内可以使用另外一种引号, 以避免在字符串中使用\. GPyLint已经加入了这一检查.
+
+(译者注:GPyLint疑为笔误, 应为PyLint.)  
 
 .. code-block:: python
 
-    No:
-        print """This is pretty ugly.
-    Don't do this.
-    """
+   Yes:
+        Python('Why are you hiding your eyes?')
+        Gollum("I'm scared of lint errors.")
+        Narrator('"Good!" thought a happy Python reviewer.')
+
+.. code-block:: python
+  
+   No:
+        Python("Why are you hiding your eyes?")
+        Gollum('The lint. It burns. It burns us.')
+        Gollum("Always the great lint. Watching. Watching.")
+
+为多行字符串使用三重双引号"""而非三重单引号'''. 当且仅当项目中使用单引号'来引用字符串时, 才可能会使用三重'''为非文档字符串的多行字符串来标识引用. 文档字符串必须使用三重双引号""". 不过要注意, 通常用隐式行连接更清晰, 因为多行字符串与程序其他部分的缩进方式不一致. 
 
 .. code-block:: python
 
     Yes:
-      print ("This is much nicer.\n"
-             "Do it this way.\n")
+        print ("This is much nicer.\n"
+               "Do it this way.\n")
+               
+.. code-block:: python
+
+    No:
+          print """This is pretty ugly.
+      Don't do this.
+      """
+
+文件和sockets
+--------------------
+
+.. tip::
+    在文件和sockets结束时, 显式的关闭它.
+
+除文件外, sockets或其他类似文件的对象在没有必要的情况下打开, 会有许多副作用, 例如:
+
+#. 它们可能会消耗有限的系统资源, 如文件描述符. 如果这些资源在使用后没有及时归还系统, 那么用于处理这些对象的代码会将资源消耗殆尽.
+#. 持有文件将会阻止对于文件的其他诸如移动、删除之类的操作.
+#. 仅仅是从逻辑上关闭文件和sockets, 那么它们仍然可能会被其共享的程序在无意中进行读或者写操作. 只有当它们真正被关闭后, 对于它们尝试进行读或者写操作将会跑出异常, 并使得问题快速显现出来.
+
+而且, 幻想当文件对象析构时, 文件和sockets会自动关闭, 试图将文件对象的生命周期和文件的状态绑定在一起的想法, 都是不现实的. 因为有如下原因: 
+
+#. 没有任何方法可以确保运行环境会真正的执行文件的析构. 不同的Python实现采用不同的内存管理技术, 比如延时垃圾处理机制. 延时垃圾处理机制可能会导致对象生命周期被任意无限制的延长.
+
+#. 对于文件意外的引用,会导致对于文件的持有时间超出预期(比如对于异常的跟踪, 包含有全局变量等).
+
+推荐使用 `"with"语句 <http://docs.python.org/reference/compound_stmts.html#the-with-statement>`_ 以管理文件:
+
+.. code-block:: python
+
+      with open("hello.txt") as hello_file:
+          for line in hello_file:
+              print line
+
+对于不支持使用"with"语句的类似文件的对象,使用 contextlib.closing():
+
+.. code-block:: python
+
+      import contextlib
+      
+      with contextlib.closing(urllib.urlopen("http://www.python.org/")) as front_page:
+          for line in front_page:
+              print line
+              
+Legacy AppEngine 中Python 2.5的代码如使用"with"语句, 需要添加 "from __future__ import with_statement".
 
              
 TODO注释
@@ -410,12 +523,12 @@ TODO注释
 .. tip::
     为临时代码使用TODO注释, 它是一种短期解决方案. 不算完美, 但够好了.
 
-TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号括起来的你的名字, email地址或其它标识符. 然后是一个可选的冒号. 接着必须有一行注释, 解释要做什么. 主要目的是为了有一个统一的TODO格式, 这样添加注释的人就可以搜索到(并可以按需提供更多细节). 写了TODO注释并不保证写的人会亲自解决问题. 
+TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号括起来的你的名字, email地址或其它标识符. 然后是一个可选的冒号. 接着必须有一行注释, 解释要做什么. 主要目的是为了有一个统一的TODO格式, 这样添加注释的人就可以搜索到(并可以按需提供更多细节). 写了TODO注释并不保证写的人会亲自解决问题. 当你写了一个TODO, 请注上你的名字. 
 
 .. code-block:: python    
 
-    # TODO(kl@gmail.com): Drop the use of "has_key".
-    # TODO(Zeke) change this to use relations.
+    # TODO(kl@gmail.com): Use a "*" here for string repetition.
+    # TODO(Zeke) Change this to use relations.
     
 如果你的TODO是"将来做某事"的形式, 那么请确保你包含了一个指定的日期("2009年11月解决")或者一个特定的事件("等到所有的客户都可以处理XML请求就移除这些代码"). 
 
@@ -527,6 +640,7 @@ Function/Method Parameters     lower_with_under
 Local Variables                lower_with_under                           
 ===========================    ====================    ======================================================================
 
+.. _main:  
 
 Main
 --------------------
@@ -534,7 +648,7 @@ Main
 .. tip::
     即使是一个打算被用作脚本的文件, 也应该是可导入的. 并且简单的导入不应该导致这个脚本的主功能(main functionality)被执行, 这是一种副作用. 主功能应该放在一个main()函数中. 
 
-在Python中, pychecker, pydoc以及单元测试要求模块必须是可导入的. 你的代码应该在执行主程序前总是检查 ``if __name__ == '__main__'`` , 这样当模块被导入时主程序就不会被执行. 
+在Python中, pydoc以及单元测试要求模块必须是可导入的. 你的代码应该在执行主程序前总是检查 ``if __name__ == '__main__'`` , 这样当模块被导入时主程序就不会被执行. 
 
 .. code-block:: python
 
@@ -544,4 +658,4 @@ Main
     if __name__ == '__main__':
         main()
 
-所有的顶级代码在模块导入时都会被执行. 要小心不要去调用函数, 创建对象, 或者执行那些不应该在使用pychecker或pydoc时执行的操作.
+所有的顶级代码在模块导入时都会被执行. 要小心不要去调用函数, 创建对象, 或者执行那些不应该在使用pydoc时执行的操作.

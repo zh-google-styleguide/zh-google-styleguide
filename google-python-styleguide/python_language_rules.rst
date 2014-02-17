@@ -1,45 +1,48 @@
 Python语言规范
 ================================
 
-pychecker
+Lint
 --------------------
 
 .. tip::
-    对你的代码运行pychecker
+    对你的代码运行pylint
     
 定义:
-    pychecker是一个在Python源代码中查找bug的工具. 对于C和C++这样的不那么动态的(译者注: 原文是less dynamic)语言, 这些bug通常由编译器来捕获. pychecker和lint类似. 由于Python的动态特性, 有些警告可能不对. 不过伪告警应该很少.
+    pylint是一个在Python源代码中查找bug的工具. 对于C和C++这样的不那么动态的(译者注: 原文是less dynamic)语言, 这些bug通常由编译器来捕获. 由于Python的动态特性, 有些警告可能不对. 不过伪告警应该很少.
     
 优点:
     可以捕获容易忽视的错误, 例如输入错误, 使用未赋值的变量等.
     
 缺点:
-    pychecker不完美. 要利用其优势, 我们有时侯需要: a) 围绕着它来写代码 b) 抑制其告警 c) 改进它, 或者d) 忽略它.
+    pylint不完美. 要利用其优势, 我们有时侯需要: a) 围绕着它来写代码 b) 抑制其告警 c) 改进它, 或者d) 忽略它.
     
 结论: 
-    确保对你的代码运行pychecker.
-    
-    关于如何运行pychecker的更多信息, 参考 `pychecker主页 <http://pychecker.sourceforge.net/>`_
-    
-    你可以设置一个叫做__pychecker__的模块级变量来抑制适当的告警. 例如:
+    确保对你的代码运行pylint.抑制不准确的警告,以便能够将其他警告暴露出来。
+
+    你可以通过设置一个行注释来抑制告警. 例如:
     
     .. code-block:: python
     
-        __pychecker__ = 'no-callinit no-classattr'
+        dict = 'something awful'  # Bad Idea... pylint: disable=redefined-builtin
         
+    pylint警告是以一个数字编号(如 ``C0112`` )和一个符号名(如 ``empty-docstring`` )来标识的. 在编写新代码或更新已有代码时对告警进行医治, 推荐使用符号名来标识.
+    
+    如果警告的符号名不够见名知意，那么请对其增加一个详细解释。
+    
     采用这种抑制方式的好处是我们可以轻松查找抑制并回顾它们.
     
-    你可以使用 ``pychecker --help`` 来获取pychecker告警列表.
+    你可以使用命令 ``pylint --list-msgs`` 来获取pylint告警列表. 你可以使用命令 ``pylint --help-msg=C6409`` , 以获取关于特定消息的更多信息.
+    
+    相比较于之前使用的 ``pylint: disable-msg`` , 本文推荐使用 ``pylint: disable`` .
     
     要抑制"参数未使用"告警, 你可以用"_"作为参数标识符, 或者在参数名前加"unused\_". 遇到不能改变参数名的情况, 你可以通过在函数开头"提到"它们来消除告警. 例如:
     
     .. code-block:: python
     
         def foo(a, unused_b, unused_c, d=None, e=None):
-            (d, e) = (d, e)  # 让pychecker不告警
+            _ = d, e
             return a
             
-    理想情况下, 我们以后会扩展pychecker以确保你真的没有使用这些参数.
 
 导入
 --------------------
@@ -123,9 +126,18 @@ pychecker
         
             class Error(Exception):
                 pass   
+    
     #. 永远不要使用 ``except:`` 语句来捕获所有异常, 也不要捕获 ``Exception`` 或者 ``StandardError`` , 除非你打算重新触发该异常, 或者你已经在当前线程的最外层(记得还是要打印一条错误消息). 在异常这方面, Python非常宽容, ``except:`` 真的会捕获包括Python语法错误在内的任何错误. 使用 ``except:`` 很容易隐藏真正的bug. 
     #. 尽量减少try/except块中的代码量. try块的体积越大, 期望之外的异常就越容易被触发. 这种情况下, try/except块将隐藏真正的错误. 
     #. 使用finally子句来执行那些无论try块中有没有异常都应该被执行的代码. 这对于清理资源常常很有用, 例如关闭文件.
+    #. 当捕获异常时, 使用 ``as`` 而不要用逗号. 例如
+        
+        .. code-block:: python
+        
+            try:
+                raise Error
+            except Error as error:
+                pass
 
 
 全局变量
@@ -187,18 +199,6 @@ pychecker
 结论:
     适用于简单情况. 每个部分应该单独置于一行: 映射表达式, for语句, 过滤器表达式. 禁止多重for语句或过滤器表达式. 复杂情况下还是使用循环.
     
-    .. code-block:: python
-    
-        No:
-          result = [(x, y) for x in range(10) for y in range(5) if x * y > 10]
-
-          return ((x, y, z)
-                  for x in xrange(5)
-                  for y in xrange(5)
-                  if x != y
-                  for z in xrange(5)
-                  if y != z)
- 
     .. code-block:: python 
     
         Yes:
@@ -223,6 +223,18 @@ pychecker
 
           eat(jelly_bean for jelly_bean in jelly_beans
               if jelly_bean.color == 'black')   
+              
+    .. code-block:: python 
+    
+        No:
+          result = [(x, y) for x in range(10) for y in range(5) if x * y > 10]
+
+          return ((x, y, z)
+                  for x in xrange(5)
+                  for y in xrange(5)
+                  if x != y
+                  for z in xrange(5)
+                  if y != z)
               
 默认迭代器和操作符
 --------------------
@@ -273,6 +285,9 @@ pychecker
     
 结论:
     鼓励使用. 注意在生成器函数的文档字符串中使用"Yields:"而不是"Returns:".
+
+    (译者注: 参看 :ref:`注释<comments>` )
+    
     
 Lambda函数
 --------------------
@@ -281,7 +296,7 @@ Lambda函数
     适用于单行函数
 
 定义:
-    与语句相反, lambda在一个表达式中定义匿名函数. 常用于为map()和filter()之类的高阶函数定义回调函数或者操作符.
+    与语句相反, lambda在一个表达式中定义匿名函数. 常用于为 ``map()`` 和 ``filter()`` 之类的高阶函数定义回调函数或者操作符.
     
 优点:
     方便.
@@ -290,7 +305,27 @@ Lambda函数
     比本地函数更难阅读和调试. 没有函数名意味着堆栈跟踪更难理解. 由于lambda函数通常只包含一个表达式, 因此其表达能力有限. 
     
 结论:
-    适用于单行函数. 如果代码超过60-80个字符, 最好还是定义成常规(嵌套)函数. 
+    适用于单行函数. 如果代码超过60-80个字符, 最好还是定义成常规(嵌套)函数.
+    
+    对于常见的操作符，例如乘法操作符，使用 ``operator`` 模块中的函数以代替lambda函数. 例如, 推荐使用 ``operator.mul`` , 而不是 ``lambda x, y: x * y`` . 
+    
+条件表达式
+--------------------
+
+.. tip::
+    适用于单行函数
+
+定义:
+    条件表达式是对于if语句的一种更为简短的句法规则. 例如: ``x = 1 if cond else 2`` .
+    
+优点:
+    比if语句更加简短和方便.
+    
+缺点:
+    比if语句难于阅读. 如果表达式很长， 难于定位条件. 
+    
+结论:
+    适用于单行函数. 在其他情况下，推荐使用完整的if语句.    
     
 默认参数值
 --------------------
@@ -322,22 +357,11 @@ Lambda函数
 
         No:  def foo(a, b=[]):
                  ...    
+        No:  def foo(a, b=time.time()):  # The time the module was loaded???
+                 ...
+        No:  def foo(a, b=FLAGS.my_thing):  # sys.argv has not yet been parsed...
+                 ...
                  
-    调用方代码必须为带有默认值的参数使用带有名字的值. 这多少能增加代码的可读性, 并且当增加参数时能避免和检测接口被破坏.
-    
-    .. code-block:: python
-    
-        def foo(a, b=1):
-            ...
-            
-    .. code-block:: python
-    
-        Yes: foo(1)
-             foo(1, b=2)
-         
-    .. code-block:: python
-    
-        No:  foo(1, 2)
         
 属性(properties)
 --------------------
@@ -352,10 +376,10 @@ Lambda函数
     通过消除简单的属性(attribute)访问时显式的get和set方法调用, 可读性提高了. 允许懒惰的计算. 用Pythonic的方式来维护类的接口. 就性能而言, 当直接访问变量是合理的, 添加访问方法就显得琐碎而无意义. 使用属性(properties)可以绕过这个问题. 将来也可以在不破坏接口的情况下将访问方法加上. 
     
 缺点:
-    属性(properties)是在get和set方法声明后指定, 这需要使用者在接下来的代码中注意: set和get是用于属性(properties)的(除了用@property装饰器创建的只读属性).  必须继承自object类. 可能隐藏比如操作符重载之类的副作用. 继承时可能会让人困惑. 
+    属性(properties)是在get和set方法声明后指定, 这需要使用者在接下来的代码中注意: set和get是用于属性(properties)的(除了用 ``@property`` 装饰器创建的只读属性).  必须继承自object类. 可能隐藏比如操作符重载之类的副作用. 继承时可能会让人困惑. 
 
 结论:
-    你通常习惯于使用访问或设置方法来访问或设置数据, 它们简单而轻量. 不过我们建议你在新的代码中使用属性. 只读属性应该用 @property 装饰器来创建.
+    你通常习惯于使用访问或设置方法来访问或设置数据, 它们简单而轻量. 不过我们建议你在新的代码中使用属性. 只读属性应该用 ``@property`` `装饰器 <http://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Function_and_Method_Decorators>`_ 来创建.
 
     如果子类没有覆盖属性, 那么属性的继承可能看上去不明显. 因此使用者必须确保访问方法间接被调用, 以保证子类中的重载方法被属性调用(使用模板方法设计模式).
     
@@ -470,28 +494,30 @@ True/False的求值
     
     .. code-block:: python
     
+        Yes: words = foo.split(':')
+
+             [x[1] for x in my_list if x[2] == 5]
+             
+             map(math.sqrt, data)    # Ok. No inlined lambda expression.
+
+             fn(*args, **kwargs)   
+
+    .. code-block:: python
+    
         No:  words = string.split(foo, ':')
 
              map(lambda x: x[1], filter(lambda x: x[2] == 5, my_list))
 
-             apply(fn, args, kwargs)    
-             
-    .. code-block:: python
+             apply(fn, args, kwargs)             
     
-        Yes: words = foo.split(':')
-
-             [x[1] for x in my_list if x[2] == 5]
-
-             fn(*args, **kwargs)    
-    
-静态Scoping(Lexical Scoping)
+词法作用域(Lexical Scoping)
 -----------------------------
 
 .. tip::
     推荐使用
 
 定义:
-    嵌套的Python函数可以引用外层函数中定义的变量, 但是不能够对它们赋值. 变量绑定的解析是使用静态Scoping, 也就是基于静态的程序文本. 对一个块中的某个名称的任何赋值都会导致Python将对该名称的全部引用当做局部变量, 甚至是赋值前的处理. 如果碰到global声明, 该名称就会被视作全局变量. 
+    嵌套的Python函数可以引用外层函数中定义的变量, 但是不能够对它们赋值. 变量绑定的解析是使用词法作用域, 也就是基于静态的程序文本. 对一个块中的某个名称的任何赋值都会导致Python将对该名称的全部引用当做局部变量, 甚至是赋值前的处理. 如果碰到global声明, 该名称就会被视作全局变量. 
     
     一个使用这个特性的例子:
     
@@ -505,11 +531,12 @@ True/False的求值
             return adder  
     
     (译者注: 这个例子有点诡异, 你应该这样使用这个函数: ``sum = get_adder(summand1)(summand2)`` )
+    
 优点:
     通常可以带来更加清晰, 优雅的代码. 尤其会让有经验的Lisp和Scheme(还有Haskell, ML等)程序员感到欣慰. 
     
 缺点:
-    可能导致让人迷惑的bug. 例如下面这个例子:
+    可能导致让人迷惑的bug. 例如下面这个依据 `PEP-0227 <http://www.python.org/dev/peps/pep-0227/>`_ 的例子:
     
     .. code-block:: python
     
@@ -538,7 +565,7 @@ True/False的求值
     如果好处很显然, 就明智而谨慎的使用装饰器   
     
 定义:
-    用于函数及方法的装饰器(也就是@标记). 最常见的装饰器是@classmethod 和@staticmethod, 用于将常规函数转换成类方法或静态方法. 不过, 装饰器语法也允许用户自定义装饰器. 特别地, 对于某个函数 ``my_decorator`` , 下面的两段代码是等效的:
+    `用于函数及方法的装饰器 <http://www.python.org/doc/2.4.3/whatsnew/node6.html>`_ (也就是@标记). 最常见的装饰器是@classmethod 和@staticmethod, 用于将常规函数转换成类方法或静态方法. 不过, 装饰器语法也允许用户自定义装饰器. 特别地, 对于某个函数 ``my_decorator`` , 下面的两段代码是等效的:
     
     .. code-block:: python
     
@@ -564,9 +591,9 @@ True/False的求值
 结论:
     如果好处很显然, 就明智而谨慎的使用装饰器. 装饰器应该遵守和函数一样的导入和命名规则. 装饰器的python文档应该清晰的说明该函数是一个装饰器. 请为装饰器编写单元测试. 
     
-    避免装饰器自身对外界的依赖(即不要依赖于文件, socket, 数据库连接等), 因为装饰器运行时这些资源可能不可用(例如导入时, 使用pychecker或其它工具时). 应该保证一个用有效参数调用的装饰器在所有情况下都是成功的.
+    避免装饰器自身对外界的依赖(即不要依赖于文件, socket, 数据库连接等), 因为装饰器运行时这些资源可能不可用(由 ``pydoc`` 或其它工具导入). 应该保证一个用有效参数调用的装饰器在所有情况下都是成功的.
     
-    装饰器是一种特殊形式的"顶级代码". 参考后面关于Main的话题. 
+    装饰器是一种特殊形式的"顶级代码". 参考后面关于 :ref:`Main <main>` 的话题. 
     
 线程
 --------------------
@@ -576,7 +603,7 @@ True/False的求值
     
 虽然Python的内建类型例如字典看上去拥有原子操作, 但是在某些情形下它们仍然不是原子的(即: 如果__hash__或__eq__被实现为Python方法)且它们的原子性是靠不住的. 你也不能指望原子变量赋值(因为这个反过来依赖字典).
 
-优先使用Queue模块的 ``Queue`` 数据类型作为线程间的数据通信方式. 另外, 使用threading模块及其锁原语. 了解条件变量的合适使用方式, 这样你就可以使用 ``threading.Condition`` 来取代低级别的锁了. 
+优先使用Queue模块的 ``Queue`` 数据类型作为线程间的数据通信方式. 另外, 使用threading模块及其锁原语(locking primitives). 了解条件变量的合适使用方式, 这样你就可以使用 ``threading.Condition`` 来取代低级别的锁了. 
     
 威力过大的特性
 --------------------
