@@ -11,11 +11,13 @@
 
 .. line-block::
 
-    Revision 2.19
+    Revision 2.59
 
     Amit Patel
     Antoine Picard
     Eugene Jhong
+    Gregory P. Smith
     Jeremy Hylton
     Matt Smart
     Mike Shields
+    Shane Liebling
