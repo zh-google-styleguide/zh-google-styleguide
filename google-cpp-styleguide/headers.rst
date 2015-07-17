@@ -103,14 +103,16 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    使用标准的头文件包含顺序可增强可读性, 避免隐藏依赖: C 库, C++ 库, 其他库的 `.h`, 本项目内的 `.h`.
+    使用标准的头文件包含顺序可增强可读性, 避免隐藏依赖: 相关头文件, C 库, C++ 库, 其他库的 `.h`, 本项目内的 `.h`.
 
 项目内头文件应按照项目源代码目录树结构排列, 避免使用 UNIX 特殊的快捷目录 ``.`` (当前目录) 或 ``..`` (上级目录). 例如, ``google-awesome-project/src/base/logging.h`` 应该按如下方式包含:
+
     .. code-block:: c++
         
         #include “base/logging.h”
 
 又如, ``dir/foo.cc`` 的主要作用是实现或测试 ``dir2/foo2.h`` 的功能, ``foo.cc`` 中包含头文件的次序如下:
+
     #. ``dir2/foo2.h`` (优先位置, 详情如下)
     #. C 系统文件
     #. C++ 系统文件
@@ -123,17 +125,36 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 
 按字母顺序对头文件包含进行二次排序是不错的主意 (yospaly 译注: 之前已经按头文件类别排过序了).
 
+您所依赖（rely upon）的符号（symbols）被哪些头文件所定义，您就应该包含（include）哪些头文件，forward declaration 情况除外。比如您要用到 ``bar.h`` 中的某个符号，哪怕您所包含的 ``foo.h`` 已经包含了 ``bar.h``, 也照样得包含 ``bar.h``, 除非 ``foo.h`` 有明确说明它会自动向您提供 ``bar.h`` 中的符号。不过，凡是 cc 文件所对应的「相关头文件」已经包含的，就不用再重复包含进其 cc 文件里面了，就像 ``foo.cc`` 只包含 ``foo.h`` 就够了，不用再管后者所包含的其它内容。
+
 举例来说, ``google-awesome-project/src/foo/internal/fooserver.cc`` 的包含次序如下:
-    .. code-block:: c++
+
+	.. code-block:: c++
+	
+		#include "foo/public/fooserver.h" // 优先位置
+
+		#include <sys/types.h>
+		#include <unistd.h>
+		#include <hash_map>
+		#include <vector>
+
+		#include "base/basictypes.h"
+		#include "base/commandlineflags.h"
+		#include "foo/public/bar.h"
         
-        #include "foo/public/fooserver.h" // 优先位置
-        #include <sys/types.h>
-        #include <unistd.h>
-        #include <hash_map>
-        #include <vector>
-        #include "base/basictypes.h"
-        #include "base/commandlineflags.h"
-        #include "foo/public/bar.h"
+例外：
+
+有时，平台特定（system-specific）代码需要条件编译（conditional includes），这些代码可以放到其它 includes 之后。当然，您的平台特定代码也要够简练且独立，比如：
+
+	.. code-block:: c++
+	
+		#include "foo/public/fooserver.h"
+
+		#include "base/port.h"  // For LANG_CXX11.
+
+		#ifdef LANG_CXX11
+		#include <initializer_list>
+		#endif  // LANG_CXX11
 
 译者 (YuleFox) 笔记
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
