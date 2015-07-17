@@ -7,6 +7,18 @@
 
 下面的规则将引导你规避使用头文件时的各种陷阱.
 
+1.1. Self-contained 头文件
+
+头文件应该能够自给自足（self-contained），以 ``in.h`` 结尾。至于用来插入文本的文件，说到底它们并不是头文件，所以应以 ``.inc`` 结尾。
+
+所有头文件要能够自给自足。换言之，用户和重构工具不需要为特别场合而包含额外的头文件。详言之，一个头文件要有 #define 保护，统统包含它所需要的其它头文件，也不要求定义任何特别符号（symbols）。
+
+不过有一个例外，即一个文件并不是 self-contained 的，而是用来安插到代码某处里，特别是要安插多次的时候。或者，文件内容实际上是其它头文件的特定平台（platform-specific）扩展部分。这些文件就要用 ``.inc`` 文件扩展名。
+
+如果 ``.h`` 文件声明了一个模板或内联函数，同时也在该文件加以定义。凡是有用到这些的 ``.cc`` 文件，就得统统包含该头文件，否则程序可能会在构建中链接失败。现在不要把这些定义放到分离的 -inl.h 文件里了（译者注：过去该规范曾提倡把定义放到 -inl.h 里过）。
+
+As an exception, a function template that is explicitly instantiated for all relevant sets of template arguments, or that is a private member of a class, may be defined in the only .cc file that instantiates the template.
+
 
 .. _define_guard:
 
