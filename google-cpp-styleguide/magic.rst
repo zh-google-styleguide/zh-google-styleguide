@@ -45,3 +45,12 @@ Google 用了很多自己实现的技巧 / 工具使 C++ 代码更加健壮, 我
 ``cpplint.py`` 是一个用来分析源文件, 能检查出多种风格错误的工具. 它不并完美, 甚至还会漏报和误报, 但它仍然是一个非常有用的工具. 在行尾加 ``// NOLINT``, 或在上一行加 ``// NOLINTNEXTLINE``, 可以忽略报错。
 
 某些项目会指导你如何使用他们的项目工具运行 ``cpplint.py``. 如果你参与的项目没有提供, 你可以单独下载 `cpplint.py <http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py>`_.
+
+
+译者（acgtyrant）笔记
+
+#. 把智能指针当成对象来看待的话，就很好领会它与所指对象之间的关系了。
+#. 原来 Rust 的 Ownership 思想是受到了 C++ 智能指针的很大启发啊。
+#. ``scoped_ptr`` 和 ``auto_ptr`` 已过时。 现在是 ``shared_ptr`` 和 ``uniqued_ptr`` 的天下了。
+#. 按本文来说，似乎除了智能指针，还有其它所有权机制，值得留意。
+#. Arch Linux 用户注意了，AUR 有对 cpplint 打包。
