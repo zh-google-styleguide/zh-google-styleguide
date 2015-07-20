@@ -124,7 +124,7 @@
     
 结论:
 
-    使用安全的内存分配器, 如 ``scoped_ptr`` / ``scoped_array``.
+    改用更完全的分配器（allocator），就像 ``std::vector`` 或 ``std::unique_ptr<T[]>``.
 
 
 5.6. 友元
