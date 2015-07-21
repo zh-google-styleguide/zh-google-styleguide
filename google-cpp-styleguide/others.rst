@@ -357,6 +357,25 @@
 5.13. ``constexpr`` 用法
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. tip::
+    在 C++11 里，用 constexpr 来定义真正的常量，或实现常量初始化。
+
+定义:
+
+    变量可以被声明成 constexpr 以表示它是真正意义上的常量，即在编译时和运行时都不变。函数或构造函数也可以被声明成 constexpr, 以用来定义 constexpr 变量。
+
+优点:
+
+    如今 constexpr 就可以定义浮点式的真・常量，不用再依赖字面值了；也可以定义用户自定义类型上的常量；甚至也可以定义函数调用所返回的常量。
+
+缺点:
+
+    若过早把变量优化成 constexpr 变量，将来又要把它改为常规变量时，挺麻烦的；Current restrictions on what is allowed in constexpr functions and constructors may invite obscure workarounds in these definitions.
+
+结论:
+
+    靠 constexpr 特性，方才实现了 C++ 在接口上打造真正常量机制的可能。好好用 constexpr 来定义真・常量以及支持常量的函数。Avoid complexifying function definitions to enable their use with constexpr. 千万别痴心妄想地想靠 constexpr 来强制代码「内联」。
+
 
 5.14. 整型
 ~~~~~~~~~~~~~~~~~~~~~~~~
