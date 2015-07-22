@@ -547,6 +547,72 @@
 5.19. auto
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. tip::
+    用 ``auto`` 绕过烦琐的类型名，只要可读性好就继续用，别用在局部变量之外的地方。
+    
+定义：
+
+    C++11 中，若变量被声明成 ``auto``, 那它的类型就会被自动匹配成初始化表达式的类型。您可以用 ``auto`` 来复制初始化或绑定引用。
+    
+    .. code-block:: c++
+    
+        vector<string> v;
+        ...
+        auto s1 = v[0];  // Makes a copy of v[0].
+        const auto& s2 = v[0];  // s2 is a reference to v[0].
+
+优点：
+
+    C++ 类型名有时又长又臭，特别是涉及模板或命名空间的时候。就像：
+    
+    .. code-block:: c++
+    
+        sparse_hash_map<string, int>::iterator iter = m.find(val);
+    
+    返回类型好难读，代码目的也不够一目了然。重构其：
+    
+    .. code-block:: c++
+    
+        auto iter = m.find(val);
+    
+    好多了。
+    
+    没有 ``auto`` 的话，我们不得不在同一个表达式里写同一个类型名两次，无谓的重复，就像：
+    
+    .. code-block:: c++
+    
+        diagnostics::ErrorStatus* status = new diagnostics::ErrorStatus("xyz");
+    
+    有了 auto, 可以更方便地用中间变量，显式编写它们的类型轻松点。
+    
+缺点：
+
+    类型够明显时，特别是初始化变量时，代码才会够一目了然。但以下就不一样了：
+    
+    .. code-block:: c++
+    
+        auto i = x.Lookup(key);
+    
+    看不出其类型是啥，x 的类型声明恐怕远在几百行之外了。
+    
+    程序员必须会区分 ``auto`` 和 ``const auto&`` 的不同之处，否则会复制错东西。
+    
+    auto 和 C++11 列表初始化的合体令人摸不着头脑：
+    
+    .. code-block:: c++
+    
+        auto x(3);  // Note: parentheses.
+        auto y{3};  // Note: curly braces.
+    
+    它们不是同一回事——``x`` 是 ``int``, ``y`` 则是 ``std::initializer_list<int>``. 其它一般不可见的代理类型（acgtyrant 注：normally-invisible proxy types, 它涉及到 C++ 鲜为人知的坑：`Why is vector<bool> not a STL container? <http://stackoverflow.com/a/17794965/1546088>`_）也有大同小异的陷阱。
+    
+    如果在接口里用 ``auto``, 比如声明头文件里的一个常量，那么只要仅仅因为程序员一时修改其值而导致类型变化的话——API 要翻天覆地了。
+
+决定：
+
+    ``auto`` 只能用在局部变量里用。别用在文件作用域变量，命名空间作用域变量和类数据成员里。永远别列表初始化 ``auto`` 变量。
+
+    ``auto`` 还可以和 C++11 特性「尾置返回类型（trailing return type）」一起用，不过后者只能用在 lambda 表达式里。
 
 5.20. 列表初始化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
