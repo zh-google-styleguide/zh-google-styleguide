@@ -339,7 +339,7 @@
 
     ``const`` 变量, 数据成员, 函数和参数为编译时类型检测增加了一层保障; 便于尽早发现错误. 因此, 我们强烈建议在任何可能的情况下使用 ``const``:
         
-        - 如果函数不会修改传入的引用或指针类型参数, 该参数应声明为 ``const``.
+        - 如果函数不会修改传你入的引用或指针类型参数, 该参数应声明为 ``const``.
         - 尽可能将函数声明为 ``const``. 访问函数应该总是 ``const``. 其他不会修改任何数据成员, 未调用非 ``const`` 函数, 不会返回数据成员非 ``const`` 指针或引用的函数也应该声明成 ``const``.
         - 如果数据成员在对象构造之后不再发生变化, 可将其定义为 ``const``.
     
@@ -616,6 +616,89 @@
 
 5.20. 列表初始化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    你可以用列表初始化。
+    
+    早在 C++03 里，聚合类型（aggregate types）就已经可以被列表初始化了，比如数组和不自带构造函数的结构体：
+    
+    .. code-block:: c++
+    
+        struct Point { int x; int y; };
+        Point p = {1, 2};
+    
+    C++11 中，该特性得到进一步的推广，任何对象类型都可以被列表初始化。示范如下：
+    
+    .. code-block:: c++
+
+        // Vector takes a braced-init-list of elements.
+        vector<string> v{"foo", "bar"};
+        
+        // Basically the same, ignoring some small technicalities.
+        // You may choose to use either form.
+        vector<string> v = {"foo", "bar"};
+        
+        // Usable with 'new' expressions.
+        auto p = new vector<string>{"foo", "bar"};
+        
+        // A map can take a list of pairs. Nested braced-init-lists work.
+        map<int, string> m = {{1, "one"}, {2, "2"}};
+        
+        // A braced-init-list can be implicitly converted to a return type.
+        vector<int> test_function() { return {1, 2, 3}; }
+        
+        // Iterate over a braced-init-list.
+        for (int i : {-1, -2, -3}) {}
+        
+        // Call a function using a braced-init-list.
+        void TestFunction2(vector<int> v) {}
+        TestFunction2({1, 2, 3});
+
+    用户自定义类型也可以定义接收 ``std::initializer_list<T>`` 的构造函数和赋值运算符，以自动列表初始化：
+
+    .. code-block:: c++
+
+        class MyType {
+         public:
+          // std::initializer_list references the underlying init list.
+          // It should be passed by value.
+          MyType(std::initializer_list<int> init_list) {
+            for (int i : init_list) append(i);
+          }
+          MyType& operator=(std::initializer_list<int> init_list) {
+            clear();
+            for (int i : init_list) append(i);
+          }
+        };
+        MyType m{2, 3, 5, 7};
+    
+    最后，列表初始化也适用于常规数据类型的构造，哪怕没有接收 ``std::initializer_list<T>`` 的构造函数。
+    
+    .. code-block:: c++
+    
+        double d{1.23};
+        // Calls ordinary constructor as long as MyOtherType has no
+        // std::initializer_list constructor.
+        class MyOtherType {
+         public:
+          explicit MyOtherType(string);
+          MyOtherType(int, string);
+        };
+        MyOtherType m = {1, "b"};
+        // If the constructor is explicit, you can't use the "= {}" form.
+        MyOtherType m{"b"};
+    
+    千万别直接列表初始化 auto 变量，看下一句，估计没人看得懂：
+
+    .. warning::
+        .. code-block:: c++
+        
+            auto d = {1.23};        // d is a std::initializer_list<double>
+    
+    .. code-block:: c++
+    
+        auto d = double{1.23};  // Good -- d is a double, not a std::initializer_list.
+    
+    至于格式化，参见 Braced_Initializer_List_Format.
 
 
 5.21. Lambda 表达式
