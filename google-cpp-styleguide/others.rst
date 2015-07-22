@@ -524,7 +524,7 @@
 .. tip::
     尽可能用 ``sizeof(varname)`` 代替 ``sizeof(type)``.
     
-使用 ``sizeof(varname)`` 是因为当代码中变量类型改变时会自动更新. 某些情况下 ``sizeof(type)`` 或许有意义, 但还是要尽量避免, 因为它会导致变量类型改变后不能同步.
+    使用 ``sizeof(varname)`` 是因为当代码中变量类型改变时会自动更新. 您或许会用 ``sizeof(type)`` 处理不涉及任何变量的代码，比如处理来自外部或内部的数据格式，这时用变量就不合适了。
 
     .. code-block:: c++
         
@@ -535,6 +535,13 @@
         .. code-block:: c++
         
             memset(&data, 0, sizeof(Struct));
+    
+    .. code-block:: c++
+            
+        if (raw_size < sizeof(int)) {
+            LOG(ERROR) << "compressed record not big enough for count: " << raw_size;
+            return false;
+        }
 
 
 5.19. auto
