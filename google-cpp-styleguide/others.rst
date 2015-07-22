@@ -753,7 +753,7 @@
     
 优点:
 
-    Boost代码质量普遍较高, 可移植性好, 填补了 C++ 标准库很多空白, 如型别的特性, 更完善的绑定器, 更好的智能指针, 同时还提供了 ``TR1`` (标准库扩展) 的实现.
+    Boost代码质量普遍较高, 可移植性好, 填补了 C++ 标准库很多空白, 如型别的特性, 更完善的绑定器, 更好的智能指针。
     
 缺点:
 
@@ -762,20 +762,36 @@
 结论:
 
     为了向阅读和维护代码的人员提供更好的可读性, 我们只允许使用 Boost 一部分经认可的特性子集. 目前允许使用以下库:
+    
+        - `Call Traits <http://www.boost.org/doc/libs/1_58_0/libs/utility/call_traits.htm>`_ : ``boost/call_traits.hpp``
         
         - `Compressed Pair <http://www.boost.org/libs/utility/compressed_pair.htm>`_ : ``boost/compressed_pair.hpp``
         
-        - `Pointer Container <http://www.boost.org/libs/ptr_container/>`_ : ``boost/ptr_container`` (序列化除外)
-        
-        - `Array <http://www.boost.org/libs/array/>`_ : ``boost/array.hpp``
-        
-        - `The Boost Graph Library (BGL) <http://www.boost.org/libs/graph/>`_ : ``boost/graph`` (序列化除外)
+        - `<The Boost Graph Library (BGL) <http://www.boost.org/doc/libs/1_58_0/libs/graph/doc/index.html>`_ : ``boost/graph``, except serialization (``adj_list_serialize.hpp``) and parallel/distributed algorithms and data structures(``boost/graph/parallel/*`` and ``boost/graph/distributed/*``)
         
         - `Property Map <http://www.boost.org/libs/property_map/>`_ : ``boost/property_map.hpp``
         
-        - `Iterator <http://www.boost.org/libs/iterator/>`_ 中处理迭代器定义的部分 : ``boost/iterator/iterator_adaptor.hpp``, ``boost/iterator/iterator_facade.hpp``, 以及 ``boost/function_output_iterator.hpp``
-
-我们正在积极考虑增加其它 Boost 特性, 所以列表中的规则将不断变化.
+        - The part of `Iterator <http://www.boost.org/libs/iterator/>`_ that deals with defining iterators: ``boost/iterator/iterator_adaptor.hpp``, ``boost/iterator/iterator_facade.hpp``, and ``boost/function_output_iterator.hpp``
+        
+        - The part of `Polygon <http://www.boost.org/libs/polygon/>`_ that deals with Voronoi diagram construction and doesn't depend on the rest of Polygon: ``boost/polygon/voronoi_builder.hpp``, ``boost/polygon/voronoi_diagram.hpp``, and ``boost/polygon/voronoi_geometry_type.hpp``
+        
+        - `Bimap <http://www.boost.org/libs/bimap/>`_ : ``boost/bimap``
+        
+        - `Statistical Distributions and Functions <http://www.boost.org/libs/math/doc/html/dist.html>`_ : ``boost/math/distributions``
+        
+        - `Multi-index <http://www.boost.org/libs/multi_index/>`_ : ``boost/multi_index``
+        
+        - `Heap <http://www.boost.org/libs/heap/>`_ : ``boost/heap``
+        
+        - The flat containers from `Container <http://www.boost.org/libs/container/>`_: ``boost/container/flat_map``, and ``boost/container/flat_set``
+        
+    我们正在积极考虑增加其它 Boost 特性, 所以列表中的规则将不断变化.
+        
+    以下库可以用，但由于如今已经被 C++ 11 标准库取代，不再鼓励：
+        
+        - `Pointer Container <http://www.boost.org/libs/ptr_container/>`_ : ``boost/ptr_container``, 改用 `std::array <http://en.cppreference.com/w/cpp/container/array>`_
+        
+        - `Array <http://www.boost.org/libs/array/>`_ : ``boost/array.hpp``, 改用 `std::unique_ptr <http://en.cppreference.com/w/cpp/memory/unique_ptr>`_ 
 
 
 5.24. C++11
