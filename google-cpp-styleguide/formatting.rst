@@ -16,12 +16,15 @@
 我们也认识到这条规则是有争议的, 但很多已有代码都已经遵照这一规则, 我们感觉一致性更重要.
 
 优点:
+
     提倡该原则的人主张强迫他们调整编辑器窗口大小很野蛮. 很多人同时并排开几个代码窗口, 根本没有多余空间拉伸窗口. 大家都把窗口最大尺寸加以限定, 并且 80 列宽是传统标准. 为什么要改变呢?
     
 缺点:
+
     反对该原则的人则认为更宽的代码行更易阅读. 80 列的限制是上个世纪 60 年代的大型机的古板缺陷; 现代设备具有更宽的显示屏, 很轻松的可以显示更多代码.
     
 结论:
+
     80 个字符是最大值.
     
     特例:
@@ -169,24 +172,27 @@
                     digits.end());
 
 
-8.5. 函数调用
+8.6. 函数调用
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     尽量放在同一行, 否则, 将实参封装在圆括号中.
     
 函数调用遵循如下形式:
+
     .. code-block:: c++
         
         bool retval = DoSomething(argument1, argument2, argument3);
         
 如果同一行放不下, 可断为多行, 后面每一行都和第一个实参对齐, 左圆括号后和右圆括号前不要留空格:
+
     .. code-block:: c++
         
         bool retval = DoSomething(averyveryveryverylongargument1,
                                   argument2, argument3);
                                   
 如果函数参数很多, 出于可读性的考虑可以在每行只放一个参数:
+
     .. code-block:: c++
         
         bool retval = DoSomething(argument1,
@@ -195,6 +201,7 @@
                                   argument4);
                                   
 如果函数名非常长, 以至于超过 :ref:`行最大长度 <line-length>`, 可以将所有参数独立成行:
+
     .. code-block:: c++
         
         if (...) {
@@ -207,9 +214,12 @@
                 argument3,
                 argument4);
           }
+          
+8.7. 列表初始化格式
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-8.6. 条件语句
+8.8. 条件语句
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
@@ -218,6 +228,7 @@
 对基本条件语句有两种可以接受的格式. 一种在圆括号和条件之间有空格, 另一种没有.
 
 最常见的是没有空格的格式. 哪种都可以, 但 *保持一致性*. 如果你是在修改一个文件, 参考当前已有格式. 如果是写新的代码, 参考目录下或项目中其它文件. 还在徘徊的话, 就不要加空格了.
+
     .. code-block:: c++
         
         if (condition) {  // no spaces inside parentheses
@@ -227,6 +238,7 @@
         }
         
 如果你更喜欢在圆括号内部加空格:
+
     .. code-block:: c++
         
         if ( condition ) {  // spaces inside parentheses - rare
@@ -236,6 +248,7 @@
         }
         
 注意所有情况下 ``if`` 和左圆括号间都有个空格. 右圆括号和左大括号之间也要有个空格:
+
     .. warning::
         .. code-block:: c++
         
@@ -248,13 +261,16 @@
         if (condition) {  // Good - proper space after IF and before {.
         
 如果能增强可读性, 简短的条件语句允许写在同一行. 只有当语句简单并且没有使用 ``else`` 子句时使用:
+
     .. code-block:: c++
         
         if (x == kFoo) return new Foo();
         if (x == kBar) return new Bar();
         
 如果语句有 ``else`` 分支则不允许:
+
     .. warning::
+    
         .. code-block:: c++
         
             // Not allowed - IF statement on one line when there is an ELSE clause
@@ -262,6 +278,7 @@
             else DoThat();
         
 通常, 单行语句不需要使用大括号, 如果你喜欢用也没问题; 复杂的条件或循环语句用大括号可读性会更好. 也有一些项目要求 ``if`` 必须总是使用大括号:
+
     .. code-block:: c++
         
         if (condition)
@@ -272,6 +289,7 @@
         }
         
 但如果语句中某个 ``if-else`` 分支使用了大括号的话, 其它分支也必须使用:
+
     .. warning::
         
         .. code-block:: c++
@@ -301,7 +319,7 @@
         }
 
 
-8.7. 循环和开关选择语句
+8.9. 循环和开关选择语句
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
@@ -310,6 +328,7 @@
 ``switch`` 语句中的 ``case`` 块可以使用大括号也可以不用, 取决于你的个人喜好. 如果用的话, 要按照下文所述的方法.
 
 如果有不满足 ``case`` 条件的枚举值, ``switch`` 应该总是包含一个 ``default`` 匹配 (如果有输入值没有 case 去处理, 编译器将报警). 如果 ``default`` 应该永远执行不到, 简单的加条 ``assert``:
+
     .. code-block:: c++
         
         switch (var) {
@@ -327,6 +346,7 @@
         }
         
 空循环体应使用 ``{}`` 或 ``continue``, 而不是一个简单的分号.
+
     .. code-block:: c++
         
         while (condition) {
@@ -339,14 +359,16 @@
         .. code-block:: c++
         
             while (condition);  // Bad - looks like part of do/while loop.
-        
-8.8. 指针和引用表达式
+
+
+8.10. 指针和引用表达式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     句点或箭头前后不要有空格. 指针/地址操作符 (``*, &``) 之后不能有空格.
     
 下面是指针和引用表达式的正确使用范例:
+
     .. code-block:: c++
         
         x = *p;
@@ -359,6 +381,7 @@
     - 指针操作符 ``*`` 或 ``&`` 后没有空格.
     
 在声明指针变量或参数时, 星号与类型或变量名紧挨都可以:
+
     .. code-block:: c++
         
         // These are fine, space preceding.
@@ -370,6 +393,7 @@
         const string& str;
     
     .. warning::
+    
         .. code-block:: c++
         
             char * c;  // Bad - spaces on both sides of *
@@ -377,13 +401,14 @@
         
 在单个文件内要保持风格一致, 所以, 如果是修改现有文件, 要遵照该文件的风格.
 
-8.9. 布尔表达式
+8.11. 布尔表达式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     如果一个布尔表达式超过 :ref:`标准行宽 <line-length>`, 断行方式要统一一下.
     
 下例中, 逻辑与 (``&&``) 操作符总位于行尾:
+
     .. code-block:: c++
         
         if (this_one_thing > this_other_thing &&
@@ -395,7 +420,7 @@
 注意, 上例的逻辑与 (``&&``) 操作符均位于行尾. 可以考虑额外插入圆括号, 合理使用的话对增强可读性是很有帮助的.
 
 
-8.10. 函数返回值
+8.12. 函数返回值
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
@@ -406,13 +431,14 @@
         
         return x;  // not return(x);
         
-8.11. 变量及数组初始化
+8.13. 变量及数组初始化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     用 ``=`` 或 ``()`` 均可.
     
 在二者中做出选择; 下面的方式都是正确的:
+
     .. code-block:: c++
         
         int x = 3;
@@ -421,13 +447,14 @@
         string name = "Some Name";
 
 
-8.12. 预处理指令
+8.14. 预处理指令
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     预处理指令不要缩进, 从行首开始.
     
 即使预处理指令位于缩进代码块中, 指令也应从行首开始.
+
     .. code-block:: c++
         
         // Good - directives at beginning of line
@@ -439,6 +466,7 @@
           }
           
     .. warning::
+    
         .. code-block:: c++
             
             // Bad - indented directives
@@ -450,13 +478,14 @@
               }
 
 
-8.13. 类格式
+8.15. 类格式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     访问控制块的声明依次序是 ``public:``, ``protected:``, ``private:``, 每次缩进 1 个空格.
     
 类声明 (对类注释不了解的话, 参考 :ref:`类注释 <class-comments>`) 的基本格式如下:
+
     .. code-block:: c++
         
         class MyClass : public OtherClass {
@@ -481,6 +510,7 @@
         };
         
 注意事项:
+
     - 所有基类名应在 80 列限制下尽量与子类名放在同一行.
     
     - 关键词 ``public:``, ``protected:``, ``private:`` 要缩进 1 个空格.
@@ -493,7 +523,7 @@
     
     - 关于声明顺序的规则请参考 :ref:`声明顺序 <declaration-order>` 一节.
     
-8.14. 初始化列表
+8.16. 初始化列表
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
@@ -520,13 +550,14 @@
           ...
         }
         
-8.15. 名字空间格式化
+8.17. 名字空间格式化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     名字空间内容不缩进.
     
 :ref:`名字空间 <namespaces>` 不要增加额外的缩进层次, 例如:
+
     .. code-block:: c++
         
         namespace {
@@ -538,7 +569,9 @@
         }  // namespace
         
 不要缩进名字空间:
+
     .. warning::
+    
         .. code-block:: c++
         
             namespace {
@@ -551,13 +584,14 @@
             }  // namespace
 
         
-8.16. 水平留白
+8.18. 水平留白
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     水平留白的使用因地制宜. 永远不要在行尾添加没意义的留白.
     
 常规:
+
     .. code-block:: c++
         
         void f(bool b) {  // Open braces should always have a space before them.
@@ -578,6 +612,7 @@
 
 
 循环和条件语句:
+
     .. code-block:: c++
         
         if (b) {          // Space after the keyword in conditions and loops.
@@ -598,6 +633,7 @@
           case 2: break;  // Use a space after a colon if there's code after it.
           
 操作符:
+
     .. code-block:: c++
         
         x = 0;              // Assignment operators always have spaces around
@@ -612,6 +648,7 @@
 
 
 模板和转换:
+
     .. code-block:: c++
         
         vector<string> x;           // No spaces inside the angle
@@ -623,7 +660,7 @@
         set< list<string> > x;      // You may optionally make use
                                     // symmetric spacing in < <.
 
-8.17. 垂直留白
+8.19. 垂直留白
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
@@ -657,6 +694,7 @@
         }
         
 ``if-else`` 块之间空一行是可以接受的:
+
     .. code-block:: c++
         
         if (condition) {
