@@ -252,6 +252,20 @@ NULL, true/false, 1, 2, 3...:
         
 如果加 ``TODO`` 是为了在 "将来某一天做某事", 可以附上一个非常明确的时间 "Fix by November 2005"), 或者一个明确的事项 ("Remove this code when all clients can handle XML responses.").
 
+7.9. 弃用注释
+
+.. tip::
+    通过弃用注释（``DEPRECATED`` comments）以标记某接口点（interface points）已弃用。
+    
+    您可以写上包含全大写的 ``DEPRECATED`` 的注释，以标记某接口为弃用状态。注释可以放在接口声明前，或者同一行。
+    
+    在 ``DEPRECATED`` 一词后，留下您的名字，邮箱地址以及括号补充。
+    
+    仅仅标记接口为 ``DEPRECATED`` 并不会让大家不约而同地弃用，您还得亲自主动修正调用点（callsites），或是找个帮手。
+    
+    修正好的代码应该不会再涉及弃用接口点了，着实改用新接口点。如果您不知从何下手，可以找标记弃用注释的当事人一起商量。
+
+
 译者 (YuleFox) 笔记
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
