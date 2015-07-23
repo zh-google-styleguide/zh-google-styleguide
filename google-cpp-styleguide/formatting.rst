@@ -143,6 +143,30 @@
             // Bad - if someone wants to implement later, it's not clear what the
             // variable means.
             void Circle::Rotate(double) {}
+            
+
+8.5. Lambda 表达式
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. tip::
+    其它函数怎么格式化形参和函数体，Lambda 表达式就怎么格式化；捕获列表同理。
+    
+    若用引用捕获，在变量名和 ``&`` 之间不留空格。
+    
+    .. code-block:: c++
+    
+        .. code-block:: c++
+    
+    短 lambda 就写得和内联函数一样。
+    
+    .. code-block:: c++
+    
+        std::set<int> blacklist = {7, 8, 9};
+        std::vector<int> digits = {3, 9, 1, 8, 4, 7, 1};
+        digits.erase(std::remove_if(digits.begin(), digits.end(), [&blacklist](int i) {
+                        return blacklist.find(i) != blacklist.end();
+                    }),
+                    digits.end());
 
 
 8.5. 函数调用
@@ -183,6 +207,7 @@
                 argument3,
                 argument4);
           }
+
 
 8.6. 条件语句
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
