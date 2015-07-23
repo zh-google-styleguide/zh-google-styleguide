@@ -35,27 +35,22 @@
 ~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    文件名要全部小写, 可以包含下划线 (``_``) 或连字符 (``-``). 按项目约定来.
+    文件名要全部小写, 可以包含下划线 (``_``) 或连字符 (``-``). 按项目约定来. 如果并没有项目约定，"_" 更好。
 
-可接受的文件命名::
+    可接受的文件命名::
     
-    my_useful_class.cc
-    my-useful-class.cc
-    myusefulclass.cc
+        * my_useful_class.cc
+        * my-useful-class.cc
+        * myusefulclass.cc
+        * muusefulclass_test.cc // ``_unittest`` 和 ``_regtest`` 已弃用。
 
-C++ 文件要以 ``.cc`` 结尾, 头文件以 ``.h`` 结尾.
-
-不要使用已经存在于 ``/usr/include`` 下的文件名 (yospaly 注: 即编译器搜索系统头文件的路径), 如 ``db.h``.
-
-通常应尽量让文件名更加明确. ``http_server_logs.h`` 就比 ``logs.h`` 要好. 定义类时文件名一般成对出现, 如 ``foo_bar.h`` 和 ``foo_bar.cc``, 对应于类 ``FooBar``.
-
-内联函数必须放在 ``.h`` 文件中. 如果内联函数比较短, 就直接放在 ``.h`` 中. 如果代码比较长, 可以放到以 ``-inl.h`` 结尾的文件中. 对于包含大量内联代码的类, 可以使用三个文件::
+    C++ 文件要以 ``.cc`` 结尾, 头文件以 ``.h`` 结尾. 专门插入文本的文件则以 ``.inc`` 结尾，参见  self-contained headers
     
-    url_table.h      // The class declaration.
-    url_table.cc     // The class definition.
-    url_table-inl.h  // Inline functions that include lots of code.
+    不要使用已经存在于 ``/usr/include`` 下的文件名 (yospaly 注: 即编译器搜索系统头文件的路径), 如 ``db.h``.
     
-参考 :ref:`-inl.h 文件 <inl-files>` 一节.
+    通常应尽量让文件名更加明确. ``http_server_logs.h`` 就比 ``logs.h`` 要好. 定义类时文件名一般成对出现, 如 ``foo_bar.h`` 和 ``foo_bar.cc``, 对应于类 ``FooBar``.
+    
+    内联函数必须放在 ``.h`` 文件中. 如果内联函数比较短, 就直接放在 ``.h`` 中.
 
 6.3. 类型命名
 ~~~~~~~~~~~~~~~~~~~~
