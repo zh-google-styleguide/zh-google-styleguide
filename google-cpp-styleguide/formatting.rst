@@ -59,9 +59,10 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    返回类型和函数名在同一行, 参数也尽量放在同一行.
+    返回类型和函数名在同一行, 参数也尽量放在同一行，如果放不下就对形参分行。
     
 函数看上去像这样:
+
     .. code-block:: c++
         
         ReturnType ClassName::FunctionName(Type par_name1, Type par_name2) {
@@ -70,16 +71,17 @@
         }
     
 如果同一行文本太多, 放不下所有参数:
+
     .. code-block:: c++
         
-        ReturnType ClassName::ReallyLongFunctionName(Type par_name1,
-                                                     Type par_name2,
+        ReturnType ClassName::ReallyLongFunctionName(Type par_name1, Type par_name2,
                                                      Type par_name3) {
             DoSomething();
             ...
         }
     
 甚至连第一个参数都放不下:
+
     .. code-block:: c++
         
         ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
@@ -92,7 +94,9 @@
     
 注意以下几点:
 
-    - 返回值总是和函数名在同一行;
+    - 如果返回类型和函数名在一行放不下，分行。
+    
+    - 如果返回类型那个与函数声明或定义分行了，不要缩进。
 
     - 左圆括号总是和函数名在同一行;
 
@@ -102,34 +106,20 @@
 
     - 左大括号总在最后一个参数同一行的末尾处;
 
-    - 右大括号总是单独位于函数最后一行;
+    - 如果其它风格规则允许的话，右大括号总是单独位于函数最后一行，或者与左大括号同一行。
 
-    - 右圆括号和左大括号间总是有一个空格;
+    - 右大括号和左大括号间总是有一个空格;
 
-    - 函数声明和实现处的所有形参名称必须保持一致;
+    - 函数声明和定义中的所有形参必须有命名且一致;
 
     - 所有形参应尽可能对齐;
 
     - 缺省缩进为 2 个空格;
 
     - 换行后的参数保持 4 个空格的缩进;
-
-如果函数声明成 ``const``, 关键字 ``const`` 应与最后一个参数位于同一行:=
-    .. code-block:: c++
-    
-        // Everything in this function signature fits on a single line
-        ReturnType FunctionName(Type par) const {
-          ...
-        }
-        
-        // This function signature requires multiple lines, but
-        // the const keyword is on the line with the last parameter.
-        ReturnType ReallyLongFunctionName(Type par1,
-                                          Type par2) const {
-          ...
-        }
         
 如果有些参数没有用到, 在函数定义处将参数名注释起来:
+
     .. code-block:: c++
         
         // Always have named parameters in interfaces.
