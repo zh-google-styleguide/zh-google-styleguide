@@ -76,12 +76,10 @@
 ~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    变量名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾, 如::
-        
-        my_exciting_local_variable
-        my_exciting_member_variable_
+    变量名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾, 但结构体的就不用，如:: ``a_local_variable``, ``a_struct_data_member``, ``a_class_data_member_``.
 
 普通变量命名:
+
     举例::
         
         string table_name;  // OK - uses underscore.
@@ -91,9 +89,25 @@
         .. code-block:: c++
             
             string tableName;   // Bad - mixed case.
+
+类数据成员：
+
+    不管是静态的还是非静态的，结构体数据成员都可以和普通变量一样, 但要接下划线。
+    
+        .. code-block:: c++
+        
+            class TableInfo {
+              ...
+             private:
+              string table_name_;  // OK - underscore at end.
+              string tablename_;   // OK.
+              static Pool<TableInfo>* pool_;  // OK.
+            };
     
 结构体变量:
-    结构体的数据成员可以和普通变量一样, 不用像类那样接下划线:
+
+    不管是静态的还是非静态的，结构体数据成员都可以和普通变量一样, 不用像类那样接下划线:
+    
         .. code-block:: c++
             
             struct UrlTableProperties {
@@ -104,6 +118,7 @@
     结构体与类的讨论参考 :ref:`结构体 vs. 类 <structs_vs_classes>` 一节.
     
 全局变量:
+
     对全局变量没有特别要求, 少用就好, 但如果你要用, 可以用 ``g_`` 或其它标志作为前缀, 以便更好的区分局部变量.
 
 
