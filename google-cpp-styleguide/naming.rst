@@ -130,11 +130,11 @@
 .. tip::
     在全局或类里的常量名称前加 ``k``: kDaysInAWeek. 且除去开头的 ``k`` 之外每个单词开头字母均大写。
     
-    所有编译时常量, 无论是局部的, 全局的还是类中的, 和其他变量稍微区别一下. ``k`` 后接大写字母开头的单词::
+    所有编译时常量, 无论是局部的, 全局的还是类中的, 和其他变量稍微区别一下. ``k`` 后接大写字母开头的单词:
 
-    .. code-block:: c++
+        .. code-block:: c++
 
-        const int kDaysInAWeek = 7;
+            const int kDaysInAWeek = 7;
     
     这规则适用于编译时的局部作用域常量，不过要按变量规则来命名也可以。
 
@@ -148,13 +148,21 @@
     常规函数使用大小写混合, 取值和设值函数则要求与变量名匹配: ``MyExcitingFunction()``, ``MyExcitingMethod()``, ``my_exciting_member_variable()``, ``set_my_exciting_member_variable()``.
     
 常规函数:
-    函数名的每个单词首字母大写, 没有下划线::
+
+    函数名的每个单词首字母大写, 没有下划线。
+    
+    If your function crashes upon an error, you should append OrDie to the function name. This only applies to functions which could be used by production code and to errors that are reasonably likely to occur during normal operation:
+    
+        .. code-block:: c++
         
-        AddTableEntry()
-        DeleteUrl()
+            AddTableEntry()
+            DeleteUrl()
+            OpenFileOrDie()
 
 取值和设值函数:
-    取值和设值函数要与存取的变量名匹配. 这儿摘录一个类, ``num_entries_`` 是该类的实例变量:
+
+    取值（Accessors）和设值（Mutators）函数要与存取的变量名匹配. 这儿摘录一个类, ``num_entries_`` 是该类的实例变量:
+    
         .. code-block:: c++
             
             class MyClass {
