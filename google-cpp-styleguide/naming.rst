@@ -9,48 +9,26 @@
 ~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    函数命名, 变量命名, 文件命名应具备描述性; 不要过度缩写. 类型和变量应该是名词, 函数名可以用 "命令性" 动词.
+    函数命名，变量命名，文件命名要有描述性；少用缩写。
     
-如何命名:
-    尽可能给出描述性的名称. 不要节约行空间, 让别人很快理解你的代码更重要. 好的命名风格:
-        .. code-block:: c++
-            
-            int num_errors;                  // Good.
-            int num_completed_connections;   // Good.
+    尽可能给有描述性的命名，别心疼空间，毕竟让代码易于新读者理解很重要。不要用只有项目开发者能理解的缩写，也不要通过砍掉几个字母来缩写单词。
+    
+    .. code-block:: c++
+    
+        int price_count_reader;    // 无缩写
+        int num_errors;            // “num” 本来就很常见
+        int num_dns_connections;   // 人人都知道 “DNS” 是啥
         
-    糟糕的命名使用含糊的缩写或随意的字符:
-        .. code-block:: c++
-            
-            int n;                           // Bad - meaningless.
-            int nerr;                        // Bad - ambiguous abbreviation.
-            int n_comp_conns;                // Bad - ambiguous abbreviation.
+    .. warning::
     
-    类型和变量名一般为名词: 如 ``FileOpener``, ``num_errors``.
-    
-    函数名通常是指令性的 (确切的说它们应该是命令), 如 ``OpenFile()``, ``set_num_errors()``. 取值函数是个特例 (在 :ref:`函数命名 <function-names>` 处详细阐述), 函数名和它要取值的变量同名.
-    
-缩写:
-    除非该缩写在其它地方都非常普遍, 否则不要使用. 例如:
         .. code-block:: c++
         
-            // Good
-            // These show proper names with no abbreviations.
-            int num_dns_connections;  // 大部分人都知道 "DNS" 是啥意思.
-            int price_count_reader;   // OK, price count. 有意义.
-        
-        .. warning::
-            .. code-block:: c++
-                
-                // Bad!
-                // Abbreviations can be confusing or ambiguous outside a small group.
-                int wgc_connections;  // Only your group knows what this stands for.
-                int pc_reader;        // Lots of things can be abbreviated "pc".
-        
-    永远不要用省略字母的缩写:
-        .. code-block:: c++
-            
-            int error_count;  // Good.
-            int error_cnt;    // Bad.
+            int n;                     // 莫名其妙。
+            int nerr;                  // 怪缩写。
+            int n_comp_conns;          // 怪缩写。
+            int wgc_connections;       // 只有贵团队知道是啥意思。
+            int pc_reader;             // "pc" 有太多可能的解释了。
+            int cstmr_id;              // 有删减若干字母。
         
         
 6.2. 文件命名
