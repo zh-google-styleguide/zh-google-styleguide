@@ -158,7 +158,8 @@
     
     .. code-block:: c++
     
-        .. code-block:: c++
+        int x = 0;
+        auto add_to_x = [&x](int n) { x += n; };
     
     短 lambda 就写得和内联函数一样。
     
@@ -176,44 +177,61 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    尽量放在同一行, 否则, 将实参封装在圆括号中.
+    要么一行写完函数调用，要么在圆括号里对参数分行，要么参数另起一行且缩进四格。如果没有其它顾虑的话，尽可能精简行数，比如把多个参数适当地放在同一行里。
     
-函数调用遵循如下形式:
+    函数调用遵循如下形式：
 
     .. code-block:: c++
         
         bool retval = DoSomething(argument1, argument2, argument3);
         
-如果同一行放不下, 可断为多行, 后面每一行都和第一个实参对齐, 左圆括号后和右圆括号前不要留空格:
+    如果同一行放不下，可断为多行，后面每一行都和第一个实参对齐，左圆括号后和右圆括号前不要留空格：
 
     .. code-block:: c++
         
         bool retval = DoSomething(averyveryveryverylongargument1,
                                   argument2, argument3);
                                   
-如果函数参数很多, 出于可读性的考虑可以在每行只放一个参数:
+    参数也可以放在次行，缩进四格：
 
+        .. code-block:: c++
+            
+            if (...) {
+              ...
+              ...
+              if (...) {
+                DoSomething(
+                    argument1, argument2,  // 4 space indent
+                    argument3, argument4);
+              }
+
+    把多个参数放在同一行，是为了减少函数调用所需的行数，除非影响到可读性。有人认为把每个参数都独立成行，不仅更好读，而且方便编辑参数。不过，比起所谓的参数编辑，我们更看重可读性，且后者比较好办：
+    
+    如果一些参数本身就是略复杂的表达式，且降低了可读性。那么可以直接创建临时变量描述该表达式，并传递给函数：
+    
     .. code-block:: c++
-        
-        bool retval = DoSomething(argument1,
-                                  argument2,
-                                  argument3,
-                                  argument4);
+    
+        int my_heuristic = scores[x] * y + bases[x];
+        bool retval = DoSomething(my_heuristic, x, y, z);
+    
+    或者放着不管，补充上注释：
+    
+    .. code-block:: c++
+    
+        bool retval = DoSomething(scores[x] * y + bases[x],  // Score heuristic.
+                                  x, y, z);
                                   
-如果函数名非常长, 以至于超过 :ref:`行最大长度 <line-length>`, 可以将所有参数独立成行:
-
+    如果某参数独立成行，对可读性更有帮助的话，就这么办。
+    
+    此外，如果一系列参数本身就有一定的结构，可以酌情地按其结构来决定参数格式：
+    
     .. code-block:: c++
-        
-        if (...) {
-          ...
-          ...
-          if (...) {
-            DoSomethingThatRequiresALongFunctionName(
-                very_long_argument1,  // 4 space indent
-                argument2,
-                argument3,
-                argument4);
-          }
+    
+        // Transform the widget by a 3x3 matrix.
+        my_widget.Transform(x1, x2, x3,
+                            y1, y2, y3,
+                            z1, z2, z3);
+
           
 8.7. 列表初始化格式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
