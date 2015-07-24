@@ -236,6 +236,39 @@
 8.7. 列表初始化格式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. tip::
+    您平时怎么格式化函数调用，就怎么格式化列表初始化。
+    
+    如果列表初始化伴随着名字，比如类型或变量名，您可以当名字是函数、{} 是函数调用的括号来格式化它。反之，就当它有个长度为零的名字。
+    
+    .. code-block:: c++
+    
+        // Examples of braced init list on a single line.
+        return {foo, bar};
+        functioncall({foo, bar});
+        pair<int, int> p{foo, bar};
+        
+        // When you have to wrap.
+        SomeFunction(
+            {"assume a zero-length name before {"},
+            some_other_function_parameter);
+        SomeType variable{
+            some, other, values,
+            {"assume a zero-length name before {"},
+            SomeOtherType{
+                "Very long string requiring the surrounding breaks.",
+                some, other values},
+            SomeOtherType{"Slightly shorter string",
+                          some, other, values}};
+        SomeType variable{
+            "This is too long to fit all in one line"};
+        MyType m = {  // Here, you could also break before {.
+            superlongvariablename1,
+            superlongvariablename2,
+            {short, interior, list},
+            {interiorwrappinglist,
+             interiorwrappinglist2}};
+
 
 8.8. 条件语句
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
