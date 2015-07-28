@@ -488,12 +488,25 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    ``return`` 表达式中不要用圆括号包围.
+    ``return`` 表达式里时没必要都用圆括号。
+    
+在 ``return expr;`` 里就用圆括号，当且只当您会在 ``x = epr;`` 用上它们（acgtyrant 注：字面上的意思就是这样，我也不知怎么理解，只能直译了；我猜意为「当且只当您用该函数的返回值赋值给某变量」）。
     
 函数返回时不要使用圆括号:
+
     .. code-block:: c++
         
-        return x;  // not return(x);
+        return result;                  // No parentheses in the simple case.
+        // Parentheses OK to make a complex expression more readable.
+        return (some_long_condition &&
+                another_condition);
+    
+    .. warning::
+    
+        .. code-block:: c++
+        
+            return (value);                // You wouldn't write var = (value);
+            return(result);                // return is not a function!
         
 8.13. 变量及数组初始化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
