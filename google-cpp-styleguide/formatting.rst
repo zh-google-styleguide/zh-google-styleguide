@@ -512,16 +512,32 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    用 ``=`` 或 ``()`` 均可.
+    用 ``=``, ``()`` 和 ``{}`` 均可.
     
-在二者中做出选择; 下面的方式都是正确的:
+您可以用 ``=``, ``()`` 和 ``{}``, 以下都对：
 
     .. code-block:: c++
         
         int x = 3;
         int x(3);
+        int x{3};
         string name("Some Name");
         string name = "Some Name";
+        string name{"Some Name"};
+
+请务必小心列表初始化 {...} 用 ``std::initializer_list`` 构造函数初始化出的类型。非空列表初始化就会优先调用 ``std::initializer_list``, 不过空列表初始化除外，后者原则上会调用默认构造函数。为了强制禁用 ``std::initializer_list`` 构造函数，请改用括号。
+
+    .. code-block:: c++
+    
+        vector<int> v(100, 1);  // A vector of 100 1s.
+        vector<int> v{100, 1};  // A vector of 100, 1.
+
+此外，列表初始化不允许整型类型的四舍五入，这可以用来避免一些类型上的编程失误。
+
+    .. code-block:: c++
+    
+        int pi(3.14);  // OK -- pi == 3.
+        int pi{3.14};  // Compile error: narrowing conversion.
 
 
 8.14. 预处理指令
