@@ -675,6 +675,13 @@
               }
 
             }  // namespace
+            
+声明嵌套命名空间时，每命名空间都独立成行。
+
+    .. code-block:: c++
+    
+        namespace foo {
+        namespace bar {
 
         
 8.18. 水平留白
