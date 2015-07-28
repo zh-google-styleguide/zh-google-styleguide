@@ -151,7 +151,7 @@
 
     函数名的每个单词首字母大写, 没有下划线。
     
-    If your function crashes upon an error, you should append OrDie to the function name. This only applies to functions which could be used by production code and to errors that are reasonably likely to occur during normal operation:
+    如果您的某函数出错时就要直接 crash, 那么就在函数名加上 OrDie. 但这函数本身必须集成在产品代码里，且平时也可能会出错。
     
         .. code-block:: c++
         
