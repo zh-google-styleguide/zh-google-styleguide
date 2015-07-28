@@ -274,7 +274,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    倾向于不在圆括号内使用空格. 关键字 ``else`` 另起一行.
+    倾向于不在圆括号内使用空格. 关键字 ``if`` 和 ``else`` 另起一行.
     
 对基本条件语句有两种可以接受的格式. 一种在圆括号和条件之间有空格, 另一种没有.
 
@@ -301,6 +301,7 @@
 注意所有情况下 ``if`` 和左圆括号间都有个空格. 右圆括号和左大括号之间也要有个空格:
 
     .. warning::
+    
         .. code-block:: c++
         
             if(condition)     // Bad - space missing after IF.
@@ -374,7 +375,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
-    ``switch`` 语句可以使用大括号分段. 空循环体应使用 ``{}`` 或 ``continue``.
+    ``switch`` 语句可以使用大括号分段，以表明 cases 之间不是连在一起的。在单语句循环里，括号可用可不用。空循环体应使用 ``{}`` 或 ``continue``.
     
 ``switch`` 语句中的 ``case`` 块可以使用大括号也可以不用, 取决于你的个人喜好. 如果用的话, 要按照下文所述的方法.
 
@@ -395,6 +396,17 @@
             assert(false);
           }
         }
+
+在单语句循环里，括号可用可不用：
+
+    .. code-block:: c++
+    
+        for (int i = 0; i < kSomeNumber; ++i)
+            printf("I love you\n");
+        
+        for (int i = 0; i < kSomeNumber; ++i) {
+            printf("I take it back\n");
+        }
         
 空循环体应使用 ``{}`` 或 ``continue``, 而不是一个简单的分号.
 
@@ -407,6 +419,7 @@
         while (condition) continue;  // Good - continue indicates no logic.
     
     .. warning::
+    
         .. code-block:: c++
         
             while (condition);  // Bad - looks like part of do/while loop.
