@@ -736,29 +736,39 @@
 
     .. code-block:: c++
         
-        x = 0;              // Assignment operators always have spaces around
-                            // them.
-        x = -5;             // No spaces separating unary operators and their
-        ++x;                // arguments.
+        // Assignment operators always have spaces around them.
+        x = 0;
+        
+        // Other binary operators usually have spaces around them, but it's
+        // OK to remove spaces around factors.  Parentheses should have no
+        // internal padding.
+        v = w * x + y / z;
+        v = w*x + y/z;
+        v = w * (x + z);
+        
+        // No spaces separating unary operators and their arguments.
+        x = -5;
+        ++x;
         if (x && !y)
           ...
-        v = w * x + y / z;  // Binary operators usually have spaces around them,
-        v = w*x + y/z;      // but it's okay to remove spaces around factors.
-        v = w * (x + z);    // Parentheses should have no spaces inside them.
 
 
 模板和转换:
 
     .. code-block:: c++
         
-        vector<string> x;           // No spaces inside the angle
-        y = static_cast<char*>(x);  // brackets (< and >), before
-                                    // <, or between >( in a cast.
-        vector<char *> x;           // Spaces between type and pointer are
-                                    // okay, but be consistent.
-        set<list<string> > x;       // C++ requires a space in > >.
-        set< list<string> > x;      // You may optionally make use
-                                    // symmetric spacing in < <.
+        // No spaces inside the angle brackets (< and >), before
+        // <, or between >( in a cast
+        vector<string> x;
+        y = static_cast<char*>(x);
+        
+        // Spaces between type and pointer are OK, but be consistent.
+        vector<char *> x;
+        set<list<string>> x;        // Permitted in C++11 code.
+        set<list<string> > x;       // C++03 required a space in > >.
+        
+        // You may optionally use symmetric spacing in < <.
+        set< list<string> > x;
 
 8.19. 垂直留白
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -770,40 +780,11 @@
 
 基本原则是: 同一屏可以显示的代码越多, 越容易理解程序的控制流. 当然, 过于密集的代码块和过于疏松的代码块同样难看, 取决于你的判断. 但通常是垂直留白越少越好.
 
-.. warning:: 函数首尾不要有空行
-    
-    .. code-block:: c++
-        
-        void Function() {
-        
-          // Unnecessary blank lines before and after
-        
-        }
+空行心得如下：
 
-.. warning:: 代码块首尾不要有空行
-    
-    .. code-block:: c++
-    
-        while (condition) {
-          // Unnecessary blank line after
-        
-        }
-        if (condition) {
-        
-          // Unnecessary blank line before
-        }
-        
-``if-else`` 块之间空一行是可以接受的:
+* 函数体内开头或结尾的空行可读性微乎其微。
+* 在多重 if-else 块里加空行或许有点可读性。
 
-    .. code-block:: c++
-        
-        if (condition) {
-          // Some lines of code too small to move to another function,
-          // followed by a blank line.
-
-        } else {
-          // Another block of code
-        }
 
 译者 (YuleFox) 笔记
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
