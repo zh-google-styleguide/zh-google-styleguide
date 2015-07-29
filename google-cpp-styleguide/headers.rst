@@ -1,5 +1,5 @@
 1. 头文件
-------------
+--------
 
 通常每一个 ``.cc`` 文件都有一个对应的 ``.h`` 文件. 也有一些常见例外, 如单元测试代码和只包含 ``main()`` 函数的 ``.cc`` 文件.
 
@@ -7,26 +7,29 @@
 
 下面的规则将引导你规避使用头文件时的各种陷阱.
 
+.. _self-contained headers:
+
 1.1. Self-contained 头文件
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-头文件应该能够自给自足（self-contained），以 ``in.h`` 结尾。至于用来插入文本的文件，说到底它们并不是头文件，所以应以 ``.inc`` 结尾。
+.. tip::
+    头文件应该能够自给自足（self-contained），以 ``in.h`` 结尾。至于用来插入文本的文件，说到底它们并不是头文件，所以应以 ``.inc`` 结尾。
 
-所有头文件要能够自给自足。换言之，用户和重构工具不需要为特别场合而包含额外的头文件。详言之，一个头文件要有 #define 保护，统统包含它所需要的其它头文件，也不要求定义任何特别 symbols.
+所有头文件要能够自给自足。换言之，用户和重构工具不需要为特别场合而包含额外的头文件。详言之，一个头文件要有 :ref:`define-guard`，统统包含它所需要的其它头文件，也不要求定义任何特别 symbols.
 
 不过有一个例外，即一个文件并不是 self-contained 的，而是用来安插到代码某处里，特别是要安插多次的时候。或者，文件内容实际上是其它头文件的特定平台（platform-specific）扩展部分。这些文件就要用 ``.inc`` 文件扩展名。
 
 如果 ``.h`` 文件声明了一个模板或内联函数，同时也在该文件加以定义。凡是有用到这些的 ``.cc`` 文件，就得统统包含该头文件，否则程序可能会在构建中链接失败。现在不要把这些定义放到分离的 -inl.h 文件里了（译者注：过去该规范曾提倡把定义放到 -inl.h 里过）。
 
-As an exception, a function template that is explicitly instantiated for all relevant sets of template arguments, or that is a private member of a class, may be defined in the only .cc file that instantiates the template.
+As an exception, a function template that is explicitly instantiated for all relevant sets of template arguments, or that is a private member of a class, may be defined in the only .cc file that instantiates the template. TODO
 
-
-.. _define_guard:
+.. _define-guard:
 
 1.2. #define 保护
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. tip::
-   所有头文件都应该使用 ``#define`` 防止头文件被多重包含, 命名格式当是: ``<PROJECT>_<PATH>_<FILE>_H_``
+    所有头文件都应该使用 ``#define`` 防止头文件被多重包含, 命名格式当是: ``<PROJECT>_<PATH>_<FILE>_H_``
 
 为保证唯一性, 头文件的命名应该依据所在项目源代码树的全路径. 例如, 项目 ``foo`` 中的头文件 ``foo/src/bar/baz.h`` 可按如下方式保护:
 
@@ -36,18 +39,19 @@ As an exception, a function template that is explicitly instantiated for all rel
     #define FOO_BAR_BAZ_H_
     …
     #endif // FOO_BAR_BAZ_H_
-    
-.. _forward_declarations:
+
+.. _forward-declarations:
 
 1.3. 前向声明
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
 
-您可以靠前置声明来避免多余的 ``#includes``.
+.. tip::
+    您可以靠前置声明来避免多余的 ``#includes``.
 
 定义：
 
 	所谓「前向声明」（forward declaration）是类，函数和模板的纯粹声明，没伴随着其定义。代码中用到了哪些 symbols, 往往可以用其前向声明来代替对应的 ``#inclues``.
-	
+
 优点：
 
 	* 多余的 ``#includes`` 会害得编译器花费不少时间展开更多文件，处理大量输入。
@@ -59,26 +63,25 @@ As an exception, a function template that is explicitly instantiated for all rel
 	* 很难判断什么时候该用前向声明，什么时候该用 ``#includes``, 特别是涉及隐式转换运算符的时候。极端情况下，用前向声明代替 ``includes`` 甚至都会暗暗地改变代码的含义。
 	* 前向声明了不少来自头文件的 symbol 时，就会比单单 ``includes`` 一行冗长。
 	* 前向声明函数或模板有时会害得头文件开发者难以轻易变动其 API. 就像扩大形参类型，加个自带默认参数的模板形参等等。
-	* 前向声明来自命名空间 ``std::` 的 symbol 时，其行为为定义。
+	* 前向声明来自命名空间 ``std::` 的 symbol 时，其行为未定义。
 	* 仅仅为了能前向声明而重构代码（比如用指针成员代替对象成员），后者会变慢且复杂起来。
 	* 还没有实践证实前向声明的优越性。
 
-决定：
+结论：
 
 	* 函数：用 ``#include``.
 	* 类模板：优先用 ``#includes``.
 	* 类：用前向声明固然不错，但小心点。若说不定，还是用 ``#includes`` 好了。
 	* 千万别为了避免 ``includes`` 而把数据成员改成指针。
 
-至于什么时候包含头文件，参见 :ref:```#include`` 的路径及顺序`。
+至于什么时候包含头文件，参见 :ref:`name-and-order-of-includes`。
 
 .. _inline-functions:
 
 1.4. 内联函数
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
 
 .. tip::
-
     只有当函数只有 10 行甚至更少时才将其定义为内联函数.
 
 定义:
@@ -96,14 +99,13 @@ As an exception, a function template that is explicitly instantiated for all rel
 结论:
 
     一个较为合理的经验准则是, 不要内联超过 10 行的函数. 谨慎对待析构函数, 析构函数往往比其表面看起来要更长, 因为有隐含的成员和基类析构函数被调用!
-    
+
     另一个实用的经验准则: 内联那些包含循环或 ``switch`` 语句的函数常常是得不偿失 (除非在大多数情况下, 这些循环或 ``switch`` 语句从不被执行).
-    
+
     有些函数即使声明为内联的也不一定会被编译器内联, 这点很重要; 比如虚函数和递归函数就不会被正常内联.  通常, 递归函数不应该声明成内联函数.（YuleFox 注: 递归调用堆栈的展开并不像循环那么简单, 比如递归层数在编译时可能是未知的, 大多数编译器都不支持内联递归函数). 虚函数内联的主要原因则是想把它的函数体放在类定义内, 为了图个方便, 抑或是当作文档描述其行为, 比如精短的存取函数.
 
-
 1.5. 函数参数的顺序
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. tip::
     定义函数时, 参数顺序依次为: 输入参数, 然后是输出参数.
@@ -112,8 +114,10 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 
 这条规则并不需要严格遵守. 输入/输出两用参数 (通常是类/结构体变量) 把事情变得复杂, 为保持和相关函数的一致性, 你有时不得不有所变通.
 
+.. _name-and-order-of-includes
+
 1.6. ``#include`` 的路径及顺序
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
     使用标准的头文件包含顺序可增强可读性, 避免隐藏依赖: 相关头文件, C 库, C++ 库, 其他库的 `.h`, 本项目内的 `.h`.
@@ -121,7 +125,7 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 项目内头文件应按照项目源代码目录树结构排列, 避免使用 UNIX 特殊的快捷目录 ``.`` (当前目录) 或 ``..`` (上级目录). 例如, ``google-awesome-project/src/base/logging.h`` 应该按如下方式包含:
 
     .. code-block:: c++
-        
+
         #include “base/logging.h”
 
 又如, ``dir/foo.cc`` 的主要作用是实现或测试 ``dir2/foo2.h`` 的功能, ``foo.cc`` 中包含头文件的次序如下:
@@ -138,12 +142,12 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 
 按字母顺序对头文件包含进行二次排序是不错的主意 (yospaly 译注: 之前已经按头文件类别排过序了).
 
-您所依赖的 symbols 被哪些头文件所定义，您就应该包含（include）哪些头文件，forward declaration 情况除外。比如您要用到 ``bar.h`` 中的某个 symbol, 哪怕您所包含的 ``foo.h`` 已经包含了 ``bar.h``, 也照样得包含 ``bar.h``, 除非 ``foo.h`` 有明确说明它会自动向您提供 ``bar.h`` 中的 symbol. 不过，凡是 cc 文件所对应的「相关头文件」已经包含的，就不用再重复包含进其 cc 文件里面了，就像 ``foo.cc`` 只包含 ``foo.h`` 就够了，不用再管后者所包含的其它内容。
+您所依赖的 symbols 被哪些头文件所定义，您就应该包含（include）哪些头文件，:ref:`forward-declaration` 情况除外。比如您要用到 ``bar.h`` 中的某个 symbol, 哪怕您所包含的 ``foo.h`` 已经包含了 ``bar.h``, 也照样得包含 ``bar.h``, 除非 ``foo.h`` 有明确说明它会自动向您提供 ``bar.h`` 中的 symbol. 不过，凡是 cc 文件所对应的「相关头文件」已经包含的，就不用再重复包含进其 cc 文件里面了，就像 ``foo.cc`` 只包含 ``foo.h`` 就够了，不用再管后者所包含的其它内容。
 
 举例来说, ``google-awesome-project/src/foo/internal/fooserver.cc`` 的包含次序如下:
 
 	.. code-block:: c++
-	
+
 		#include "foo/public/fooserver.h" // 优先位置
 
 		#include <sys/types.h>
@@ -154,13 +158,13 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 		#include "base/basictypes.h"
 		#include "base/commandlineflags.h"
 		#include "foo/public/bar.h"
-        
+
 例外：
 
 有时，平台特定（system-specific）代码需要条件编译（conditional includes），这些代码可以放到其它 includes 之后。当然，您的平台特定代码也要够简练且独立，比如：
 
 	.. code-block:: c++
-	
+
 		#include "foo/public/fooserver.h"
 
 		#include "base/port.h"  // For LANG_CXX11.
@@ -170,7 +174,7 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 		#endif  // LANG_CXX11
 
 译者 (YuleFox) 笔记
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 #. 避免多重包含是学编程时最基本的要求;
 #. 前置声明是为了降低编译依赖，防止修改一个头文件引发多米诺效应;
@@ -179,9 +183,8 @@ C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种
 #. 标准化函数参数顺序可以提高可读性和易维护性 (对函数参数的堆栈空间有轻微影响, 我以前大多是相同类型放在一起);
 #. 包含文件的名称使用 ``.`` 和 ``..`` 虽然方便却易混乱, 使用比较完整的项目路径看上去很清晰, 很条理, 包含文件的次序除了美观之外, 最重要的是可以减少隐藏依赖, 使每个头文件在 "最需要编译" (对应源文件处 :D) 的地方编译, 有人提出库文件放在最后, 这样出错先是项目内的文件, 头文件都放在对应源文件的最前面, 这一点足以保证内部错误的及时发现了.
 
-
 译者（acgtyrant）笔记
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 #. 原来还真有项目用 ``#includes`` 来插入文本，且其文件扩展名 ``.inc`` 看上去也很科学。
 #. Google 已经不再提倡 ``-inl.h`` 用法。
