@@ -87,10 +87,10 @@
     .. code-block:: c++
 
         ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
-                Type par_name1,  // 4 space indent
+                Type par_name1,  // 4 空格缩进
                 Type par_name2,
                 Type par_name3) {
-            DoSomething();  // 2 space indent
+            DoSomething();  // 2 空格缩进
             ...
         }
 
@@ -124,26 +124,25 @@
 
     .. code-block:: c++
 
-        // Always have named parameters in interfaces.
+        // 接口中形参恒有命名。
         class Shape {
          public:
           virtual void Rotate(double radians) = 0;
         }
 
-        // Always have named parameters in the declaration.
+        // 声明中形参恒有命名。
         class Circle : public Shape {
          public:
           virtual void Rotate(double radians);
         }
 
-        // Comment out unused named parameters in definitions.
+        // 定义中注释掉无用变量。
         void Circle::Rotate(double /*radians*/) {}
 
     .. warning::
         .. code-block:: c++
 
-            // Bad - if someone wants to implement later, it's not clear what the
-            // variable means.
+            // 差 - 如果将来有人要实现，很难猜出变量是干什么用的。
             void Circle::Rotate(double) {}
 
 8.5. Lambda 表达式
@@ -198,7 +197,7 @@
               ...
               if (...) {
                 DoSomething(
-                    argument1, argument2,  // 4 space indent
+                    argument1, argument2,  // 4 空格缩进
                     argument3, argument4);
               }
 
@@ -224,7 +223,7 @@
 
     .. code-block:: c++
 
-        // Transform the widget by a 3x3 matrix.
+        // 通过 3x3 矩阵转换 widget.
         my_widget.Transform(x1, x2, x3,
                             y1, y2, y3,
                             z1, z2, z3);
@@ -241,12 +240,12 @@
 
     .. code-block:: c++
 
-        // Examples of braced init list on a single line.
+        // 一行列表初始化示范。
         return {foo, bar};
         functioncall({foo, bar});
         pair<int, int> p{foo, bar};
 
-        // When you have to wrap.
+        // 当不得不断行时。
         SomeFunction(
             {"assume a zero-length name before {"},
             some_other_function_parameter);
@@ -260,7 +259,7 @@
                           some, other, values}};
         SomeType variable{
             "This is too long to fit all in one line"};
-        MyType m = {  // Here, you could also break before {.
+        MyType m = {  // 注意了，您可以在 { 前断行。
             superlongvariablename1,
             superlongvariablename2,
             {short, interior, list},
@@ -279,9 +278,9 @@
 
     .. code-block:: c++
 
-        if (condition) {  // no spaces inside parentheses
-          ...  // 2 space indent.
-        } else {  // The else goes on the same line as the closing brace.
+        if (condition) {  圆括号里没空格紧邻。
+          ...  // 2 空格缩进。
+        } else {  // else 与 if 的右括号同一行。
           ...
         }
 
@@ -289,9 +288,9 @@
 
     .. code-block:: c++
 
-        if ( condition ) {  // spaces inside parentheses - rare
-          ...  // 2 space indent.
-        } else {  // The else goes on the same line as the closing brace.
+        if ( condition ) {  // 圆括号与空格紧邻 - 不常见
+          ...  // 2 空格缩进。
+        } else {  // else 与 if 的右括号同一行。
           ...
         }
 
@@ -301,13 +300,13 @@
 
         .. code-block:: c++
 
-            if(condition)     // Bad - space missing after IF.
-            if (condition){   // Bad - space missing before {.
-            if(condition){    // Doubly bad.
+            if(condition)     // 差 - IF 后面没空格。
+            if (condition){   // 差 - { 前面没空格。
+            if(condition){    // 变本加厉地差。
 
     .. code-block:: c++
 
-        if (condition) {  // Good - proper space after IF and before {.
+        if (condition) {  // 可 - IF 和 { 都与空格紧邻。
 
 如果能增强可读性, 简短的条件语句允许写在同一行. 只有当语句简单并且没有使用 ``else`` 子句时使用:
 
@@ -322,7 +321,7 @@
 
         .. code-block:: c++
 
-            // Not allowed - IF statement on one line when there is an ELSE clause
+            // 不可以这样子 - 当有 ELSE 分支时 IF 块却只有一行
             if (x) DoThis();
             else DoThat();
 
@@ -331,10 +330,10 @@
     .. code-block:: c++
 
         if (condition)
-          DoSomething();  // 2 space indent.
+          DoSomething();  // 2 空格缩进。
 
         if (condition) {
-          DoSomething();  // 2 space indent.
+          DoSomething();  // 2 空格缩进。
         }
 
 但如果语句中某个 ``if-else`` 分支使用了大括号的话, 其它分支也必须使用:
@@ -343,13 +342,13 @@
 
         .. code-block:: c++
 
-            // Not allowed - curly on IF but not ELSE
+            // 不可以这样子 - IF 有大括号 ELSE 却没有。
             if (condition) {
                 foo;
             } else
                 bar;
 
-            // Not allowed - curly on ELSE but not IF
+            // 不可以这样子 - ELSE 有大括号 IF 却没有。
             if (condition)
                 foo;
             else {
@@ -359,8 +358,7 @@
 
     .. code-block:: c++
 
-        // Curly braces around both IF and ELSE required because
-        // one of the clauses used braces.
+        // 只要其中一个分支用了大括号，两个分支都要用上大括号。
         if (condition) {
           foo;
         } else {
@@ -380,8 +378,8 @@
     .. code-block:: c++
 
         switch (var) {
-          case 0: {  // 2 space indent
-            ...      // 4 space indent
+          case 0: {  // 2 空格缩进
+            ...      // 4 空格缩进
             break;
           }
           case 1: {
@@ -409,16 +407,16 @@
     .. code-block:: c++
 
         while (condition) {
-          // Repeat test until it returns false.
+          // 反复循环直到条件失效。
         }
-        for (int i = 0; i < kSomeNumber; ++i) {}  // Good - empty body.
-        while (condition) continue;  // Good - continue indicates no logic.
+        for (int i = 0; i < kSomeNumber; ++i) {}  // 可 - 空循环体。
+        while (condition) continue;  // 可 - contunue 表明没有逻辑。
 
     .. warning::
 
         .. code-block:: c++
 
-            while (condition);  // Bad - looks like part of do/while loop.
+            while (condition);  // 差 - 看起来仅仅只是 while/loop 的部分之一。
 
 8.10. 指针和引用表达式
 ~~~~~~~~~~~~~~~~~~~
@@ -443,20 +441,20 @@
 
     .. code-block:: c++
 
-        // These are fine, space preceding.
+        // 好样的，空格前置。
         char *c;
         const string &str;
 
-        // These are fine, space following.
-        char* c;    // but remember to do "char* c, *d, *e, ...;"!
+        // 好样的，空格后置。
+        char* c;    // 但别忘了 "char* c, *d, *e, ...;"!
         const string& str;
 
     .. warning::
 
         .. code-block:: c++
 
-            char * c;  // Bad - spaces on both sides of *
-            const string & str;  // Bad - spaces on both sides of &
+            char * c;  // 差 - * 两边都有空格
+            const string & str;  // 差 - & 两边都有空格。
 
 在单个文件内要保持风格一致, 所以, 如果是修改现有文件, 要遵照该文件的风格.
 
@@ -490,8 +488,8 @@
 
     .. code-block:: c++
 
-        return result;                  // No parentheses in the simple case.
-        // Parentheses OK to make a complex expression more readable.
+        return result;                  // 返回值很简单，没有圆括号。
+        // 可以用圆括号把复杂表达式圈起来，改善可读性。
         return (some_long_condition &&
                 another_condition);
 
@@ -499,8 +497,8 @@
 
         .. code-block:: c++
 
-            return (value);                // You wouldn't write var = (value);
-            return(result);                // return is not a function!
+            return (value);                // 毕竟您从来不会写 var = (value);
+            return(result);                // return 可不是函数！
 
 8.13. 变量及数组初始化
 ~~~~~~~~~~~~~~~~~~~
@@ -530,7 +528,7 @@
 
     .. code-block:: c++
 
-        int pi(3.14);  // OK -- pi == 3.
+        int pi(3.14);  // 可 -- pi == 3.
         int pi{3.14};  // Compile error: narrowing conversion.
 
 8.14. 预处理指令
@@ -543,9 +541,9 @@
 
     .. code-block:: c++
 
-        // Good - directives at beginning of line
+        // 可 - directives at beginning of line
           if (lopsided_score) {
-        #if DISASTER_PENDING      // Correct -- Starts at beginning of line
+        #if DISASTER_PENDING      // 正确 -- 行开头起。
             DropEverything();
         #endif
             BackToNormal();
@@ -555,11 +553,11 @@
 
         .. code-block:: c++
 
-            // Bad - indented directives
+            // 差 - indented directives
               if (lopsided_score) {
-                #if DISASTER_PENDING  // Wrong!  The "#if" should be at beginning of line
+                #if DISASTER_PENDING  // 错了！ "#if" 应该放在行开头
                 DropEverything();
-                #endif                // Wrong!  Do not indent "#endif"
+                #endif                // 错了！ "#endif" 不要缩进
                 BackToNormal();
               }
 
@@ -574,8 +572,8 @@
     .. code-block:: c++
 
         class MyClass : public OtherClass {
-         public:      // Note the 1 space indent!
-          MyClass();  // Regular 2 space indent.
+         public:      // 注意有 1 空格缩进!
+          MyClass();  // 照常，2 空格缩进。
           explicit MyClass(int var);
           ~MyClass() {}
 
@@ -618,18 +616,17 @@
 
     .. code-block:: c++
 
-        // When it all fits on one line:
+        // 当全放在一行合适时：
         MyClass::MyClass(int var) : some_var_(var), some_other_var_(var + 1) {
 
 或
 
     .. code-block:: c++
 
-        // When it requires multiple lines, indent 4 spaces, putting the colon on
-        // the first initializer line:
+        // 如果要断成多行，缩进四格，冒号放在第一行初始化句：
         MyClass::MyClass(int var)
-            : some_var_(var),             // 4 space indent
-              some_other_var_(var + 1) {  // lined up
+            : some_var_(var),             // 4 空格缩进
+              some_other_var_(var + 1) {  // 对准
           ...
           DoSomething();
           ...
@@ -647,7 +644,7 @@
 
         namespace {
 
-        void foo() {  // Correct.  No extra indentation within namespace.
+        void foo() {  // 正确。命名空间内没有额外的缩进。
           ...
         }
 
@@ -661,7 +658,7 @@
 
             namespace {
 
-              // Wrong.  Indented when it should not be.
+              // 错，缩进多余了。
               void foo() {
                 ...
               }
@@ -684,18 +681,17 @@
 
     .. code-block:: c++
 
-        void f(bool b) {  // Open braces should always have a space before them.
+        void f(bool b) {  // 左大括号前恒有空格。
           ...
-        int i = 0;  // Semicolons usually have no space before them.
-        int x[] = { 0 };  // Spaces inside braces for array initialization are
-        int x[] = {0};    // optional.  If you use them, put them on both sides!
-        // Spaces around the colon in inheritance and initializer lists.
+        int i = 0;  // 分号前不加空格。
+        int x[] = { 0 };  // 大括号内部可与空格紧邻也不可，不过两边都要加上。
+        int x[] = {0};
+        // 继承与初始化列表中的冒号前后恒有空格。
         class Foo : public Bar {
          public:
-          // For inline function implementations, put spaces between the braces
-          // and the implementation itself.
-          Foo(int b) : Bar(), baz_(b) {}  // No spaces inside empty braces.
-          void Reset() { baz_ = 0; }  // Spaces separating braces from implementation.
+          // 至于内联函数实现，在大括号内部加上空格并编写实现。
+          Foo(int b) : Bar(), baz_(b) {}  // 大括号里面是空的话，不加空格。
+          void Reset() { baz_ = 0; }  // 用括号把大括号与实现分开。
           ...
 
     添加冗余的留白会给其他人编辑时造成额外负担. 因此, 行尾不要留空格. 如果确定一行代码已经修改完毕, 将多余的空格去掉; 或者在专门清理空格时去掉（确信没有其他人在处理). (yospaly 注: 现在大部分代码编辑器稍加设置后, 都支持自动删除行首/行尾空格, 如果不支持, 考虑换一款编辑器或 IDE)
@@ -704,38 +700,35 @@
 
     .. code-block:: c++
 
-        if (b) {          // Space after the keyword in conditions and loops.
-        } else {          // Spaces around else.
+        if (b) {          // if 条件语句和循环语句关键字后均有空格。
+        } else {          // else 前后有空格。
         }
-        while (test) {}   // There is usually no space inside parentheses.
+        while (test) {}   // 圆括号内部不紧邻空格。
         switch (i) {
         for (int i = 0; i < 5; ++i) {
-        switch ( i ) {    // Loops and conditions may have spaces inside
-        if ( test ) {     // parentheses, but this is rare.  Be consistent.
+        switch ( i ) {    // 循环和条件语句的圆括号里可以与空格紧邻。
+        if ( test ) {     // 圆括号，但这很少见。总之要一致。
         for ( int i = 0; i < 5; ++i ) {
-        for ( ; i < 5 ; ++i) {  // For loops always have a space after the
-          ...                   // semicolon, and may have a space before the
-                                // semicolon.
+        for ( ; i < 5 ; ++i) {  // 循环里内 ; 后恒有空格，； 前可以加个空格。
         switch (i) {
-          case 1:         // No space before colon in a switch case.
+          case 1:         // switch case 的冒号前无空格。
             ...
-          case 2: break;  // Use a space after a colon if there's code after it.
+          case 2: break;  // 如果冒号有代码，加个空格。
 
 操作符:
 
     .. code-block:: c++
 
-        // Assignment operators always have spaces around them.
+        // 赋值操作系统前后恒有空格。
         x = 0;
 
-        // Other binary operators usually have spaces around them, but it's
-        // OK to remove spaces around factors.  Parentheses should have no
-        // internal padding.
+        // 其它二元操作符也前后恒有空格，不过对 factors 前后不加空格也可以。
+        // 圆括号内部不紧邻空格。
         v = w * x + y / z;
         v = w*x + y/z;
         v = w * (x + z);
 
-        // No spaces separating unary operators and their arguments.
+        // 在参数和一元操作符之间不加空格。
         x = -5;
         ++x;
         if (x && !y)
@@ -745,17 +738,16 @@
 
     .. code-block:: c++
 
-        // No spaces inside the angle brackets (< and >), before
-        // <, or between >( in a cast
+        // 尖叫括号(< and >) 不与空格紧邻，< 前没有空格，>( 之间也没有。
         vector<string> x;
         y = static_cast<char*>(x);
 
-        // Spaces between type and pointer are OK, but be consistent.
+        // 在类型与指针操作符之间留空格也可以，但要保持一致。
         vector<char *> x;
-        set<list<string>> x;        // Permitted in C++11 code.
-        set<list<string> > x;       // C++03 required a space in > >.
+        set<list<string>> x;        // 在 C++11 代码里可以这样用了。
+        set<list<string> > x;       // C++03 中要在 > > 里留个空格。
 
-        // You may optionally use symmetric spacing in < <.
+        // 您或许可以在 < < 里加上一对对称的空格。
         set< list<string> > x;
 
 8.19. 垂直留白

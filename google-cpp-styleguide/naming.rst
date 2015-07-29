@@ -81,13 +81,13 @@
 
     举例::
 
-        string table_name;  // OK - uses underscore.
-        string tablename;   // OK - all lowercase.
+        string table_name;  // 可 - 用下划线。
+        string tablename;   // 可 - 全小写。
 
     .. warning::
         .. code-block:: c++
 
-            string tableName;   // Bad - mixed case.
+            string tableName;   // 差 - 混合大小写。
 
 类数据成员：
 
@@ -98,9 +98,9 @@
             class TableInfo {
               ...
              private:
-              string table_name_;  // OK - underscore at end.
-              string tablename_;   // OK.
-              static Pool<TableInfo>* pool_;  // OK.
+              string table_name_;  // 可 - 尾后加下划线。
+              string tablename_;   // 可。
+              static Pool<TableInfo>* pool_;  // 可。
             };
 
 结构体变量:

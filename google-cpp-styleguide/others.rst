@@ -156,7 +156,7 @@
 
     - 还有更常见的，异常会彻底扰乱程序的执行流程并难以判断，函数也许会在您意料不到的地方返回。您或许会加一大堆何时何处处理异常的规定来降低风险，然而开发者的记忆负担更重了。
 
-    - Exception safety requires both RAII and different coding practices. Lots of supporting machinery is needed to make writing correct exception-safe code easy. Further, to avoid requiring readers to understand the entire call graph, exception-safe code must isolate logic that writes to persistent state into a "commit" phase. This will have both benefits and costs (perhaps where you're forced to obfuscate code to isolate the commit). Allowing exceptions would force us to always pay those costs even when they're not worth it.
+    - Exception safety requires both RAII and different coding practices. Lots of supporting machinery is needed to make writing correct exception-safe code easy. Further, to avoid requiring readers to understand the entire call graph, exception-safe code must isolate logic that writes to persistent state into a "commit" phase. This will have both benefits and costs (perhaps where you're forced to obfuscate code to isolate the commit). Allowing exceptions would force us to always pay those costs even when they're not worth it. TODO
 
     - 启用异常会增加二进制文件数据，延长编译时间（或许影响小），还可能加大地址空间的压力。
 
@@ -267,8 +267,8 @@
 
         .. code-block:: c++
 
-            cout << this;   // Prints the address
-            cout << *this;  // Prints the contents
+            cout << this;   // 输出地址
+            cout << *this;  // 输出值
 
     由于 ``<<`` 被重载, 编译器不会报错. 就因为这一点我们反对使用操作符重载.
 
@@ -543,8 +543,8 @@
 
         vector<string> v;
         ...
-        auto s1 = v[0];  // Makes a copy of v[0].
-        const auto& s2 = v[0];  // s2 is a reference to v[0].
+        auto s1 = v[0];  // 创建一份 v[0] 的拷贝。
+        const auto& s2 = v[0];  // s2 是 v[0] 的一个引用。
 
 优点：
 
@@ -586,8 +586,8 @@
 
     .. code-block:: c++
 
-        auto x(3);  // Note: parentheses.
-        auto y{3};  // Note: curly braces.
+        auto x(3);  // 圆括号。
+        auto y{3};  // 大括号。
 
     它们不是同一回事——``x`` 是 ``int``, ``y`` 则是 ``std::initializer_list<int>``. 其它一般不可见的代理类型（acgtyrant 注：normally-invisible proxy types, 它涉及到 C++ 鲜为人知的坑：`Why is vector<bool> not a STL container? <http://stackoverflow.com/a/17794965/1546088>`_）也有大同小异的陷阱。
 
@@ -618,26 +618,26 @@
 
     .. code-block:: c++
 
-        // Vector takes a braced-init-list of elements.
+        // Vector 接收了一个初始化列表。
         vector<string> v{"foo", "bar"};
 
-        // Basically the same, ignoring some small technicalities.
-        // You may choose to use either form.
+        // 不考虑细节上的微妙差别，大致上相同。
+        // 您可以任选其一。
         vector<string> v = {"foo", "bar"};
 
-        // Usable with 'new' expressions.
+        // 可以配合 new 一起用。
         auto p = new vector<string>{"foo", "bar"};
 
-        // A map can take a list of pairs. Nested braced-init-lists work.
+        // map 接收了一些 pair, 列表初始化大显神威。
         map<int, string> m = {{1, "one"}, {2, "2"}};
 
-        // A braced-init-list can be implicitly converted to a return type.
+        // 初始化列表也可以用在返回类型上的隐式转换。
         vector<int> test_function() { return {1, 2, 3}; }
 
-        // Iterate over a braced-init-list.
+        // 初始化列表可迭代。
         for (int i : {-1, -2, -3}) {}
 
-        // Call a function using a braced-init-list.
+        // 在函数调用里用列表初始化。
         void TestFunction2(vector<int> v) {}
         TestFunction2({1, 2, 3});
 
@@ -647,8 +647,8 @@
 
         class MyType {
          public:
-          // std::initializer_list references the underlying init list.
-          // It should be passed by value.
+          // std::initializer_list 专门接收 init 列表。
+          // 得以值传递。
           MyType(std::initializer_list<int> init_list) {
             for (int i : init_list) append(i);
           }
@@ -664,15 +664,15 @@
     .. code-block:: c++
 
         double d{1.23};
-        // Calls ordinary constructor as long as MyOtherType has no
-        // std::initializer_list constructor.
+        // MyOtherType 没有 std::initializer_list 构造函数，
+         // 直接上接收常规类型的构造函数。
         class MyOtherType {
          public:
           explicit MyOtherType(string);
           MyOtherType(int, string);
         };
         MyOtherType m = {1, "b"};
-        // If the constructor is explicit, you can't use the "= {}" form.
+        // 不过如果构造函数是显式的（explict），您就不能用 `= {}` 了。
         MyOtherType m{"b"};
 
     千万别直接列表初始化 auto 变量，看下一句，估计没人看得懂：
@@ -680,11 +680,11 @@
     .. warning::
         .. code-block:: c++
 
-            auto d = {1.23};        // d is a std::initializer_list<double>
+            auto d = {1.23};        // d 即是 std::initializer_list<double>
 
     .. code-block:: c++
 
-        auto d = double{1.23};  // Good -- d is a double, not a std::initializer_list.
+        auto d = double{1.23};  // 善哉 -- d 即为 double, 并非 std::initializer_list.
 
     至于格式化，参见 :ref:`braced-initializer-list-format`.
 
