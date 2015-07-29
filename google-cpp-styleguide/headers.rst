@@ -13,6 +13,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
+
     头文件应该能够自给自足（self-contained），以 ``in.h`` 结尾。至于用来插入文本的文件，说到底它们并不是头文件，所以应以 ``.inc`` 结尾。
 
 所有头文件要能够自给自足。换言之，用户和重构工具不需要为特别场合而包含额外的头文件。详言之，一个头文件要有 :ref:`define-guard`，统统包含它所需要的其它头文件，也不要求定义任何特别 symbols.
@@ -29,6 +30,7 @@ As an exception, a function template that is explicitly instantiated for all rel
 ~~~~~~~~~~~~~~~~
 
 .. tip::
+
     所有头文件都应该使用 ``#define`` 防止头文件被多重包含, 命名格式当是: ``<PROJECT>_<PATH>_<FILE>_H_``
 
 为保证唯一性, 头文件的命名应该依据所在项目源代码树的全路径. 例如, 项目 ``foo`` 中的头文件 ``foo/src/bar/baz.h`` 可按如下方式保护:
@@ -46,6 +48,7 @@ As an exception, a function template that is explicitly instantiated for all rel
 ~~~~~~~~~~~
 
 .. tip::
+
     您可以靠前置声明来避免多余的 ``#includes``.
 
 定义：
@@ -82,6 +85,7 @@ As an exception, a function template that is explicitly instantiated for all rel
 ~~~~~~~~~~~
 
 .. tip::
+
     只有当函数只有 10 行甚至更少时才将其定义为内联函数.
 
 定义:
@@ -108,6 +112,7 @@ As an exception, a function template that is explicitly instantiated for all rel
 ~~~~~~~~~~~~~~~~
 
 .. tip::
+
     定义函数时, 参数顺序依次为: 输入参数, 然后是输出参数.
 
 C/C++ 函数参数分为输入参数, 输出参数, 和输入/输出参数三种. 输入参数一般传值或传 ``const`` 引用, 输出参数或输入/输出参数则是非-``const`` 指针. 对参数排序时, 将只输入的参数放在所有输出参数之前. 尤其是不要仅仅因为是新加的参数, 就把它放在最后; 即使是新加的只输入参数也要放在输出参数之前.

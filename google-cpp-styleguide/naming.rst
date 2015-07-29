@@ -9,6 +9,7 @@
 ~~~~~~~~~~~~~~
 
 .. tip::
+
     函数命名，变量命名，文件命名要有描述性；少用缩写。
 
     尽可能给有描述性的命名，别心疼空间，毕竟让代码易于新读者理解很重要。不要用只有项目开发者能理解的缩写，也不要通过砍掉几个字母来缩写单词。
@@ -34,6 +35,7 @@
 ~~~~~~~~~~~
 
 .. tip::
+
     文件名要全部小写, 可以包含下划线 (``_``) 或连字符 (``-``). 按项目约定来. 如果并没有项目约定，"_" 更好。
 
     可接受的文件命名::
@@ -55,9 +57,11 @@
 ~~~~~~~~~~~
 
 .. tip::
+
     类型名称的每个单词首字母均大写, 不包含下划线: ``MyExcitingClass``, ``MyExcitingEnum``.
 
 所有类型命名 —— 类, 结构体, 类型定义 (``typedef``), 枚举 —— 均使用相同约定. 例如:
+
     .. code-block:: c++
 
         // classes and structs
@@ -75,6 +79,7 @@
 ~~~~~~~~~~~
 
 .. tip::
+
     变量名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾, 但结构体的就不用，如:: ``a_local_variable``, ``a_struct_data_member``, ``a_class_data_member_``.
 
 普通变量命名:
@@ -126,6 +131,7 @@
 ~~~~~~~~~~~
 
 .. tip::
+
     在全局或类里的常量名称前加 ``k``: kDaysInAWeek. 且除去开头的 ``k`` 之外每个单词开头字母均大写。
 
     所有编译时常量, 无论是局部的, 全局的还是类中的, 和其他变量稍微区别一下. ``k`` 后接大写字母开头的单词:
@@ -136,13 +142,13 @@
 
     这规则适用于编译时的局部作用域常量，不过要按变量规则来命名也可以。
 
-
 .. _function-names:
 
 6.6. 函数命名
 ~~~~~~~~~~~
 
 .. tip::
+
     常规函数使用大小写混合, 取值和设值函数则要求与变量名匹配: ``MyExcitingFunction()``, ``MyExcitingMethod()``, ``my_exciting_member_variable()``, ``set_my_exciting_member_variable()``.
 
 常规函数:
@@ -179,6 +185,7 @@
 ~~~~~~~~~~~~~~
 
 .. tip::
+
     名字空间用小写字母命名, 并基于项目名称和目录结构: ``google_awesome_project``.
 
 关于名字空间的讨论和如何命名, 参考 :ref:`名字空间 <namespaces>` 一节.
@@ -187,6 +194,7 @@
 ~~~~~~~~~~~
 
 .. tip::
+
     枚举的命名应当和 :ref:`常量 <constant-names>` 或 :ref:`宏 <macro-names>` 一致: ``kEnumName`` 或是 ``ENUM_NAME``.
 
 单独的枚举值应该优先采用 :ref:`常量 <constant-names>` 的命名方式. 但 :ref:`宏 <macro-names>` 方式的命名也可以接受. 枚举名 ``UrlTableErrors`` (以及 ``AlternateUrlTableErrors``) 是类型, 所以要用大小写混合的方式.
@@ -211,6 +219,7 @@
 ~~~~~~~~~
 
 .. tip::
+
     你并不打算:ref:`使用宏 <preprocessor-macros>`, 对吧? 如果你一定要用, 像这样命名: ``MY_MACRO_THAT_SCARES_SMALL_CHILDREN``.
 
 参考:ref:`预处理宏 <preprocessor-macros>`; 通常 *不应该* 使用宏. 如果不得不用, 其命名像枚举命名一样全部大写, 使用下划线::
@@ -222,20 +231,26 @@
 ~~~~~~~~~~~~~~~~~
 
 .. tip::
+
     如果你命名的实体与已有 C/C++ 实体相似, 可参考现有命名策略.
 
 ``bigopen()``:
+
     函数名, 参照 ``open()`` 的形式
 
 ``uint``:
+
     ``typedef``
 
 ``bigpos``:
+
     ``struct`` 或 ``class``, 参照 ``pos`` 的形式
 
 ``sparse_hash_map``:
+
     STL 相似实体; 参照 STL 命名约定
 
 ``LONGLONG_MAX``:
+
     常量, 如同 ``INT_MAX``
 
