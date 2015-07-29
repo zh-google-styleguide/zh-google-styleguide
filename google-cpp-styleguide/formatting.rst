@@ -805,9 +805,9 @@
 译者（acgtyrant）笔记
 ~~~~~~~~~~~~~~~~~~~
 
-# 80 行限制事实上有助于避免代码可读性失控，比如超多重嵌套块，超多重函数调用等等。
-# Linux 上设置好了 Locale 就几乎一劳永逸设置好所有开发环境的编码，不像奇葩的 Windows.
-# Google 强调有一对 if-else 时，不论有没有嵌套，都要有大括号。Apple 正好`有栽过跟头 <http://coolshell.cn/articles/11112.html>`_.
-# 其实我主张指针／地址操作符与变量名紧邻，``int* a, b`` vs ``int *a, b``, 新手会误以为前者的 ``b`` 是 ``int *`` 变量，但后者就不一样了，高下立判。
-# 在这风格指南里我才刚知道 C++ 原来还有所谓的 `Alternative operator representations <http://en.cppreference.com/w/cpp/language/operator_alternative>`_, 大概没人用吧。
-# 事实上，如果您熟悉英语本身的书写规则，就会发现该风格指南在格式上的规定与英语语法相当一脉相承。比如普通标点符号和单词后面还有文本的话，总会留一个空格；特殊符号与单词之间就不用留了，比如 ``if (true)`` 中的圆括号与 ``true``.
+#. 80 行限制事实上有助于避免代码可读性失控，比如超多重嵌套块，超多重函数调用等等。
+#. Linux 上设置好了 Locale 就几乎一劳永逸设置好所有开发环境的编码，不像奇葩的 Windows.
+#. Google 强调有一对 if-else 时，不论有没有嵌套，都要有大括号。Apple 正好`有栽过跟头 <http://coolshell.cn/articles/11112.html>`_.
+#. 其实我主张指针／地址操作符与变量名紧邻，``int* a, b`` vs ``int *a, b``, 新手会误以为前者的 ``b`` 是 ``int *`` 变量，但后者就不一样了，高下立判。
+#. 在这风格指南里我才刚知道 C++ 原来还有所谓的 `Alternative operator representations <http://en.cppreference.com/w/cpp/language/operator_alternative>`_, 大概没人用吧。
+#. 事实上，如果您熟悉英语本身的书写规则，就会发现该风格指南在格式上的规定与英语语法相当一脉相承。比如普通标点符号和单词后面还有文本的话，总会留一个空格；特殊符号与单词之间就不用留了，比如 ``if (true)`` 中的圆括号与 ``true``.
