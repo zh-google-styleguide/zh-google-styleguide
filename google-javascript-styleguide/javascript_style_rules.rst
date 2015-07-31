@@ -4,7 +4,7 @@ Javascript格式规则
 命名
 --------------
 
-通常来说，使用 ``functionNamesLikeThis`` ， ``variableNamesLikeThis`` ， ``ClassNamesLikeThis`` ， ``EnumNamesLikeThis`` ， ``methodNamesLikeThis`` ， ``CONSTANT_VALUES_LIKE_THIS`` ， ``foo.namespaceNamesLikeThis.bar`` 和 ``ilenameslikethis.js`` 这种格式的命名方式。
+通常来说，使用 ``functionNamesLikeThis`` ， ``variableNamesLikeThis`` ， ``ClassNamesLikeThis`` ， ``EnumNamesLikeThis`` ， ``methodNamesLikeThis`` ， ``CONSTANT_VALUES_LIKE_THIS`` ， ``foo.namespaceNamesLikeThis.bar`` 和 ``filenameslikethis.js`` 这种格式的命名方式。
 
 属性和方法
 ~~~~~~~~~~~~~~
