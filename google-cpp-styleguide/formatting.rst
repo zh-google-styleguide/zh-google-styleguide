@@ -811,3 +811,4 @@
 #. 其实我主张指针／地址操作符与变量名紧邻，``int* a, b`` vs ``int *a, b``, 新手会误以为前者的 ``b`` 是 ``int *`` 变量，但后者就不一样了，高下立判。
 #. 在这风格指南里我才刚知道 C++ 原来还有所谓的 `Alternative operator representations <http://en.cppreference.com/w/cpp/language/operator_alternative>`_, 大概没人用吧。
 #. 事实上，如果您熟悉英语本身的书写规则，就会发现该风格指南在格式上的规定与英语语法相当一脉相承。比如普通标点符号和单词后面还有文本的话，总会留一个空格；特殊符号与单词之间就不用留了，比如 ``if (true)`` 中的圆括号与 ``true``.
+#. 本风格指南没有明确规定 void 函数里要不要用 return 语句，不过就 Google 开源项目 leveldb 并没有写；此外从 `Is a blank return statement at the end of a function whos return type is void necessary? <http://stackoverflow.com/questions/9316717/is-a-blank-return-statement-at-the-end-of-a-function-whos-return-type-is-void-ne>`_ 来看，``return;`` 比 ``return ;`` 更约定俗成（事实上 cpplint 会对后者报错，指出分号前有多余的空格），且可用来提前跳出函数栈。
