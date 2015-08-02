@@ -798,9 +798,9 @@
 
     以下库可以用，但由于如今已经被 C++ 11 标准库取代，不再鼓励：
 
-        - `Pointer Container <http://www.boost.org/libs/ptr_container/>`_ : ``boost/ptr_container``, 改用 `std::array <http://en.cppreference.com/w/cpp/container/array>`_
+        - `Pointer Container <http://www.boost.org/libs/ptr_container/>`_ : ``boost/ptr_container``, 改用 `std::unique_ptr <http://en.cppreference.com/w/cpp/memory/unique_ptr>`_
 
-        - `Array <http://www.boost.org/libs/array/>`_ : ``boost/array.hpp``, 改用 `std::unique_ptr <http://en.cppreference.com/w/cpp/memory/unique_ptr>`_
+        - `Array <http://www.boost.org/libs/array/>`_ : ``boost/array.hpp``, 改用 `std::array <http://en.cppreference.com/w/cpp/container/array>`_
 
 5.24. C++11
 ~~~~~~~~~~~
