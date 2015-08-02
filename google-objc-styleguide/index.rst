@@ -15,7 +15,7 @@ Google Objective-C Style Guide 中文版
     .. line-block::
 
         `ewangke <http://ke.indiebros.com/>`_
-        `brantyoung <http://yangyubo.com>`_
+        `Yang.Y <https://github.com/yangyubo>`_
 
 :项目主页:
     - `Google Style Guide <http://google-styleguide.googlecode.com>`_
@@ -30,7 +30,7 @@ ewanke
 
 一直想翻译这个 `style guide <http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml>`_ ，终于在周末花了7个小时的时间用vim敲出了HTML。很多术语的翻译很难，平时看的中文技术类书籍有限，对很多术语的中文译法不是很清楚，难免有不恰当之处，请读者指出并帮我改进：王轲 ”ewangke at gmail.com” 2011.03.27
 
-brantyoung
+Yang.Y
 ^^^^^^^^^^^^
 
 对 Objective-C 的了解有限，凭着感觉和 C/C++ 方面的理解：

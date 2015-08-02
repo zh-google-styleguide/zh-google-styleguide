@@ -33,4 +33,4 @@ Google 开源项目风格指南 (中文版)
 
 * 英文版项目还包含 `cpplint <http://google-styleguide.googlecode.com/svn/trunk/cpplint>`_ - 一个用来帮助适应风格准则的工具, 以及 `google-c-style.el <http://google-styleguide.googlecode.com/svn/trunk/google-c-style.el>`_, Google 风格的 Emacs 配置文件.
 
-* 另外, 招募自愿者翻译 `JavaScript Style Guide <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml>`_ 以及 `XML Document Format Style Guide <http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html>`_, 有意者请联系 `brantyoung <http://yangyubo.com>`_.
+* 另外, 招募自愿者翻译 `JavaScript Style Guide <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml>`_ 以及 `XML Document Format Style Guide <http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html>`_, 有意者请联系 `Yang.Y <https://github.com/yangyubo>`_.
