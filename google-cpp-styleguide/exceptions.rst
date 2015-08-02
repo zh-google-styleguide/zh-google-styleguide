@@ -29,7 +29,7 @@
 
     - 使用 Microsoft Visual C++ 进行编译时, 将警告级别设置为 3 或更高, 并将所有 warnings 当作 errors 处理.
 
-    - 不要使用 ``#pragma once``; 而应该使用 Google 的头文件保护规则. 头文件保护的路径应该相对于项目根目录 (yospaly 注: 如 ``#ifndef SRC_DIR_BAR_H_``, 参考 :ref:`#define 保护 <define_guard>` 一节).
+    - 不要使用 ``#pragma once``; 而应该使用 Google 的头文件保护规则. 头文件保护的路径应该相对于项目根目录 (Yang.Y 注: 如 ``#ifndef SRC_DIR_BAR_H_``, 参考 :ref:`#define 保护 <define_guard>` 一节).
 
     - 除非万不得已, 不要使用任何非标准的扩展, 如 ``#pragma`` 和 ``__declspec``. 允许使用 ``__declspec(dllimport)`` 和 ``__declspec(dllexport)``; 但你必须通过宏来使用, 比如 ``DLLIMPORT`` 和 ``DLLEXPORT``, 这样其他人在分享使用这些代码时很容易就去掉这些扩展.
 
