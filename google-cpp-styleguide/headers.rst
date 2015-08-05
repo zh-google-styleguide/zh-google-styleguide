@@ -53,7 +53,7 @@ As an exception, a function template that is explicitly instantiated for all rel
 
 定义：
 
-	所谓「前向声明」（forward declaration）是类，函数和模板的纯粹声明，没伴随着其定义。代码中用到了哪些 symbols, 往往可以用其前向声明来代替对应的 ``#inclues``.
+	所谓「前向声明」（forward declaration）是类，函数和模板的纯粹声明，没伴随着其定义。代码中用到了哪些 symbols, 往往可以用其前向声明来代替对应的 ``#includes``.
 
 优点：
 
