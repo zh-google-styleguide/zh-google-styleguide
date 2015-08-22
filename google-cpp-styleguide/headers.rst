@@ -22,7 +22,7 @@
 
 如果 ``.h`` 文件声明了一个模板或内联函数，同时也在该文件加以定义。凡是有用到这些的 ``.cc`` 文件，就得统统包含该头文件，否则程序可能会在构建中链接失败。现在不要把这些定义放到分离的 -inl.h 文件里了（译者注：过去该规范曾提倡把定义放到 -inl.h 里过）。
 
-As an exception, a function template that is explicitly instantiated for all relevant sets of template arguments, or that is a private member of a class, may be defined in the only .cc file that instantiates the template. TODO
+有个例外：如果某函数模板为所有相关模板参数显式实例化，或是某类的私有成员，那么就只能定义在实例化该模板的 ``.cc`` 文件里。
 
 .. _define-guard:
 
