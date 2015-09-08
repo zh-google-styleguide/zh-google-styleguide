@@ -20,6 +20,7 @@
         `YuleFox <http://www.yulefox.com>`_
         `Yang.Y <https://github.com/yangyubo>`_
         `acgtyrant <http://acgtyrant.com>`_
+        `lilinsanity <http://github.com/lilinsanity>`_
 
 :项目主页:
 
