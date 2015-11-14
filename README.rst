@@ -9,7 +9,7 @@ Google 开源项目风格指南 (中文版)
 
     本项目并非 Google 官方项目, 而是由国内程序员凭热情创建和维护.
 
-    如果你关注的是 Google 官方英文版, 请移步 `Google Style Guide <http://code.google.com/p/google-styleguide/>`_
+    如果你关注的是 Google 官方英文版, 请移步 `Google Style Guide <https://github.com/google/styleguide>`_
 
 每个较大的开源项目都有自己的风格指南: 关于如何为该项目编写代码的一系列约定 (有时候会比较武断).
 当所有代码均保持一致的风格, 在理解大型代码库时更为轻松.
@@ -31,6 +31,6 @@ Google 开源项目风格指南 (中文版)
 
 中文版项目采用 reStructuredText 纯文本标记语法, 并使用 Sphinx 生成 HTML / CHM / PDF 等文档格式.
 
-* 英文版项目还包含 `cpplint <http://google-styleguide.googlecode.com/svn/trunk/cpplint>`_ - 一个用来帮助适应风格准则的工具, 以及 `google-c-style.el <http://google-styleguide.googlecode.com/svn/trunk/google-c-style.el>`_, Google 风格的 Emacs 配置文件.
+* 英文版项目还包含 `cpplint <https://github.com/google/styleguide/tree/gh-pages/cpplint>`_ - 一个用来帮助适应风格准则的工具, 以及 `google-c-style.el <https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el>`_, Google 风格的 Emacs 配置文件.
 
-* 另外, 招募自愿者翻译 `JavaScript Style Guide <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml>`_ 以及 `XML Document Format Style Guide <http://google-styleguide.googlecode.com/svn/trunk/xmlstyle.html>`_, 有意者请联系 `Yang.Y <https://github.com/yangyubo>`_.
+* 另外, 招募自愿者翻译 `JavaScript Style Guide <http://google.github.io/styleguide/javascriptguide.xml>`_ 以及 `XML Document Format Style Guide <http://google.github.io/styleguide/xmlstyle.html>`_, 有意者请联系 `Yang.Y <https://github.com/yangyubo>`_.
