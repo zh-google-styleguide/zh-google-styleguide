@@ -21,7 +21,7 @@ Google Python 风格指南 - 中文版
         `xuxinkun <https://github.com/xuxinkun>`_ v2.59
 
 :项目主页:
-    - `Google Style Guide <http://google-styleguide.googlecode.com>`_
+    - `Google Style Guide <https://github.com/google/styleguide>`_
     - `Google 开源项目风格指南 - 中文版 <http://github.com/zh-google-styleguide/zh-google-styleguide>`_
 
 目录
