@@ -28,6 +28,8 @@ Google 开源项目风格指南 (中文版)
 
 #. `Google JSON 风格指南 <https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md>`_
 
+#. `Google Shell 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
+
 
 中文版项目采用 reStructuredText 纯文本标记语法, 并使用 Sphinx 生成 HTML / CHM / PDF 等文档格式.
 
