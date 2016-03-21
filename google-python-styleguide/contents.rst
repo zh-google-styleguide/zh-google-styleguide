@@ -7,4 +7,8 @@ Python 风格指南 - 内容目录
 
 .. toctree::
 
-   index
+    index
+    background
+    python_language_rules
+    python_style_rules
+    parting_words
