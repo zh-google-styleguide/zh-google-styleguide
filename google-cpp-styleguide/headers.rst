@@ -66,16 +66,19 @@
 	* 前置声明可能会被库的后续更改所破坏。前置声明函数或模板有时会妨碍头文件开发者变动其 API. 例如扩大形参类型，加个自带默认参数的模板形参等等。
 	* 前置声明来自命名空间 ``std::`` 的 symbol 时，其行为未定义。
 	* 很难判断什么时候该用前置声明，什么时候该用 ``#include`` 。极端情况下，用前置声明代替 ``includes`` 甚至都会暗暗地改变代码的含义：
-	.. code-block:: c++
-		// b.h:
-		struct B {};
-		struct D : B {}
+	
+		.. code-block:: c++
 		
-		// good_user.cc:
-		#include "b.h"
-		void f(B*);
-		void f(void*);
-		void test(D* x) { f(x); }  // calls f(B*)
+			// b.h:
+			struct B {};
+			struct D : B {}
+		
+			// good_user.cc:
+			#include "b.h"
+			void f(B*);
+			void f(void*);
+			void test(D* x) { f(x); }  // calls f(B*)
+		
 	如果 ``#include`` 被 ``B`` 和 ``D`` 的前置声明替代， ``test()`` 就会调用 ``f(void*)`` .
 	* 前置声明了不少来自头文件的 symbol 时，就会比单单一行的 ``include`` 冗长。
 	* 仅仅为了能前置声明而重构代码（比如用指针成员代替对象成员）会使代码变得更慢更复杂.
