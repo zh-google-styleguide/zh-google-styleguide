@@ -360,7 +360,7 @@ Shebang
         # in the array and the array size and then do binary search to
         # get the exact number.
 
-        if i & (i-1) == 0:        # true iff i is a power of 2
+        if i & (i-1) == 0:        # true if i is a power of 2
 
     为了提高可读性, 注释应该至少离开代码2个空格. 
 
@@ -404,7 +404,7 @@ Shebang
             class InnerClass:
                 pass
 
-继承自 ``object`` 是为了使属性(properties)正常工作, 并且这样可以保护你的代码, 使其不受Python 3000的一个特殊的潜在不兼容性影响. 这样做也定义了一些特殊的方法, 这些方法实现了对象的默认语义, 包括 ``__new__, __init__, __delattr__, __getattribute__, __setattr__, __hash__, __repr__, and __str__`` .
+继承自 ``object`` 是为了使属性(properties)正常工作, 并且这样可以保护你的代码, 使其不受 `PEP-3000 <http://www.python.org/dev/peps/pep-3000/>`_ 的一个特殊的潜在不兼容性影响. 这样做也定义了一些特殊的方法, 这些方法实现了对象的默认语义, 包括 ``__new__, __init__, __delattr__, __getattribute__, __setattr__, __hash__, __repr__, and __str__`` .
 
 字符串
 --------------------
