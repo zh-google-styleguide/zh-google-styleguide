@@ -257,4 +257,4 @@
 译者（acgtyrant）笔记
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. 感觉 Google 的命名约定很高明，比如写了简单的类 QueryResult, 接着又可以直接定义一个变量 query_result, 区分度很好；再次，类内变量以下划线结尾，那么就可以直接传入同名的形参，比如 TextQuery::TextQuery(std::string word) : word_(word) {}, 其中 ``word_`` 自然是类内私有成员。
+#. 感觉 Google 的命名约定很高明，比如写了简单的类 QueryResult, 接着又可以直接定义一个变量 query_result, 区分度很好；再次，类内变量以下划线结尾，那么就可以直接传入同名的形参，比如``TextQuery::TextQuery(std::string word) : word_(word) {}``, 其中 ``word_`` 自然是类内私有成员。
