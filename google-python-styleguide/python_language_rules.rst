@@ -64,7 +64,7 @@ Lint
     
     使用 ``from x import y`` , 其中x是包前缀, y是不带前缀的模块名.
     
-    使用 ``from x import y as z``, 如果两个要导入的模块都叫做z或者y太长了.
+    使用 ``from x import y as z``, 如果两个要导入的模块都叫做y或者y太长了.
     
     例如, 模块 ``sound.effects.echo`` 可以用如下方式导入:
     
