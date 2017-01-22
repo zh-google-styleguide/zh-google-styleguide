@@ -177,8 +177,7 @@
 
     - 有些第三方 C++ 库依赖异常，禁用异常就不好用了。
 
-    - 异常是处理构造函数失败的唯一途径。虽然可以用工厂函数（acgtyrant 注：factory function, 出自 C++ 的一种设计模式，即「简单工厂模式」）或 ``Init()`` 方法代替异常, but these require heap allocation or a new "invalid" state, respectively.
-
+    - 异常是处理构造函数失败的唯一途径。虽然可以用工厂函数（acgtyrant 注：factory function, 出自 C++ 的一种设计模式，即「简单工厂模式」）或 ``Init()`` 方法代替异常, 但是这些需要分别在堆上分配空间或者一个新"invalid"的状态。
     - 在测试框架里很好用。
 
 缺点:
