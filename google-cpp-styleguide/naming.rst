@@ -45,7 +45,7 @@
         * myusefulclass.cc
         * muusefulclass_test.cc // ``_unittest`` 和 ``_regtest`` 已弃用。
 
-    C++ 文件要以 ``.cc`` 结尾, 头文件以 ``.h`` 结尾. 专门插入文本的文件则以 ``.inc`` 结尾，参见:ref:`self-contained headers`。
+    C++ 文件要以 ``.cc`` 结尾, 头文件以 ``.h`` 结尾. 专门插入文本的文件则以 ``.inc`` 结尾，参见 :ref:`self-contained headers`。
 
     不要使用已经存在于 ``/usr/include`` 下的文件名 (Yang.Y 注: 即编译器搜索系统头文件的路径), 如 ``db.h``.
 
@@ -220,9 +220,9 @@
 
 .. tip::
 
-    你并不打算:ref:`使用宏 <preprocessor-macros>`, 对吧? 如果你一定要用, 像这样命名: ``MY_MACRO_THAT_SCARES_SMALL_CHILDREN``.
+    你并不打算 :ref:`使用宏 <preprocessor-macros>`, 对吧? 如果你一定要用, 像这样命名: ``MY_MACRO_THAT_SCARES_SMALL_CHILDREN``.
 
-参考:ref:`预处理宏 <preprocessor-macros>`; 通常 *不应该* 使用宏. 如果不得不用, 其命名像枚举命名一样全部大写, 使用下划线::
+参考 :ref:`预处理宏 <preprocessor-macros>`; 通常 *不应该* 使用宏. 如果不得不用, 其命名像枚举命名一样全部大写, 使用下划线::
 
     #define ROUND(x) ...
     #define PI_ROUNDED 3.0

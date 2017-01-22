@@ -427,11 +427,11 @@
 
 缺点:
 
-    若过早把变量优化成 constexpr 变量，将来又要把它改为常规变量时，挺麻烦的；Current restrictions on what is allowed in constexpr functions and constructors may invite obscure workarounds in these definitions.
+    若过早把变量优化成 constexpr 变量，将来又要把它改为常规变量时，挺麻烦的；当前对constexpr函数和构造函数中允许的限制可能会导致这些定义中解决的方法模糊。
 
 结论:
 
-    靠 constexpr 特性，方才实现了 C++ 在接口上打造真正常量机制的可能。好好用 constexpr 来定义真・常量以及支持常量的函数。Avoid complexifying function definitions to enable their use with constexpr. 千万别痴心妄想地想靠 constexpr 来强制代码「内联」。
+    靠 constexpr 特性，方才实现了 C++ 在接口上打造真正常量机制的可能。好好用 constexpr 来定义真・常量以及支持常量的函数。避免复杂的函数定义，以使其能够与constexpr一起使用。 千万别痴心妄想地想靠 constexpr 来强制代码「内联」。
 
 5.14. 整型
 ~~~~~~~~~~~~~~~~~~
@@ -865,7 +865,7 @@
 
 定义：
 
-    C++11 有众多语言和库上的`变革 <https://en.wikipedia.org/wiki/C%2B%2B11>`_。
+    C++11 有众多语言和库上的`变革 <https://en.wikipedia.org/wiki/C%2B%2B11>`_ 。
 
 优点：
 
@@ -883,7 +883,7 @@
 
     - 尾置返回类型，比如用 ``auto foo() -> int`` 代替 ``int foo()``. 为了兼容于现有代码的声明风格。
     - 编译时合数 ``<ratio>``, 因为它涉及一个重模板的接口风格。
-    - ``<cfenv>`` 和 ``<fenv.h>` 头文件，因为编译器尚不支持。
+    - ``<cfenv>`` 和 ``<fenv.h>`` 头文件，因为编译器尚不支持。
     - 默认 lambda 捕获。
 
 译者（acgtyrant）笔记
@@ -894,7 +894,7 @@
 #. 我还发现 `滥用缺省参数会害得读者光只看调用代码的话，会误以为其函数接受的参数数量比实际上还要少。 <http://www.zhihu.com/question/24439516/answer/27896004>`_
 #. ``friend`` 实际上只对函数／类赋予了对其所在类的访问权限，并不是有效的声明语句。所以除了在头文件类内部写 friend 函数／类，还要在类作用域之外正式地声明一遍，最后在对应的 ``.cc`` 文件加以定义。
 #. 本风格指南都强调了「友元应该定义在同一文件内，避免代码读者跑到其它文件查找使用该私有成员的类」。那么可以把其声明放在类声明所在的头文件，定义也放在类定义所在的文件。
-#. 由于友元函数／类并不是类的一部分，自然也不会是类可调用的公有接口，于是我主张全集中放在类的尾部，即 :ref:`private 的数据成员 <declaration-order>`_ 之后。
+#. 由于友元函数／类并不是类的一部分，自然也不会是类可调用的公有接口，于是我主张全集中放在类的尾部，即的数据成员之后，参考 :ref:`声明顺序 <declaration-order>` 。
 #. `对使用 C++ 异常处理应具有怎样的态度？ <http://www.zhihu.com/question/22889420>`_ 非常值得一读。
 #. 注意初始化 const 对象时，必须在初始化的同时值初始化。
 #. 用断言代替无符号整型类型，深有启发。
