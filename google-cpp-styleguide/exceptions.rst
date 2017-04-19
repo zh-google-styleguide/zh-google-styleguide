@@ -27,23 +27,23 @@ Windows 程序员有自己的编程习惯, 主要源于 Windows 头文件和其�
 
 如果你习惯使用 Windows 编码风格, 这儿有必要重申一下某些你可能会忘记的指南:
 
-    - 不要使用匈牙利命名法 (比如把整型变量命名成 ``iNum``). 使用 Google 命名约定, 包括对源文件使用 ``.cc`` 扩展名.
+- 不要使用匈牙利命名法 (比如把整型变量命名成 ``iNum``). 使用 Google 命名约定, 包括对源文件使用 ``.cc`` 扩展名.
 
-    - Windows 定义了很多原生类型的同义词 (YuleFox 注: 这一点, 我也很反感), 如 ``DWORD``, ``HANDLE`` 等等. 在调用 Windows API 时这是完全可以接受甚至鼓励的. 即使如此, 还是尽量使用原有的 C++ 类型, 例如使用 ``const TCHAR *`` 而不是 ``LPCTSTR``.
+- Windows 定义了很多原生类型的同义词 (YuleFox 注: 这一点, 我也很反感), 如 ``DWORD``, ``HANDLE`` 等等. 在调用 Windows API 时这是完全可以接受甚至鼓励的. 即使如此, 还是尽量使用原有的 C++ 类型, 例如使用 ``const TCHAR *`` 而不是 ``LPCTSTR``.
 
-    - 使用 Microsoft Visual C++ 进行编译时, 将警告级别设置为 3 或更高, 并将所有警告(warnings)当作错误(errors)处理.
+- 使用 Microsoft Visual C++ 进行编译时, 将警告级别设置为 3 或更高, 并将所有警告(warnings)当作错误(errors)处理.
 
-    - 不要使用 ``#pragma once``; 而应该使用 Google 的头文件保护规则. 头文件保护的路径应该相对于项目根目录 (Yang.Y 注: 如 ``#ifndef SRC_DIR_BAR_H_``, 参考 :ref:`#define 保护 <define-guard>` 一节).
+- 不要使用 ``#pragma once``; 而应该使用 Google 的头文件保护规则. 头文件保护的路径应该相对于项目根目录 (Yang.Y 注: 如 ``#ifndef SRC_DIR_BAR_H_``, 参考 :ref:`#define 保护 <define-guard>` 一节).
 
-    - 除非万不得已, 不要使用任何非标准的扩展, 如 ``#pragma`` 和 ``__declspec``. 使用 ``__declspec(dllimport)`` 和 ``__declspec(dllexport)`` 是允许的, 但必须通过宏来使用, 比如 ``DLLIMPORT`` 和 ``DLLEXPORT``, 这样其他人在分享使用这些代码时可以很容易地禁用这些扩展.
+- 除非万不得已, 不要使用任何非标准的扩展, 如 ``#pragma`` 和 ``__declspec``. 使用 ``__declspec(dllimport)`` 和 ``__declspec(dllexport)`` 是允许的, 但必须通过宏来使用, 比如 ``DLLIMPORT`` 和 ``DLLEXPORT``, 这样其他人在分享使用这些代码时可以很容易地禁用这些扩展.
 
 然而, 在 Windows 上仍然有一些我们偶尔需要违反的规则:
 
-    - 通常我们 :ref:`禁止使用多重继承 <multiple-inheritance>`, 但在使用 COM 和 ATL/WTL 类时可以使用多重继承. 为了实现 COM 或 ATL/WTL 类/接口, 你可能不得不使用多重实现继承.
+- 通常我们 :ref:`禁止使用多重继承 <multiple-inheritance>`, 但在使用 COM 和 ATL/WTL 类时可以使用多重继承. 为了实现 COM 或 ATL/WTL 类/接口, 你可能不得不使用多重实现继承.
 
-    - 虽然代码中不应该使用异常, 但是在 ATL 和部分 STL（包括 Visual C++ 的 STL) 中异常被广泛使用. 使用 ATL 时, 应定义 ``_ATL_NO_EXCEPTIONS`` 以禁用异常. 你需要研究一下是否能够禁用 STL 的异常, 如果无法禁用, 可以启用编译器异常. (注意这只是为了编译 STL, 自己的代码里仍然不应当包含异常处理).
+- 虽然代码中不应该使用异常, 但是在 ATL 和部分 STL（包括 Visual C++ 的 STL) 中异常被广泛使用. 使用 ATL 时, 应定义 ``_ATL_NO_EXCEPTIONS`` 以禁用异常. 你需要研究一下是否能够禁用 STL 的异常, 如果无法禁用, 可以启用编译器异常. (注意这只是为了编译 STL, 自己的代码里仍然不应当包含异常处理).
 
-    - 通常为了利用头文件预编译, 每个每个源文件的开头都会包含一个名为 ``StdAfx.h`` 或 ``precompile.h`` 的文件. 为了使代码方便与其他项目共享, 请避免显式包含此文件 (除了在 ``precompile.cc`` 中), 使用 ``/FI`` 编译器选项以自动包含该文件.
+- 通常为了利用头文件预编译, 每个每个源文件的开头都会包含一个名为 ``StdAfx.h`` 或 ``precompile.h`` 的文件. 为了使代码方便与其他项目共享, 请避免显式包含此文件 (除了在 ``precompile.cc`` 中), 使用 ``/FI`` 编译器选项以自动包含该文件.
 
-    - 资源头文件通常命名为 ``resource.h`` 且只包含宏, 这一文件不需要遵守本风格指南.
+- 资源头文件通常命名为 ``resource.h`` 且只包含宏, 这一文件不需要遵守本风格指南.
 
