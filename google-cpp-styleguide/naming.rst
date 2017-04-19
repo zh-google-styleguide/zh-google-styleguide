@@ -100,7 +100,7 @@ C++ 文件要以 ``.cc`` 结尾, 头文件以 ``.h`` 结尾. 专门插入文本�
 
 **总述**
 
-变量(包括函数参数)和数据成员名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾, 但结构体的就不用, 如: ``a_local_variable``, ``a_struct_data_member``, ``a_class_data_member_``.
+变量 (包括函数参数) 和数据成员名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾, 但结构体的就不用, 如: ``a_local_variable``, ``a_struct_data_member``, ``a_class_data_member_``.
 
 **说明**
 
