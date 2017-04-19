@@ -7,7 +7,7 @@
 
 下面的规则将引导你规避使用头文件时的各种陷阱.
 
-.. _self-contained headers:
+.. _self-contained-headers:
 
 1.1. Self-contained 头文件
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
