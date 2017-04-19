@@ -671,7 +671,7 @@
 
     ``auto`` 还可以和 C++11 特性「尾置返回类型（trailing return type）」一起用，不过后者只能用在 lambda 表达式里。
 
-.. _braced_initializer_list:
+.. _braced-initializer-list:
 
 5.20. 列表初始化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

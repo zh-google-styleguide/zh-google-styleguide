@@ -267,551 +267,579 @@ Lambda 表达式对形参和函数体的格式化和其他函数一致; 捕获�
 9.7. 列表初始化格式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    您平时怎么格式化函数调用, 就怎么格式化 :ref:`braced_initializer_list`. 
+您平时怎么格式化函数调用, 就怎么格式化 :ref:`列表初始化 <braced-initializer-list>`.
 
-    如果列表初始化伴随着名字, 比如类型或变量名, 您可以当名字是函数、{} 是函数调用的括号来格式化它. 反之, 就当它有个长度为零的名字. 
+**说明**
 
-    .. code-block:: c++
+如果列表初始化伴随着名字, 比如类型或变量名, 格式化时将将名字视作函数调用名, `{}` 视作函数调用的括号. 如果没有名字, 就视作名字长度为零.
 
-        // 一行列表初始化示范. 
-        return {foo, bar};
-        functioncall({foo, bar});
-        pair<int, int> p{foo, bar};
+.. code-block:: c++
 
-        // 当不得不断行时. 
-        SomeFunction(
-            {"assume a zero-length name before {"},
-            some_other_function_parameter);
-        SomeType variable{
-            some, other, values,
-            {"assume a zero-length name before {"},
-            SomeOtherType{
-                "Very long string requiring the surrounding breaks.",
-                some, other values},
-            SomeOtherType{"Slightly shorter string",
-                          some, other, values}};
-        SomeType variable{
-            "This is too long to fit all in one line"};
-        MyType m = {  // 注意了, 您可以在 { 前断行. 
-            superlongvariablename1,
-            superlongvariablename2,
-            {short, interior, list},
-            {interiorwrappinglist,
-             interiorwrappinglist2}};
+    // 一行列表初始化示范.
+    return {foo, bar};
+    functioncall({foo, bar});
+    pair<int, int> p{foo, bar};
+
+    // 当不得不断行时.
+    SomeFunction(
+        {"assume a zero-length name before {"},  // 假设在 { 前有长度为零的名字.
+        some_other_function_parameter);
+    SomeType variable{
+        some, other, values,
+        {"assume a zero-length name before {"},  // 假设在 { 前有长度为零的名字.
+        SomeOtherType{
+            "Very long string requiring the surrounding breaks.",  // 非常长的字符串, 前后都需要断行.
+            some, other values},
+        SomeOtherType{"Slightly shorter string",  // 稍短的字符串.
+                      some, other, values}};
+    SomeType variable{
+        "This is too long to fit all in one line"};  // 字符串过长, 因此无法放在同一行.
+    MyType m = {  // 注意了, 您可以在 { 前断行.
+        superlongvariablename1,
+        superlongvariablename2,
+        {short, interior, list},
+        {interiorwrappinglist,
+         interiorwrappinglist2}};
 
 9.9. 条件语句
 ~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    倾向于不在圆括号内使用空格. 关键字 ``if`` 和 ``else`` 另起一行.
+倾向于不在圆括号内使用空格. 关键字 ``if`` 和 ``else`` 另起一行.
+
+**说明**
 
 对基本条件语句有两种可以接受的格式. 一种在圆括号和条件之间有空格, 另一种没有.
 
-最常见的是没有空格的格式. 哪种都可以, 但 *保持一致性*. 如果你是在修改一个文件, 参考当前已有格式. 如果是写新的代码, 参考目录下或项目中其它文件. 还在徘徊的话, 就不要加空格了.
+最常见的是没有空格的格式. 哪一种都可以, 最重要的是 *保持一致*. 如果你是在修改一个文件, 参考当前已有格式. 如果是写新的代码, 参考目录下或项目中其它文件. 还在犹豫的话, 就不要加空格了.
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        if (condition) {  圆括号里没空格紧邻. 
-          ...  // 2 空格缩进. 
-        } else {  // else 与 if 的右括号同一行. 
-          ...
-        }
+    if (condition) {  // 圆括号里没有空格.
+      ...  // 2 空格缩进.
+    } else if (...) {  // else 与 if 的右括号同一行.
+      ...
+    } else {
+      ...
+    }
 
 如果你更喜欢在圆括号内部加空格:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        if ( condition ) {  // 圆括号与空格紧邻 - 不常见
-          ...  // 2 空格缩进. 
-        } else {  // else 与 if 的右括号同一行. 
-          ...
-        }
+    if ( condition ) {  // 圆括号与空格紧邻 - 不常见
+      ...  // 2 空格缩进.
+    } else {  // else 与 if 的右括号同一行.
+      ...
+    }
 
 注意所有情况下 ``if`` 和左圆括号间都有个空格. 右圆括号和左大括号之间也要有个空格:
 
-    .. warning::
+.. code-block:: c++
 
-        .. code-block:: c++
+    if(condition)     // 差 - IF 后面没空格.
+    if (condition){   // 差 - { 前面没空格.
+    if(condition){    // 变本加厉地差.
 
-            if(condition)     // 差 - IF 后面没空格. 
-            if (condition){   // 差 - { 前面没空格. 
-            if(condition){    // 变本加厉地差. 
+.. code-block:: c++
 
-    .. code-block:: c++
-
-        if (condition) {  // 可 - IF 和 { 都与空格紧邻. 
+    if (condition) {  // 好 - IF 和 { 都与空格紧邻.
 
 如果能增强可读性, 简短的条件语句允许写在同一行. 只有当语句简单并且没有使用 ``else`` 子句时使用:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        if (x == kFoo) return new Foo();
-        if (x == kBar) return new Bar();
+    if (x == kFoo) return new Foo();
+    if (x == kBar) return new Bar();
 
 如果语句有 ``else`` 分支则不允许:
 
-    .. warning::
+.. code-block:: c++
 
-        .. code-block:: c++
-
-            // 不可以这样子 - 当有 ELSE 分支时 IF 块却只有一行
-            if (x) DoThis();
-            else DoThat();
+    // 不允许 - 当有 ELSE 分支时 IF 块却写在同一行
+    if (x) DoThis();
+    else DoThat();
 
 通常, 单行语句不需要使用大括号, 如果你喜欢用也没问题; 复杂的条件或循环语句用大括号可读性会更好. 也有一些项目要求 ``if`` 必须总是使用大括号:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        if (condition)
-          DoSomething();  // 2 空格缩进. 
+    if (condition)
+      DoSomething();  // 2 空格缩进.
 
-        if (condition) {
-          DoSomething();  // 2 空格缩进. 
-        }
+    if (condition) {
+      DoSomething();  // 2 空格缩进.
+    }
 
 但如果语句中某个 ``if-else`` 分支使用了大括号的话, 其它分支也必须使用:
 
-    .. warning::
+.. code-block:: c++
 
-        .. code-block:: c++
+    // 不可以这样子 - IF 有大括号 ELSE 却没有.
+    if (condition) {
+      foo;
+    } else
+      bar;
 
-            // 不可以这样子 - IF 有大括号 ELSE 却没有. 
-            if (condition) {
-                foo;
-            } else
-                bar;
-
-            // 不可以这样子 - ELSE 有大括号 IF 却没有. 
-            if (condition)
-                foo;
-            else {
-                bar;
-            }
+    // 不可以这样子 - ELSE 有大括号 IF 却没有.
+    if (condition)
+      foo;
+    else {
+      bar;
+    }
 
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        // 只要其中一个分支用了大括号, 两个分支都要用上大括号. 
-        if (condition) {
-          foo;
-        } else {
-          bar;
-        }
+    // 只要其中一个分支用了大括号, 两个分支都要用上大括号.
+    if (condition) {
+      foo;
+    } else {
+      bar;
+    }
 
 9.9. 循环和开关选择语句
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    ``switch`` 语句可以使用大括号分段, 以表明 cases 之间不是连在一起的. 在单语句循环里, 括号可用可不用. 空循环体应使用 ``{}`` 或 ``continue``.
+``switch`` 语句可以使用大括号分段, 以表明 cases 之间不是连在一起的. 在单语句循环里, 括号可用可不用. 空循环体应使用 ``{}`` 或 ``continue``.
+
+**说明**
 
 ``switch`` 语句中的 ``case`` 块可以使用大括号也可以不用, 取决于你的个人喜好. 如果用的话, 要按照下文所述的方法.
 
-如果有不满足 ``case`` 条件的枚举值, ``switch`` 应该总是包含一个 ``default`` 匹配 (如果有输入值没有 case 去处理, 编译器将报警). 如果 ``default`` 应该永远执行不到, 简单的加条 ``assert``:
+如果有不满足 ``case`` 条件的枚举值, ``switch`` 应该总是包含一个 ``default`` 匹配 (如果有输入值没有 case 去处理, 编译器将给出 warning). 如果 ``default`` 应该永远执行不到, 简单的加条 ``assert``:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        switch (var) {
-          case 0: {  // 2 空格缩进
-            ...      // 4 空格缩进
-            break;
-          }
-          case 1: {
-            ...
-            break;
-          }
-          default: {
-            assert(false);
-          }
-        }
+    switch (var) {
+      case 0: {  // 2 空格缩进
+        ...      // 4 空格缩进
+        break;
+      }
+      case 1: {
+        ...
+        break;
+      }
+      default: {
+        assert(false);
+      }
+    }
 
 在单语句循环里, 括号可用可不用：
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        for (int i = 0; i < kSomeNumber; ++i)
-            printf("I love you\n");
+    for (int i = 0; i < kSomeNumber; ++i)
+      printf("I love you\n");
 
-        for (int i = 0; i < kSomeNumber; ++i) {
-            printf("I take it back\n");
-        }
+    for (int i = 0; i < kSomeNumber; ++i) {
+      printf("I take it back\n");
+    }
 
 空循环体应使用 ``{}`` 或 ``continue``, 而不是一个简单的分号.
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        while (condition) {
-          // 反复循环直到条件失效. 
-        }
-        for (int i = 0; i < kSomeNumber; ++i) {}  // 可 - 空循环体. 
-        while (condition) continue;  // 可 - contunue 表明没有逻辑. 
+    while (condition) {
+      // 反复循环直到条件失效.
+    }
+    for (int i = 0; i < kSomeNumber; ++i) {}  // 可 - 空循环体.
+    while (condition) continue;  // 可 - contunue 表明没有逻辑.
 
-    .. warning::
+.. code-block:: c++
 
-        .. code-block:: c++
-
-            while (condition);  // 差 - 看起来仅仅只是 while/loop 的部分之一. 
+    while (condition);  // 差 - 看起来仅仅只是 while/loop 的部分之一.
 
 9.10. 指针和引用表达式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    句点或箭头前后不要有空格. 指针/地址操作符 (``*, &``) 之后不能有空格.
+句点或箭头前后不要有空格. 指针/地址操作符 (``*, &``) 之后不能有空格.
+
+**说明**
 
 下面是指针和引用表达式的正确使用范例:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        x = *p;
-        p = &x;
-        x = r.y;
-        x = r->y;
+    x = *p;
+    p = &x;
+    x = r.y;
+    x = r->y;
 
-注意:啊
-    - 在访问成员时, 句点或箭头前后没有空格.
-    - 指针操作符 ``*`` 或 ``&`` 后没有空格.
+注意:
+
+- 在访问成员时, 句点或箭头前后没有空格.
+
+- 指针操作符 ``*`` 或 ``&`` 后没有空格.
 
 在声明指针变量或参数时, 星号与类型或变量名紧挨都可以:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        // 好样的, 空格前置. 
-        char *c;
-        const string &str;
+    // 好, 空格前置.
+    char *c;
+    const string &str;
 
-        // 好样的, 空格后置. 
-        char* c;    // 但别忘了 "char* c, *d, *e, ...;"!
-        const string& str;
+    // 好, 空格后置.
+    char* c;
+    const string& str;
 
-    .. warning::
+.. code-block:: c++
 
-        .. code-block:: c++
-
-            char * c;  // 差 - * 两边都有空格
-            const string & str;  // 差 - & 两边都有空格. 
+    int x, *y;  // 不允许 - 在多重声明中不能使用 & 或 *
+    char * c;  // 差 - * 两边都有空格
+    const string & str;  // 差 - & 两边都有空格.
 
 在单个文件内要保持风格一致, 所以, 如果是修改现有文件, 要遵照该文件的风格.
 
 9.11. 布尔表达式
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    如果一个布尔表达式超过 :ref:`标准行宽 <line-length>`, 断行方式要统一一下.
+如果一个布尔表达式超过 :ref:`标准行宽 <line-length>`, 断行方式要统一一下.
+
+**说明**
 
 下例中, 逻辑与 (``&&``) 操作符总位于行尾:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        if (this_one_thing > this_other_thing &&
-            a_third_thing == a_fourth_thing &&
-            yet_another & last_one) {
-          ...
-        }
+    if (this_one_thing > this_other_thing &&
+        a_third_thing == a_fourth_thing &&
+        yet_another && last_one) {
+      ...
+    }
 
-注意, 上例的逻辑与 (``&&``) 操作符均位于行尾. 这格式在 Google 里很常见, 您要把所有操作符放在开头也可以. 可以考虑额外插入圆括号, 合理使用的话对增强可读性是很有帮助的. 此外直接用符号形式的操作符, 比如 ``&&`` 和 ``~``, 不要用词语形式的 ``and`` 和 ``compl``.
+注意, 上例的逻辑与 (``&&``) 操作符均位于行尾. 这个格式在 Google 里很常见, 虽然把所有操作符放在开头也可以. 可以考虑额外插入圆括号, 合理使用的话对增强可读性是很有帮助的. 此外, 直接用符号形式的操作符, 比如 ``&&`` 和 ``~``, 不要用词语形式的 ``and`` 和 ``compl``.
 
 9.12. 函数返回值
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    ``return`` 表达式里时没必要都用圆括号. 
+不要在 ``return`` 表达式里加上非必须的圆括号.
 
-假如您写 ``x = epr`` 时本来就会加上括号, 那 ``return expr;`` 也可如法炮制. 
+**说明**
 
-函数返回时不要使用圆括号:
+只有在写 ``x = expr`` 要加上括号的时候才在 ``return expr;`` 里使用括号.
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        return result;                  // 返回值很简单, 没有圆括号. 
-        // 可以用圆括号把复杂表达式圈起来, 改善可读性. 
-        return (some_long_condition &&
-                another_condition);
+    return result;                  // 返回值很简单, 没有圆括号.
+    // 可以用圆括号把复杂表达式圈起来, 改善可读性.
+    return (some_long_condition &&
+            another_condition);
 
-    .. warning::
+.. code-block:: c++
 
-        .. code-block:: c++
-
-            return (value);                // 毕竟您从来不会写 var = (value);
-            return(result);                // return 可不是函数！
+    return (value);                // 毕竟您从来不会写 var = (value);
+    return(result);                // return 可不是函数！
 
 9.13. 变量及数组初始化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    用 ``=``, ``()`` 和 ``{}`` 均可.
+用 ``=``, ``()`` 和 ``{}`` 均可.
 
-您可以用 ``=``, ``()`` 和 ``{}``, 以下都对：
+**说明**
 
-    .. code-block:: c++
+您可以用 ``=``, ``()`` 和 ``{}``, 以下的例子都是正确的：
 
-        int x = 3;
-        int x(3);
-        int x{3};
-        string name("Some Name");
-        string name = "Some Name";
-        string name{"Some Name"};
+.. code-block:: c++
 
-请务必小心列表初始化 {...} 用 ``std::initializer_list`` 构造函数初始化出的类型. 非空列表初始化就会优先调用 ``std::initializer_list``, 不过空列表初始化除外, 后者原则上会调用默认构造函数. 为了强制禁用 ``std::initializer_list`` 构造函数, 请改用括号. 
+    int x = 3;
+    int x(3);
+    int x{3};
+    string name("Some Name");
+    string name = "Some Name";
+    string name{"Some Name"};
 
-    .. code-block:: c++
+请务必小心列表初始化 ``{...}`` 用 ``std::initializer_list`` 构造函数初始化出的类型. 非空列表初始化就会优先调用 ``std::initializer_list``, 不过空列表初始化除外, 后者原则上会调用默认构造函数. 为了强制禁用 ``std::initializer_list`` 构造函数, 请改用括号.
 
-        vector<int> v(100, 1);  // A vector of 100 1s.
-        vector<int> v{100, 1};  // A vector of 100, 1.
+.. code-block:: c++
+
+    vector<int> v(100, 1);  // 内容为 100 个 1 的向量.
+    vector<int> v{100, 1};  // 内容为 100 和 1 的向量.
 
 此外, 列表初始化不允许整型类型的四舍五入, 这可以用来避免一些类型上的编程失误. 
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        int pi(3.14);  // 可 -- pi == 3.
-        int pi{3.14};  // Compile error: narrowing conversion.
+    int pi(3.14);  // 好 - pi == 3.
+    int pi{3.14};  // 编译错误: 缩窄转换.
 
 9.14. 预处理指令
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    预处理指令不要缩进, 从行首开始.
+预处理指令不要缩进, 从行首开始.
+
+**说明**
 
 即使预处理指令位于缩进代码块中, 指令也应从行首开始.
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        // 可 - directives at beginning of line
-          if (lopsided_score) {
-        #if DISASTER_PENDING      // 正确 -- 行开头起. 
-            DropEverything();
-        #endif
-            BackToNormal();
-          }
+    // 好 - 指令从行首开始
+      if (lopsided_score) {
+    #if DISASTER_PENDING      // 正确 - 从行首开始
+        DropEverything();
+    # if NOTIFY               // 非必要 - # 后跟空格
+        NotifyClient();
+    # endif
+    #endif
+        BackToNormal();
+      }
 
-    .. warning::
+.. code-block:: c++
 
-        .. code-block:: c++
-
-            // 差 - indented directives
-              if (lopsided_score) {
-                #if DISASTER_PENDING  // 错了！ "#if" 应该放在行开头
-                DropEverything();
-                #endif                // 错了！ "#endif" 不要缩进
-                BackToNormal();
-              }
+    // 差 - 指令缩进
+      if (lopsided_score) {
+        #if DISASTER_PENDING  // 差 - "#if" 应该放在行开头
+        DropEverything();
+        #endif                // 差 - "#endif" 不要缩进
+        BackToNormal();
+      }
 
 9.15. 类格式
 ~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    访问控制块的声明依次序是 ``public:``, ``protected:``, ``private:``, 每次缩进 1 个空格.
+访问控制块的声明依次序是 ``public:``, ``protected:``, ``private:``, 每个都缩进 1 个空格.
 
-类声明 (对类注释不了解的话, 参考 :ref:`类注释 <class-comments>`) 的基本格式如下:
+**说明**
 
-    .. code-block:: c++
+类声明 (下面的代码中缺少注释, 参考 :ref:`类注释 <class-comments>`) 的基本格式如下:
 
-        class MyClass : public OtherClass {
-         public:      // 注意有 1 空格缩进!
-          MyClass();  // 照常, 2 空格缩进. 
-          explicit MyClass(int var);
-          ~MyClass() {}
+.. code-block:: c++
 
-          void SomeFunction();
-          void SomeFunctionThatDoesNothing() {
-          }
+    class MyClass : public OtherClass {
+     public:      // 注意有一个空格的缩进
+      MyClass();  // 标准的两空格缩进
+      explicit MyClass(int var);
+      ~MyClass() {}
 
-          void set_some_var(int var) { some_var_ = var; }
-          int some_var() const { return some_var_; }
+      void SomeFunction();
+      void SomeFunctionThatDoesNothing() {
+      }
 
-         private:
-          bool SomeInternalFunction();
+      void set_some_var(int var) { some_var_ = var; }
+      int some_var() const { return some_var_; }
 
-          int some_var_;
-          int some_other_var_;
-          DISALLOW_COPY_AND_ASSIGN(MyClass);
-        };
+     private:
+      bool SomeInternalFunction();
+
+      int some_var_;
+      int some_other_var_;
+    };
 
 注意事项:
 
-    - 所有基类名应在 80 列限制下尽量与子类名放在同一行.
+- 所有基类名应在 80 列限制下尽量与子类名放在同一行.
 
-    - 关键词 ``public:``, ``protected:``, ``private:`` 要缩进 1 个空格.
+- 关键词 ``public:``, ``protected:``, ``private:`` 要缩进 1 个空格.
 
-    - 除第一个关键词 (一般是 ``public``) 外, 其他关键词前要空一行. 如果类比较小的话也可以不空.
+- 除第一个关键词 (一般是 ``public``) 外, 其他关键词前要空一行. 如果类比较小的话也可以不空.
 
-    - 这些关键词后不要保留空行.
+- 这些关键词后不要保留空行.
 
-    - ``public`` 放在最前面, 然后是 ``protected``, 最后是 ``private``.
+- ``public`` 放在最前面, 然后是 ``protected``, 最后是 ``private``.
 
-    - 关于声明顺序的规则请参考 :ref:`声明顺序 <declaration-order>` 一节.
+- 关于声明顺序的规则请参考 :ref:`声明顺序 <declaration-order>` 一节.
 
 9.16. 构造函数初始值列表
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    构造函数初始值列表放在同一行或按四格缩进并排几行.
+构造函数初始化列表放在同一行或按四格缩进并排多行.
+
+**说明**
 
 下面两种初始值列表方式都可以接受:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        // 当全放在一行合适时：
-        MyClass::MyClass(int var) : some_var_(var), some_other_var_(var + 1) {
+    // 如果所有变量能放在同一行:
+    MyClass::MyClass(int var) : some_var_(var) {
+      DoSomething();
+    }
 
-或
+    // 如果不能放在同一行,
+    // 必须置于冒号后, 并缩进 4 个空格
+    MyClass::MyClass(int var)
+        : some_var_(var), some_other_var_(var + 1) {
+      DoSomething();
+    }
 
-    .. code-block:: c++
+    // 如果初始化列表需要置于多行, 将每一个成员放在单独的一行
+    // 并逐行对齐
+    MyClass::MyClass(int var)
+        : some_var_(var),             // 4 space indent
+          some_other_var_(var + 1) {  // lined up
+      DoSomething();
+    }
 
-        // 如果要断成多行, 缩进四格, 冒号放在第一行初始化句：
-        MyClass::MyClass(int var)
-            : some_var_(var),             // 4 空格缩进
-              some_other_var_(var + 1) {  // 对准
-          ...
-          DoSomething();
-          ...
-        }
+    // 右大括号 } 可以和左大括号 { 放在同一行
+    // 如果这样做合适的话
+    MyClass::MyClass(int var)
+        : some_var_(var) {}
 
-9.17. 名字空间格式化
+9.17. 命名空间格式化
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    名字空间内容不缩进.
+命名空间内容不缩进.
 
-:ref:`名字空间 <namespaces>` 不要增加额外的缩进层次, 例如:
+**说明**
 
-    .. code-block:: c++
+:ref:`命名空间 <namespaces>` 不要增加额外的缩进层次, 例如:
 
-        namespace {
+.. code-block:: c++
 
-        void foo() {  // 正确. 命名空间内没有额外的缩进. 
-          ...
-        }
+    namespace {
 
-        }  // namespace
+    void foo() {  // 正确. 命名空间内没有额外的缩进.
+      ...
+    }
 
-不要缩进名字空间:
+    }  // namespace
 
-    .. warning::
+不要在命名空间内缩进:
 
-        .. code-block:: c++
+.. code-block:: c++
 
-            namespace {
+    namespace {
 
-              // 错, 缩进多余了. 
-              void foo() {
-                ...
-              }
+      // 错, 缩进多余了.
+      void foo() {
+        ...
+      }
 
-            }  // namespace
+    }  // namespace
 
-声明嵌套命名空间时, 每命名空间都独立成行. 
+声明嵌套命名空间时, 每个命名空间都独立成行.
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        namespace foo {
-        namespace bar {
+    namespace foo {
+    namespace bar {
 
 9.19. 水平留白
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    水平留白的使用因地制宜. 永远不要在行尾添加没意义的留白.
+水平留白的使用根据在代码中的位置决定. 永远不要在行尾添加没意义的留白.
 
-常规:
+**说明**
 
-    .. code-block:: c++
+通用
+-----------------------------
 
-        void f(bool b) {  // 左大括号前恒有空格. 
-          ...
-        int i = 0;  // 分号前不加空格. 
-        int x[] = { 0 };  // 大括号内部可与空格紧邻也不可, 不过两边都要加上. 
-        int x[] = {0};
-        // 继承与初始化列表中的冒号前后恒有空格. 
-        class Foo : public Bar {
-         public:
-          // 至于内联函数实现, 在大括号内部加上空格并编写实现. 
-          Foo(int b) : Bar(), baz_(b) {}  // 大括号里面是空的话, 不加空格. 
-          void Reset() { baz_ = 0; }  // 用括号把大括号与实现分开. 
-          ...
+.. code-block:: c++
 
-    添加冗余的留白会给其他人编辑时造成额外负担. 因此, 行尾不要留空格. 如果确定一行代码已经修改完毕, 将多余的空格去掉; 或者在专门清理空格时去掉（确信没有其他人在处理). (Yang.Y 注: 现在大部分代码编辑器稍加设置后, 都支持自动删除行首/行尾空格, 如果不支持, 考虑换一款编辑器或 IDE)
+    void f(bool b) {  // 左大括号前总是有空格.
+      ...
+    int i = 0;  // 分号前不加空格.
+    // 列表初始化中大括号内的空格是可选的.
+    // 如果加了空格, 那么两边都要加上.
+    int x[] = { 0 };
+    int x[] = {0};
 
-循环和条件语句:
+    // 继承与初始化列表中的冒号前后恒有空格.
+    class Foo : public Bar {
+     public:
+      // 对于单行函数的实现, 在大括号内加上空格
+      // 然后是函数实现
+      Foo(int b) : Bar(), baz_(b) {}  // 大括号里面是空的话, 不加空格.
+      void Reset() { baz_ = 0; }  // 用括号把大括号与实现分开.
+      ...
 
-    .. code-block:: c++
+添加冗余的留白会给其他人编辑时造成额外负担. 因此, 行尾不要留空格. 如果确定一行代码已经修改完毕, 将多余的空格去掉; 或者在专门清理空格时去掉（尤其是在没有其他人在处理这件事的时候). (Yang.Y 注: 现在大部分代码编辑器稍加设置后, 都支持自动删除行首/行尾空格, 如果不支持, 考虑换一款编辑器或 IDE)
 
-        if (b) {          // if 条件语句和循环语句关键字后均有空格. 
-        } else {          // else 前后有空格. 
-        }
-        while (test) {}   // 圆括号内部不紧邻空格. 
-        switch (i) {
-        for (int i = 0; i < 5; ++i) {
-        switch ( i ) {    // 循环和条件语句的圆括号里可以与空格紧邻. 
-        if ( test ) {     // 圆括号, 但这很少见. 总之要一致. 
-        for ( int i = 0; i < 5; ++i ) {
-        for ( ; i < 5 ; ++i) {  // 循环里内 ; 后恒有空格, ;  前可以加个空格. 
-        switch (i) {
-          case 1:         // switch case 的冒号前无空格. 
-            ...
-          case 2: break;  // 如果冒号有代码, 加个空格. 
+循环和条件语句
+-----------------------------
 
-操作符:
+.. code-block:: c++
 
-    .. code-block:: c++
+    if (b) {          // if 条件语句和循环语句关键字后均有空格.
+    } else {          // else 前后有空格.
+    }
+    while (test) {}   // 圆括号内部不紧邻空格.
+    switch (i) {
+    for (int i = 0; i < 5; ++i) {
+    switch ( i ) {    // 循环和条件语句的圆括号里可以与空格紧邻.
+    if ( test ) {     // 圆括号, 但这很少见. 总之要一致.
+    for ( int i = 0; i < 5; ++i ) {
+    for ( ; i < 5 ; ++i) {  // 循环里内 ; 后恒有空格, ;  前可以加个空格.
+    switch (i) {
+      case 1:         // switch case 的冒号前无空格.
+        ...
+      case 2: break;  // 如果冒号有代码, 加个空格.
 
-        // 赋值操作系统前后恒有空格. 
-        x = 0;
+操作符
+-----------------------------
 
-        // 其它二元操作符也前后恒有空格, 不过对 factors 前后不加空格也可以. 
-        // 圆括号内部不紧邻空格. 
-        v = w * x + y / z;
-        v = w*x + y/z;
-        v = w * (x + z);
+.. code-block:: c++
 
-        // 在参数和一元操作符之间不加空格. 
-        x = -5;
-        ++x;
-        if (x && !y)
-          ...
+    // 赋值运算符前后总是有空格.
+    x = 0;
 
-模板和转换:
+    // 其它二元操作符也前后恒有空格, 不过对于表达式的子式可以不加空格.
+    // 圆括号内部没有紧邻空格.
+    v = w * x + y / z;
+    v = w*x + y/z;
+    v = w * (x + z);
 
-    .. code-block:: c++
+    // 在参数和一元操作符之间不加空格.
+    x = -5;
+    ++x;
+    if (x && !y)
+      ...
 
-        // 尖叫括号(< and >) 不与空格紧邻, < 前没有空格, >( 之间也没有. 
-        vector<string> x;
-        y = static_cast<char*>(x);
+模板和转换
+-----------------------------
 
-        // 在类型与指针操作符之间留空格也可以, 但要保持一致. 
-        vector<char *> x;
-        set<list<string>> x;        // 在 C++11 代码里可以这样用了. 
-        set<list<string> > x;       // C++03 中要在 > > 里留个空格. 
+.. code-block:: c++
 
-        // 您或许可以在 < < 里加上一对对称的空格. 
-        set< list<string> > x;
+    // 尖叫括号(< and >) 不与空格紧邻, < 前没有空格, > 和 ( 之间也没有.
+    vector<string> x;
+    y = static_cast<char*>(x);
+
+    // 在类型与指针操作符之间留空格也可以, 但要保持一致.
+    vector<char *> x;
 
 9.19. 垂直留白
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. tip::
+**总述**
 
-    垂直留白越少越好.
+垂直留白越少越好.
+
+**说明**
 
 这不仅仅是规则而是原则问题了: 不在万不得已, 不要使用空行. 尤其是: 两个函数定义之间的空行不要超过 2 行, 函数体首尾不要留空行, 函数体中也不要随意添加空行.
 
-基本原则是: 同一屏可以显示的代码越多, 越容易理解程序的控制流. 当然, 过于密集的代码块和过于疏松的代码块同样难看, 取决于你的判断. 但通常是垂直留白越少越好.
+基本原则是: 同一屏可以显示的代码越多, 越容易理解程序的控制流. 当然, 过于密集的代码块和过于疏松的代码块同样难看, 这取决于你的判断. 但通常是垂直留白越少越好.
 
-空行心得如下：
+下面的规则可以让加入的空行更有效:
 
-* 函数体内开头或结尾的空行可读性微乎其微. 
-* 在多重 if-else 块里加空行或许有点可读性. 
+- 函数体内开头或结尾的空行可读性微乎其微.
+
+- 在多重 if-else 块里加空行或许有点可读性.
 
 译者 (YuleFox) 笔记
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
