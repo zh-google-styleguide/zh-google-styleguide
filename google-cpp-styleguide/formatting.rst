@@ -3,7 +3,7 @@
 
 每个人都可能有自己的代码风格和格式, 但如果一个项目中的所有人都遵循同一风格的话, 这个项目就能更顺利地进行. 每个人未必能同意下述的每一处格式规则, 而且其中的不少规则需要一定时间的适应, 但整个项目服从统一的编程风格是很重要的, 只有这样才能让所有人轻松地阅读和理解代码.
 
-为了帮助你正确的格式化代码, 我们写了一个 `emacs 配置文件 <http://google-styleguide.googlecode.com/svn/trunk/google-c-style.el>`_.
+为了帮助你正确的格式化代码, 我们写了一个 `emacs 配置文件 <https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el>`_.
 
 .. _line-length:
 
