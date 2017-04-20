@@ -14,6 +14,7 @@ C++ 风格指南 - 内容目录
    headers
    scoping
    classes
+   functions
    magic
    others
    naming
