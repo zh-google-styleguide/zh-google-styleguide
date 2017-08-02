@@ -54,7 +54,7 @@
 
 * ``myusefulclass.cc``
 
-* ``muusefulclass_test.cc`` // ``_unittest`` 和 ``_regtest`` 已弃用.
+* ``myusefulclass_test.cc`` // ``_unittest`` 和 ``_regtest`` 已弃用.
 
 C++ 文件要以 ``.cc`` 结尾, 头文件以 ``.h`` 结尾. 专门插入文本的文件则以 ``.inc`` 结尾, 参见 :ref:`头文件自足 <self-contained-headers>`.
 
