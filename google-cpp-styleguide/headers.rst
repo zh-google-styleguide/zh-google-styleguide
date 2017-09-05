@@ -66,17 +66,21 @@
 	* 前置声明可能会被库的后续更改所破坏。前置声明函数或模板有时会妨碍头文件开发者变动其 API. 例如扩大形参类型，加个自带默认参数的模板形参等等。
 	* 前置声明来自命名空间 ``std::`` 的 symbol 时，其行为未定义。
 	* 很难判断什么时候该用前置声明，什么时候该用 ``#include`` 。极端情况下，用前置声明代替 ``includes`` 甚至都会暗暗地改变代码的含义：
-	.. code-block:: c++
-		// b.h:
-		struct B {};
-		struct D : B {}
-		
-		// good_user.cc:
-		#include "b.h"
-		void f(B*);
-		void f(void*);
-		void test(D* x) { f(x); }  // calls f(B*)
-	如果 ``#include`` 被 ``B`` 和 ``D`` 的前置声明替代， ``test()`` 就会调用 ``f(void*)`` .
+
+		.. code-block:: c++
+
+			// b.h:
+			struct B {};
+			struct D : B {}
+
+			// good_user.cc:
+			#include "b.h"
+			void f(B*);
+			void f(void*);
+			void test(D* x) { f(x); }  // calls f(B*)
+
+	 如果 ``#include`` 被 ``B`` 和 ``D`` 的前置声明替代， ``test()`` 就会调用 ``f(void*)`` .
+
 	* 前置声明了不少来自头文件的 symbol 时，就会比单单一行的 ``include`` 冗长。
 	* 仅仅为了能前置声明而重构代码（比如用指针成员代替对象成员）会使代码变得更慢更复杂.
 
@@ -86,7 +90,7 @@
 	* 函数：总是使用 ``#include``.
 	* 类模板：优先使用 ``#include``.
 
-至于什么时候包含头文件，参见 :ref:`name-and-order-of-includes`。
+至于什么时候包含头文件，参见 :ref:`name-and-order-of-includes` 。
 
 .. _inline-functions:
 
@@ -117,7 +121,7 @@
 
     有些函数即使声明为内联的也不一定会被编译器内联, 这点很重要; 比如虚函数和递归函数就不会被正常内联.  通常, 递归函数不应该声明成内联函数.（YuleFox 注: 递归调用堆栈的展开并不像循环那么简单, 比如递归层数在编译时可能是未知的, 大多数编译器都不支持内联递归函数). 虚函数内联的主要原因则是想把它的函数体放在类定义内, 为了图个方便, 抑或是当作文档描述其行为, 比如精短的存取函数.
 
-.. _name-and-order-of-includes
+.. _name-and-order-of-includes:
 
 1.5. ``#include`` 的路径及顺序
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,11 +131,11 @@
 
 项目内头文件应按照项目源代码目录树结构排列, 避免使用 UNIX 特殊的快捷目录 ``.`` (当前目录) 或 ``..`` (上级目录). 例如, ``google-awesome-project/src/base/logging.h`` 应该按如下方式包含:
 
-    .. code-block:: c++
+.. code-block:: c++
 
-        #include "base/logging.h"
+   #include "base/logging.h"
 
-又如, ``dir/foo.cc`` 的主要作用是实现或测试 ``dir2/foo2.h`` 的功能, ``foo.cc`` 中包含头文件的次序如下:
+又如, ``dir/foo.cc`` 或 ``dir/foo_test.cc`` 的主要作用是实现或测试 ``dir2/foo2.h`` 的功能, ``foo.cc`` 中包含头文件的次序如下:
 
     #. ``dir2/foo2.h`` (优先位置, 详情如下)
     #. C 系统文件
@@ -139,13 +143,15 @@
     #. 其他库的 ``.h`` 文件
     #. 本项目内 ``.h`` 文件
 
-这种优先的顺序排序保证当 ``dir2/foo2.h`` 遗漏某些必要的库时， ``dir/foo.cc`` 或 ``dir/foo_test.cc`` 的构建会立刻中止。因此这一条规则保证维护这些文件的人们首先看到构建中止的消息而不是维护其他包的人们。 
+这种优先的顺序排序保证当 ``dir2/foo2.h`` 遗漏某些必要的库时， ``dir/foo.cc`` 或 ``dir/foo_test.cc`` 的构建会立刻中止。因此这一条规则保证维护这些文件的人们首先看到构建中止的消息而不是维护其他包的人们。
 
 ``dir/foo.cc`` 和 ``dir2/foo2.h`` 通常位于同一目录下 (如 ``base/basictypes_unittest.cc`` 和 ``base/basictypes.h``), 但也可以放在不同目录下.
 
-按字母顺序对头文件包含进行二次排序是不错的主意。注意较老的代码可不符合这条规则，要在方便的时候改正它们。
+按字母顺序分别对每种类型的头文件进行二次排序是不错的主意。注意较老的代码可不符合这条规则，要在方便的时候改正它们。
 
-您所依赖的 symbols 被哪些头文件所定义，您就应该包含（include）哪些头文件，:ref:`forward-declaration` 情况除外。比如您要用到 ``bar.h`` 中的某个 symbol, 哪怕您所包含的 ``foo.h`` 已经包含了 ``bar.h``, 也照样得包含 ``bar.h``, 除非 ``foo.h`` 有明确说明它会自动向您提供 ``bar.h`` 中的 symbol. 不过，凡是 cc 文件所对应的「相关头文件」已经包含的，就不用再重复包含进其 cc 文件里面了，就像 ``foo.cc`` 只包含 ``foo.h`` 就够了，不用再管后者所包含的其它内容。
+您所依赖的符号 (symbols) 被哪些头文件所定义，您就应该包含（include）哪些头文件，`前置声明`__ (forward declarations) 情况除外。比如您要用到 ``bar.h`` 中的某个符号, 哪怕您所包含的 ``foo.h`` 已经包含了 ``bar.h``, 也照样得包含 ``bar.h``, 除非 ``foo.h`` 有明确说明它会自动向您提供 ``bar.h`` 中的 symbol. 不过，凡是 cc 文件所对应的「相关头文件」已经包含的，就不用再重复包含进其 cc 文件里面了，就像 ``foo.cc`` 只包含 ``foo.h`` 就够了，不用再管后者所包含的其它内容。
+
+__ forward-declarations_
 
 举例来说, ``google-awesome-project/src/foo/internal/fooserver.cc`` 的包含次序如下:
 
@@ -155,7 +161,7 @@
 
 		#include <sys/types.h>
 		#include <unistd.h>
-		
+
 		#include <hash_map>
 		#include <vector>
 
