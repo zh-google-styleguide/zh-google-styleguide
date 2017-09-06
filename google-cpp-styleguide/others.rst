@@ -536,7 +536,7 @@
 
     .. code-block:: c++
 
-        int64_t my_value = 0×123456789LL;
+        int64_t my_value = 0x123456789LL;
         uint64_t my_mask = 3ULL << 48;
 
 
