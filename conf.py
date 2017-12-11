@@ -30,6 +30,7 @@ html_title = u'Google 开源项目风格指南'
 htmlhelp_basename = 'google-styleguide'
 html_add_permalinks = None
 
+latex_engine = 'xelatex'
 file_insertion_enabled = False
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:    
@@ -64,7 +65,7 @@ else:
         'preamble' : r'''        \usepackage{ctex}        ''',    
     }  
 latex_documents = [
-  ('index', 'google-styleguide.tex', u'Google 开源项目风格指南',
+  ('contents', 'google-styleguide.tex', u'Google 开源项目风格指南',
    u'', 'manual'),
 ]
 
