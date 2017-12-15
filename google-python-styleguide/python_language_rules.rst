@@ -25,7 +25,7 @@ Lint
     
         dict = 'something awful'  # Bad Idea... pylint: disable=redefined-builtin
         
-    pylint警告是以一个数字编号(如 ``C0112`` )和一个符号名(如 ``empty-docstring`` )来标识的. 在编写新代码或更新已有代码时对告警进行医治, 推荐使用符号名来标识.
+    pylint警告是以一个数字编号(如 ``C0112`` )和一个符号名(如 ``empty-docstring`` )来标识的. 在编写新代码或更新已有代码时对告警进行抑制, 推荐使用符号名来标识.
     
     如果警告的符号名不够见名知意，那么请对其增加一个详细解释。
     
