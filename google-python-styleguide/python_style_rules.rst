@@ -360,7 +360,7 @@ Shebang
         # in the array and the array size and then do binary search to
         # get the exact number.
 
-        if i & (i-1) == 0:        # true iff i is a power of 2
+        if i & (i-1) == 0:        # True if i is 0 or a power of 2.
 
     为了提高可读性, 注释应该至少离开代码2个空格. 
 
