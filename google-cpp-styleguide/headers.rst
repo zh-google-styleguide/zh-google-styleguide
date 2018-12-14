@@ -71,7 +71,7 @@
 
 			// b.h:
 			struct B {};
-			struct D : B {}
+			struct D : B {};
 
 			// good_user.cc:
 			#include "b.h"
