@@ -69,7 +69,7 @@ Cocoa 和 Objective-C 特性
     不要调用 ``NSObject`` 类方法 ``new``，也不要在子类中重载它。使用 ``alloc`` 和 ``init`` 方法创建并初始化对象。
 
 
-现代的 Ojbective-C 代码通过调用 ``alloc`` 和 ``init`` 方法来创建并 retain 一个对象。由于类方法 ``new`` 很少使用，这使得有关内存分配的代码审查更困难。
+现代的 Objective-C 代码通过调用 ``alloc`` 和 ``init`` 方法来创建并 retain 一个对象。由于类方法 ``new`` 很少使用，这使得有关内存分配的代码审查更困难。
 
 保持公共 API 简单
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -109,21 +109,21 @@ Objective-C 2.0 以前，如果你在私有的 ``@interface`` 中声明了某个
 
 再次说明，“私有的” 方法其实不是私有的。你有时可能不小心重载了父类的私有方法，因而制造出很难查找的 Bug。通常，私有的方法应该有一个相当特殊的名字以防止子类无意地重载它们。
 
-Ojbective-C 的类别可以用来将一个大的 ``@implementation`` 拆分成更容易理解的小块，同时，类别可以为最适合的类添加新的、特定应用程序的功能。例如，当添加一个 “middle truncation” 方法时，创建一个 ``NSString`` 的新类别并把方法放在里面，要比创建任意的一个新类把方法放进里面好得多。
+Objective-C 的类别可以用来将一个大的 ``@implementation`` 拆分成更容易理解的小块，同时，类别可以为最适合的类添加新的、特定应用程序的功能。例如，当添加一个 “middle truncation” 方法时，创建一个 ``NSString`` 的新类别并把方法放在里面，要比创建任意的一个新类把方法放进里面好得多。
 
 ``#import`` and ``#include``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. tip::
 
-    ``#import`` Ojbective-C/Objective-C++ 头文件，``#include`` C/C++ 头文件。
+    ``#import`` Objective-C/Objective-C++ 头文件，``#include`` C/C++ 头文件。
 
 基于你所包括的头文件的编程语言，选择使用 ``#import`` 或是 ``#include``：
 
 * 当包含一个使用 Objective-C、Objective-C++ 的头文件时，使用 ``#import`` 。
 * 当包含一个使用标准 C、C++ 头文件时，使用 ``#include``。头文件应该使用 `#define 保护 <http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=The__define_Guard#The__define_Guard>`_。
 
-一些 Ojbective-C 的头文件缺少 ``#define`` 保护，需要使用 ``#import`` 的方式包含。由于 Objective-C 的头文件只会被 Objective-C 的源文件及头文件包含，广泛地使用 ``#import`` 是可以的。
+一些 Objective-C 的头文件缺少 ``#define`` 保护，需要使用 ``#import`` 的方式包含。由于 Objective-C 的头文件只会被 Objective-C 的源文件及头文件包含，广泛地使用 ``#import`` 是可以的。
 
 文件中没有 Objective-C 代码的标准 C、C++ 头文件，很可能会被普通的 C、C++ 包含。由于标准 C、C++ 里面没有 ``#import`` 的用法，这些文件将被 ``#include``。在 Objective-C 源文件中使用 ``#include`` 包含这些头文件，意味着这些头文件永远会在相同的语义下包含。
 
@@ -337,7 +337,7 @@ BOOL 若干陷阱
 
     将普通整形转换成 ``BOOL`` 时要小心。不要直接将 ``BOOL`` 值与 ``YES`` 进行比较。
 
-Ojbective-C 中把 ``BOOL`` 定义成无符号字符型，这意味着 ``BOOL`` 类型的值远不止 ``YES``(1)或 ``NO``(0)。不要直接把整形转换成 ``BOOL``。常见的错误包括将数组的大小、指针值及位运算的结果直接转换成 ``BOOL`` ，取决于整型结果的最后一个字节，很可能会产生一个 ``NO`` 值。当转换整形至 ``BOOL`` 时，使用三目操作符来返回 ``YES`` 或者 ``NO``。（译者注：读者可以试一下任意的 256 的整数的转换结果，如 256、512 …）
+Objective-C 中把 ``BOOL`` 定义成无符号字符型，这意味着 ``BOOL`` 类型的值远不止 ``YES``(1)或 ``NO``(0)。不要直接把整形转换成 ``BOOL``。常见的错误包括将数组的大小、指针值及位运算的结果直接转换成 ``BOOL`` ，取决于整型结果的最后一个字节，很可能会产生一个 ``NO`` 值。当转换整形至 ``BOOL`` 时，使用三目操作符来返回 ``YES`` 或者 ``NO``。（译者注：读者可以试一下任意的 256 的整数的转换结果，如 256、512 …）
 
 你可以安全在 ``BOOL``、``_Bool`` 以及 ``bool`` 之间转换（参见 C++ Std 4.7.4, 4.12 以及 C99 Std 6.3.1.2）。你不能安全在 ``BOOL`` 以及 ``Boolean`` 之间转换，因此请把 ``Boolean`` 当作一个普通整形，就像之前讨论的那样。但 Objective-C 的方法标识符中，只使用 ``BOOL``。
 
