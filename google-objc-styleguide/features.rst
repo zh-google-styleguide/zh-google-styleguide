@@ -357,7 +357,7 @@ Objective-C 中把 ``BOOL`` 定义成无符号字符型，这意味着 ``BOOL`` 
 
 正确的用法：
 
-    .. code-block:: objc
+.. code-block:: objc
 
     - (BOOL)isBold {
       return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
