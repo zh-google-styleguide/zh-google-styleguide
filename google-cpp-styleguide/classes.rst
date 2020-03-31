@@ -332,7 +332,7 @@ C++ 允许用户通过使用 ``operator`` 关键字 `对内建运算符进行重
 
 **总述**
 
-将 *所有* 数据成员声明为 ``private``, 除非是 ``static const`` 类型成员 (遵循 :ref:`常量命名规则 <constant-names>`). 处于技术上的原因, 在使用 `Google Test <https://github.com/google/googletest>`_ 时我们允许测试固件类中的数据成员为 ``protected``.
+将 *所有* 数据成员声明为 ``private``, 除非是 ``static const`` 类型成员 (遵循 :ref:`常量命名规则 <constant-names>`). 出于技术上的原因, 在使用 `Google Test <https://github.com/google/googletest>`_ 时我们允许测试固件类中的数据成员为 ``protected``.
 
 .. _declaration-order:
 
