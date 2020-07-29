@@ -1230,27 +1230,27 @@ JSDoc标签参考
   * - @code
     - {@code ...}
 
-     例如：
+      例如：
 
-     ::
+      ::
 
-        /**
-        * Moves to the next position in the selection.
-        * Throws {@code goog.iter.StopIteration} when it
-        * passes the end of the range.
-        * @return {Node} The node at the next position.
-        */
-        goog.dom.RangeIterator.prototype.next = function() {
-          // ...
-        };
-     - 表示这是一段代码，他能在文档中正确的格式化。
+      /**
+       * Moves to the next position in the selection.
+       * Throws {@code goog.iter.StopIteration} when it
+       * passes the end of the range.
+       * @return {Node} The node at the next position.
+       */
+       goog.dom.RangeIterator.prototype.next = function() {
+         // ...
+       };
+    - 表示这是一段代码，他能在文档中正确的格式化。
   * - @const
     - @const
       @const {type}
 
       例如：
 
-     ::
+      ::
 
         /** @const \*/ var MY_BEER = 'stout';
         /**
@@ -1280,9 +1280,9 @@ JSDoc标签参考
   * - @constructor
     - @constructor
 
-     例如：
+      例如：
 
-     ::
+      ::
 
         /**
         * A rectangle.
@@ -1390,8 +1390,8 @@ JSDoc标签参考
 
       ::
 
-        /** @expose */
-        MyClass.prototype.exposedProperty = 3;
+      /** @expose */
+      MyClass.prototype.exposedProperty = 3;
     - 声明一个公开的属性，表示这个属性不可以被删除、重命名或者由编译器进行优化。相同名称的属性也不能由编译器通过任何方式进行优化。
 
       ``@expose`` 不可以出现在代码库里，因为他会阻止这个属性被删除。
@@ -1403,14 +1403,14 @@ JSDoc标签参考
 
       ::
 
-        /**
-        * Immutable empty node list.
-        * @constructor
-        * @extends goog.ds.BasicNodeList
-        */
-        goog.ds.EmptyNodeList = function() {
-          ...
-        };
+      /**
+       * Immutable empty node list.
+       * @constructor
+       * @extends goog.ds.BasicNodeList
+       */
+      goog.ds.EmptyNodeList = function() {
+        ...
+      };
     - 和 ``@constructor`` 一起使用，表示从哪里继承过来的。类型外的大括号是可选的。
   * - @externs
     - @externs
@@ -1419,12 +1419,12 @@ JSDoc标签参考
 
       ::
 
-        /**
-        * @fileoverview This is an externs file.
-        * @externs
-        */
+      /**
+       * @fileoverview This is an externs file.
+       * @externs
+       */
 
-        var document;
+      var document;
     - 声明一个外部文件。
   * - @fileoverview
     - @fileoverview Description
@@ -1433,11 +1433,11 @@ JSDoc标签参考
 
       ::
 
-        /**
-        * @fileoverview Utilities for doing things that require this very long
-        * but not indented comment.
-        * @author kuth@google.com (Uthur Pendragon)
-        */
+      /**
+       * @fileoverview Utilities for doing things that require this very long
+       * but not indented comment.
+       * @author kuth@google.com (Uthur Pendragon)
+       */
     - 使注释提供文件级别的信息。
   * - @implements
     - @implements Type
@@ -1447,22 +1447,22 @@ JSDoc标签参考
 
       ::
 
-        /**
-        * A shape.
-        * @interface
-        */
-        function Shape() {};
-        Shape.prototype.draw = function() {};
+      /**
+       * A shape.
+       * @interface
+       */
+      function Shape() {};
+      Shape.prototype.draw = function() {};
 
-        /**
-        * @constructor
-        * @implements {Shape}
-        */
-        function Square() {};
-        Square.prototype.draw = function() {
-          ...
-        };
-     - 使用 ``@constructor`` 来表示一个类实现了某个接口。类型外的大括号是可选的。
+      /**
+       * @constructor
+       * @implements {Shape}
+       */
+      function Square() {};
+      Square.prototype.draw = function() {
+        ...
+      };
+    - 使用 ``@constructor`` 来表示一个类实现了某个接口。类型外的大括号是可选的。
   * - @inheritDoc
     - @inheritDoc
 
@@ -1499,6 +1499,11 @@ JSDoc标签参考
         function Polygon() {};
         Polygon.prototype.getSides = function() {};
     - 表示一个函数定义了一个接口。
+
+
+
+
+
   * - @lends
     - @lends objectName
       @lends {objectName}
@@ -1754,11 +1759,11 @@ JSDoc标签参考
 
       ::
 
-        /**
-        * The message hex ID.
-        * @type {string}
-        */
-        var hexId = hexId;
+      /**
+       * The message hex ID.
+       * @type {string}
+       */
+      var hexId = hexId;
     - 标识变量，属性或表达式的 `类型 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 。大多数类型不需要大括号，但有些项目为了保持一致性而要求所有类型都使用大括号。
   * - @typedef
     - @typedef
