@@ -12,7 +12,7 @@ source_suffix = '.rst'
 master_doc = 'contents'
 language = 'en_US'
 exclude_patterns = ['_build']
-extensions = ['sphinx.ext.pngmath']
+extensions = ['sphinx.ext.imgmath']
 pygments_style = 'sphinx'
 
 # on_rtd is whether we are on readthedocs.org
@@ -27,8 +27,8 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
 
 html_title = u'Google 开源项目风格指南'
-htmlhelp_basename = 'google-styleguide'
-html_add_permalinks = None
+htmlhelp_basename = 'zh-google-styleguide'
+html_add_permalinks = ''
 
 latex_engine = 'xelatex'
 file_insertion_enabled = False
@@ -65,7 +65,7 @@ else:
         'preamble' : r'''        \usepackage{ctex}        ''',    
     }  
 latex_documents = [
-  ('contents', 'google-styleguide.tex', u'Google 开源项目风格指南',
+  ('contents', 'zh-google-styleguide.tex', u'Google 开源项目风格指南',
    u'', 'manual'),
 ]
 

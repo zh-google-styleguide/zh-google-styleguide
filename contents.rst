@@ -12,3 +12,4 @@
    google-objc-styleguide/contents
    google-python-styleguide/contents
    google-shell-styleguide/contents
+   google-javascript-styleguide/contents
