@@ -559,7 +559,7 @@ True/False的求值
 --------------------
 
 .. tip::
-    如果好处很显然, 就明智而谨慎的使用装饰器   
+    如果好处很显然, 就明智而谨慎的使用装饰器,避免使用 ``staticmethod``以及谨慎使用``classmethod``.   
     
 定义:
     `用于函数及方法的装饰器 <https://docs.python.org/release/2.4.3/whatsnew/node6.html>`_ (也就是@标记). 最常见的装饰器是@classmethod 和@staticmethod, 用于将常规函数转换成类方法或静态方法. 不过, 装饰器语法也允许用户自定义装饰器. 特别地, 对于某个函数 ``my_decorator`` , 下面的两段代码是等效的:
