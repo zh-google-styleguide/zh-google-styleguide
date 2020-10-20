@@ -385,50 +385,47 @@ Lambda函数
     
     .. code-block:: python
     
-        Yes: import math
+    Yes: import math
 
-             class Square(object):
-                 """A square with two properties: a writable area and a read-only perimeter.
+        class Square:
+            """A square with two properties: a writable area and a read-only perimeter.
 
-                 To use:
-                 >>> sq = Square(3)
-                 >>> sq.area
-                 9
-                 >>> sq.perimeter
-                 12
-                 >>> sq.area = 16
-                 >>> sq.side
-                 4
-                 >>> sq.perimeter
-                 16
-                 """
+            To use:
+            >>> sq = Square(3)
+            >>> sq.area
+            9
+            >>> sq.perimeter
+            12
+            >>> sq.area = 16
+            >>> sq.side
+            4
+            >>> sq.perimeter
+            16
+            """
 
-                 def __init__(self, side):
-                     self.side = side
+            def __init__(self, side):
+                self.side = side
 
-                 def __get_area(self):
-                     """Calculates the 'area' property."""
-                     return self.side ** 2
+            @property
+            def area(self):
+                """Area of the square."""
+                return self._get_area()
 
-                 def ___get_area(self):
-                     """Indirect accessor for 'area' property."""
-                     return self.__get_area()
+            @area.setter
+            def area(self, area):
+                return self._set_area(area)
 
-                 def __set_area(self, area):
-                     """Sets the 'area' property."""
-                     self.side = math.sqrt(area)
+            def _get_area(self):
+                """Indirect accessor to calculate the 'area' property."""
+                return self.side ** 2
 
-                 def ___set_area(self, area):
-                     """Indirect setter for 'area' property."""
-                     self._SetArea(area)
+            def _set_area(self, area):
+                """Indirect setter to set the 'area' property."""
+                self.side = math.sqrt(area)
 
-                 area = property(___get_area, ___set_area,
-                                 doc="""Gets or sets the area of the square.""")
-
-                 @property
-                 def perimeter(self):
-                     return self.side * 4
-    
+            @property
+            def perimeter(self):
+                return self.side * 4 
     
     (译者注: 老实说, 我觉得这段示例代码很不恰当, 有必要这么蛋疼吗?)
     
