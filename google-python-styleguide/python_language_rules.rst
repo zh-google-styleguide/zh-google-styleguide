@@ -5,7 +5,7 @@ Lint
 --------------------
 
 .. tip::
-    对你的代码运行pylint
+    使用该 `pylintrc <https://google.github.io/styleguide/pylintrc>`_ 对你的代码运行pylint
     
 定义:
     pylint是一个在Python源代码中查找bug的工具. 对于C和C++这样的不那么动态的(译者注: 原文是less dynamic)语言, 这些bug通常由编译器来捕获. 由于Python的动态特性, 有些警告可能不对. 不过伪告警应该很少.
@@ -17,15 +17,14 @@ Lint
     pylint不完美. 要利用其优势, 我们有时侯需要: a) 围绕着它来写代码 b) 抑制其告警 c) 改进它, 或者d) 忽略它.
     
 结论: 
-    确保对你的代码运行pylint.抑制不准确的警告,以便能够将其他警告暴露出来。
-
-    你可以通过设置一个行注释来抑制警告. 例如:
+    确保对你的代码运行pylint.
+    抑制不准确的警告,以便能够将其他警告暴露出来。你可以通过设置一个行注释来抑制警告. 例如:
     
     .. code-block:: python
     
         dict = 'something awful'  # Bad Idea... pylint: disable=redefined-builtin
         
-    pylint警告是以一个数字编号(如 ``C0112`` )和一个符号名(如 ``empty-docstring`` )来标识的. 在编写新代码或更新已有代码时对告警进行抑制, 推荐使用符号名来标识.
+    pylint警告是以符号名(如 ``empty-docstring`` )来标识的.google特定的警告则是以``g-``开头.
     
     如果警告的符号名不够见名知意，那么请对其增加一个详细解释。
     
@@ -35,20 +34,21 @@ Lint
     
     相比较于之前使用的 ``pylint: disable-msg`` , 本文推荐使用 ``pylint: disable`` .
     
-    要抑制"参数未使用"告警, 你可以用"_"作为参数标识符, 或者在参数名前加"unused\_". 遇到不能改变参数名的情况, 你可以通过在函数开头"提到"它们来消除告警. 例如:
+    在函数体中 ``del`` 未使用的变量可以消除参数未使用告警.记得要加一条注释说明你为何 ``del`` 它们,注释使用"Unused"就可以,例如:
     
     .. code-block:: python
     
-        def foo(a, unused_b, unused_c, d=None, e=None):
-            _ = d, e
-            return a
-            
+        def viking_cafe_order(spam, beans, eggs=None):
+            del beans, eggs  # Unused by vikings.
+            return spam + spam + spam        
+
+    其他消除这个告警的方法还有使用`_`标志未使用参数,或者给这些参数名加上前缀 ``unused_``, 或者直接把它们绑定到 ``_``.但这些方法都不推荐.
 
 导入
 --------------------
 
 .. tip::
-    仅对包和模块使用导入    
+    仅对包和模块使用导入,而不单独导入函数或者类。`typing`模块例外。   
 
 定义:
     模块间共享代码的重用机制.
@@ -60,11 +60,13 @@ Lint
     模块名仍可能冲突. 有些模块名太长, 不太方便.
     
 结论:
-    使用 ``import x`` 来导入包和模块. 
+    #. 使用 ``import x`` 来导入包和模块. 
     
-    使用 ``from x import y`` , 其中x是包前缀, y是不带前缀的模块名.
+    #. 使用 ``from x import y`` , 其中x是包前缀, y是不带前缀的模块名.
     
-    使用 ``from x import y as z``, 如果两个要导入的模块都叫做y或者y太长了.
+    #. 使用 ``from x import y as z``, 如果两个要导入的模块都叫做y或者y太长了.
+    
+    #. 仅当缩写 ``z`` 是通用缩写时才可使用 ``import y as z``.(比如 ``np`` 代表 ``numpy``.)
     
     例如, 模块 ``sound.effects.echo`` 可以用如下方式导入:
     
@@ -75,6 +77,8 @@ Lint
         echo.EchoFilter(input, output, delay=0.7, atten=4)
      
     导入时不要使用相对名称. 即使模块在同一个包中, 也要使用完整包名. 这能帮助你避免无意间导入一个包两次. 
+
+    导入 ``typing`` 和 `six.moves <https://six.readthedocs.io/#module-six.moves>`_ 模块时可以例外.
     
 包
 --------------------
@@ -83,7 +87,7 @@ Lint
     使用模块的全路径名来导入每个模块    
 
 优点:
-    避免模块名冲突. 查找包更容易. 
+    避免模块名冲突或是因非预期的模块搜索路径导致导入错误. 查找包更容易. 
     
 缺点:
     部署代码变难, 因为你必须复制包层次. 
@@ -92,15 +96,36 @@ Lint
     所有的新代码都应该用完整包名来导入每个模块.
     
     应该像下面这样导入:  
+
+    yes:
     
     .. code-block:: python
     
-        # Reference in code with complete name.
-        import sound.effects.echo
+        # 在代码中引用完整名称 absl.flags (详细情况).
+        import absl.flags
+        from doctor.who import jodie
 
-        # Reference in code with just module name (preferred).
-        from sound.effects import echo
+        FLAGS = absl.flags.FLAGS
+
+    .. code-block:: python
+
+        # 在代码中仅引用模块名 flags (常见情况).
+        from absl import flags
+        from doctor.who import jodie
+
+        FLAGS = flags.FLAGS
+
+    No: (假设当前文件和 `jodie.py` 都在目录 `doctor/who/` 下)
+
+    .. code-block:: python
     
+        # 没能清晰指示出作者想要导入的模块和最终被导入的模块.
+        # 实际导入的模块将取决于 sys.path.
+        import jodie
+
+    不应假定主入口脚本所在的目录就在 `sys.path` 中，虽然这种情况是存在的。当主入口脚本所在目录不在 `sys.path` 中时，代码将假设 `import jodie` 是导入的一个第三方库或者是一个名为 `jodie` 的顶层包，而不是本地的 `jodie.py`
+
+
 异常
 --------------------
 
@@ -385,48 +410,48 @@ Lambda函数
     
     .. code-block:: python
     
-    Yes: import math
+        Yes: import math
 
-        class Square:
-            """A square with two properties: a writable area and a read-only perimeter.
+            class Square:
+                """A square with two properties: a writable area and a read-only perimeter.
 
-            To use:
-            >>> sq = Square(3)
-            >>> sq.area
-            9
-            >>> sq.perimeter
-            12
-            >>> sq.area = 16
-            >>> sq.side
-            4
-            >>> sq.perimeter
-            16
-            """
+                To use:
+                >>> sq = Square(3)
+                >>> sq.area
+                9
+                >>> sq.perimeter
+                12
+                >>> sq.area = 16
+                >>> sq.side
+                4
+                >>> sq.perimeter
+                16
+                """
 
-            def __init__(self, side):
-                self.side = side
+                def __init__(self, side):
+                    self.side = side
 
-            @property
-            def area(self):
-                """Area of the square."""
-                return self._get_area()
+                @property
+                def area(self):
+                    """Area of the square."""
+                    return self._get_area()
 
-            @area.setter
-            def area(self, area):
-                return self._set_area(area)
+                @area.setter
+                def area(self, area):
+                    return self._set_area(area)
 
-            def _get_area(self):
-                """Indirect accessor to calculate the 'area' property."""
-                return self.side ** 2
+                def _get_area(self):
+                    """Indirect accessor to calculate the 'area' property."""
+                    return self.side ** 2
 
-            def _set_area(self, area):
-                """Indirect setter to set the 'area' property."""
-                self.side = math.sqrt(area)
+                def _set_area(self, area):
+                    """Indirect setter to set the 'area' property."""
+                    self.side = math.sqrt(area)
 
-            @property
-            def perimeter(self):
-                return self.side * 4 
-    
+                @property
+                def perimeter(self):
+                    return self.side * 4 
+        
     (译者注: 老实说, 我觉得这段示例代码很不恰当, 有必要这么蛋疼吗?)
     
 True/False的求值
