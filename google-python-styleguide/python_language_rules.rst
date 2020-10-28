@@ -144,26 +144,57 @@ Lint
 结论:
     异常必须遵守特定条件:
     
-    #. 像这样触发异常: ``raise MyException("Error message")`` 或者 ``raise MyException`` . 不要使用两个参数的形式( ``raise MyException, "Error message"`` )或者过时的字符串异常( ``raise "Error message"`` ).
-    #. 模块或包应该定义自己的特定域的异常基类, 这个基类应该从内建的Exception类继承. 模块的异常基类应该叫做"Error".
-    
-        .. code-block:: python
+    #. 优先合理的使用内置异常类.比如 ``ValueError`` 指示了一个程序错误, 比如在方法需要正数的情况下传递了一个负数错误.不要使用 ``assert`` 语句来验证公共API的参数值. ``assert`` 是用来保证内部正确性的,而不是用来强制纠正参数使用.若需要使用异常来指示某些意外情况,不要用 ``assert``,用 ``raise`` 语句,例如:
         
-            class Error(Exception):
-                pass   
-    
+        Yes:
+        
+        .. code-block:: python
+            def connect_to_next_port(self, minimum):
+                """Connects to the next available port.
+
+                Args:
+                    minimum: A port value greater or equal to 1024.
+
+                Returns:
+                    The new minimum port.
+
+                Raises:
+                    ConnectionError: If no available port is found.
+                """
+                if minimum < 1024:
+                    # Note that this raising of ValueError is not mentioned in the doc
+                    # string's "Raises:" section because it is not appropriate to
+                    # guarantee this specific behavioral reaction to API misuse.
+                    raise ValueError(f'Min. port must be at least 1024, not {minimum}.')
+                port = self._find_next_open_port(minimum)
+                if not port:
+                    raise ConnectionError(
+                        f'Could not connect to service on port {minimum} or higher.')
+                assert port >= minimum, (
+                    f'Unexpected port {port} when minimum was {minimum}.')
+                return port
+
+        No:
+
+        .. code-block:: python
+            def connect_to_next_port(self, minimum):
+                """Connects to the next available port.
+
+                Args:
+                minimum: A port value greater or equal to 1024.
+
+                Returns:
+                The new minimum port.
+                """
+                assert minimum >= 1024, 'Minimum port must be at least 1024.'
+                port = self._find_next_open_port(minimum)
+                assert port is not None
+                return port
+
+    #. 模块或包应该定义自己的特定域的异常基类, 这个基类应该从内建的Exception类继承. 模块的异常基类后缀应该叫做 ``Error``.
     #. 永远不要使用 ``except:`` 语句来捕获所有异常, 也不要捕获 ``Exception`` 或者 ``StandardError`` , 除非你打算重新触发该异常, 或者你已经在当前线程的最外层(记得还是要打印一条错误消息). 在异常这方面, Python非常宽容, ``except:`` 真的会捕获包括Python语法错误在内的任何错误. 使用 ``except:`` 很容易隐藏真正的bug. 
     #. 尽量减少try/except块中的代码量. try块的体积越大, 期望之外的异常就越容易被触发. 这种情况下, try/except块将隐藏真正的错误. 
     #. 使用finally子句来执行那些无论try块中有没有异常都应该被执行的代码. 这对于清理资源常常很有用, 例如关闭文件.
-    #. 当捕获异常时, 使用 ``as`` 而不要用逗号. 例如
-        
-        .. code-block:: python
-        
-            try:
-                raise Error
-            except Error as error:
-                pass
-
 
 全局变量
 --------------------
@@ -181,12 +212,10 @@ Lint
     导入时可能改变模块行为, 因为导入模块时会对模块级变量赋值. 
     
 结论:
-    避免使用全局变量, 用类变量来代替. 但也有一些例外:
+    避免使用全局变量.
+    鼓励使用模块级的常量,例如 ``MAX_HOLY_HANDGRENADE_COUNT = 3``.注意常量命名必须全部大写,用 ``_`` 分隔.具体参见 `命名规则 <https://google.github.io/styleguide/pyguide.html#s3.16-naming>`_
+    若必须要使用全局变量,应在模块内声明全局变量,并在名称前 ``_`` 使之成为模块内部变量.外部访问必须通过模块级的公共函数.具体参见 `命名规则 <>`_
     
-    #. 脚本的默认选项.
-    #. 模块级常量. 例如:　PI = 3.14159. 常量应该全大写, 用下划线连接. 
-    #. 有时候用全局变量来缓存值或者作为函数返回值很有用. 
-    #. 如果需要, 全局变量应该仅在模块内部可用, 并通过模块级的公共函数来访问. 
     
 嵌套/局部/内部类或函数
 ------------------------
