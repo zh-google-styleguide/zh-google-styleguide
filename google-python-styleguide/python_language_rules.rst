@@ -5,7 +5,7 @@ Lint
 --------------------
 
 .. tip::
-    对你的代码运行pylint
+    使用该 `pylintrc <https://google.github.io/styleguide/pylintrc>`_ 对你的代码运行pylint
     
 定义:
     pylint是一个在Python源代码中查找bug的工具. 对于C和C++这样的不那么动态的(译者注: 原文是less dynamic)语言, 这些bug通常由编译器来捕获. 由于Python的动态特性, 有些警告可能不对. 不过伪告警应该很少.
@@ -17,15 +17,14 @@ Lint
     pylint不完美. 要利用其优势, 我们有时侯需要: a) 围绕着它来写代码 b) 抑制其告警 c) 改进它, 或者d) 忽略它.
     
 结论: 
-    确保对你的代码运行pylint.抑制不准确的警告,以便能够将其他警告暴露出来。
-
-    你可以通过设置一个行注释来抑制警告. 例如:
+    确保对你的代码运行pylint.
+    抑制不准确的警告,以便能够将其他警告暴露出来。你可以通过设置一个行注释来抑制警告. 例如:
     
     .. code-block:: python
     
         dict = 'something awful'  # Bad Idea... pylint: disable=redefined-builtin
         
-    pylint警告是以一个数字编号(如 ``C0112`` )和一个符号名(如 ``empty-docstring`` )来标识的. 在编写新代码或更新已有代码时对告警进行抑制, 推荐使用符号名来标识.
+    pylint警告是以符号名(如 ``empty-docstring`` )来标识的.google特定的警告则是以``g-``开头.
     
     如果警告的符号名不够见名知意，那么请对其增加一个详细解释。
     
@@ -35,20 +34,21 @@ Lint
     
     相比较于之前使用的 ``pylint: disable-msg`` , 本文推荐使用 ``pylint: disable`` .
     
-    要抑制"参数未使用"告警, 你可以用"_"作为参数标识符, 或者在参数名前加"unused\_". 遇到不能改变参数名的情况, 你可以通过在函数开头"提到"它们来消除告警. 例如:
+    在函数体中 ``del`` 未使用的变量可以消除参数未使用告警.记得要加一条注释说明你为何 ``del`` 它们,注释使用"Unused"就可以,例如:
     
     .. code-block:: python
     
-        def foo(a, unused_b, unused_c, d=None, e=None):
-            _ = d, e
-            return a
-            
+        def viking_cafe_order(spam, beans, eggs=None):
+            del beans, eggs  # Unused by vikings.
+            return spam + spam + spam        
+
+    其他消除这个告警的方法还有使用`_`标志未使用参数,或者给这些参数名加上前缀 ``unused_``, 或者直接把它们绑定到 ``_``.但这些方法都不推荐.
 
 导入
 --------------------
 
 .. tip::
-    仅对包和模块使用导入    
+    仅对包和模块使用导入,而不单独导入函数或者类。`typing`模块例外。   
 
 定义:
     模块间共享代码的重用机制.
@@ -60,11 +60,13 @@ Lint
     模块名仍可能冲突. 有些模块名太长, 不太方便.
     
 结论:
-    使用 ``import x`` 来导入包和模块. 
+    #. 使用 ``import x`` 来导入包和模块. 
     
-    使用 ``from x import y`` , 其中x是包前缀, y是不带前缀的模块名.
+    #. 使用 ``from x import y`` , 其中x是包前缀, y是不带前缀的模块名.
     
-    使用 ``from x import y as z``, 如果两个要导入的模块都叫做y或者y太长了.
+    #. 使用 ``from x import y as z``, 如果两个要导入的模块都叫做y或者y太长了.
+    
+    #. 仅当缩写 ``z`` 是通用缩写时才可使用 ``import y as z``.(比如 ``np`` 代表 ``numpy``.)
     
     例如, 模块 ``sound.effects.echo`` 可以用如下方式导入:
     
@@ -75,6 +77,8 @@ Lint
         echo.EchoFilter(input, output, delay=0.7, atten=4)
      
     导入时不要使用相对名称. 即使模块在同一个包中, 也要使用完整包名. 这能帮助你避免无意间导入一个包两次. 
+
+    导入 ``typing`` 和 `six.moves <https://six.readthedocs.io/#module-six.moves>`_ 模块时可以例外.
     
 包
 --------------------
@@ -83,7 +87,7 @@ Lint
     使用模块的全路径名来导入每个模块    
 
 优点:
-    避免模块名冲突. 查找包更容易. 
+    避免模块名冲突或是因非预期的模块搜索路径导致导入错误. 查找包更容易. 
     
 缺点:
     部署代码变难, 因为你必须复制包层次. 
@@ -92,15 +96,36 @@ Lint
     所有的新代码都应该用完整包名来导入每个模块.
     
     应该像下面这样导入:  
+
+    yes:
     
     .. code-block:: python
     
-        # Reference in code with complete name.
-        import sound.effects.echo
+        # 在代码中引用完整名称 absl.flags (详细情况).
+        import absl.flags
+        from doctor.who import jodie
 
-        # Reference in code with just module name (preferred).
-        from sound.effects import echo
+        FLAGS = absl.flags.FLAGS
+
+    .. code-block:: python
+
+        # 在代码中仅引用模块名 flags (常见情况).
+        from absl import flags
+        from doctor.who import jodie
+
+        FLAGS = flags.FLAGS
+
+    No: (假设当前文件和 `jodie.py` 都在目录 `doctor/who/` 下)
+
+    .. code-block:: python
     
+        # 没能清晰指示出作者想要导入的模块和最终被导入的模块.
+        # 实际导入的模块将取决于 sys.path.
+        import jodie
+
+    不应假定主入口脚本所在的目录就在 `sys.path` 中，虽然这种情况是存在的。当主入口脚本所在目录不在 `sys.path` 中时，代码将假设 `import jodie` 是导入的一个第三方库或者是一个名为 `jodie` 的顶层包，而不是本地的 `jodie.py`
+
+
 异常
 --------------------
 
@@ -119,26 +144,59 @@ Lint
 结论:
     异常必须遵守特定条件:
     
-    #. 像这样触发异常: ``raise MyException("Error message")`` 或者 ``raise MyException`` . 不要使用两个参数的形式( ``raise MyException, "Error message"`` )或者过时的字符串异常( ``raise "Error message"`` ).
-    #. 模块或包应该定义自己的特定域的异常基类, 这个基类应该从内建的Exception类继承. 模块的异常基类应该叫做"Error".
-    
-        .. code-block:: python
+    #. 优先合理的使用内置异常类.比如 ``ValueError`` 指示了一个程序错误, 比如在方法需要正数的情况下传递了一个负数错误.不要使用 ``assert`` 语句来验证公共API的参数值. ``assert`` 是用来保证内部正确性的,而不是用来强制纠正参数使用.若需要使用异常来指示某些意外情况,不要用 ``assert``,用 ``raise`` 语句,例如:
         
-            class Error(Exception):
-                pass   
-    
+        Yes:
+        
+        .. code-block:: python
+
+            def connect_to_next_port(self, minimum):
+                """Connects to the next available port.
+
+                Args:
+                    minimum: A port value greater or equal to 1024.
+
+                Returns:
+                    The new minimum port.
+
+                Raises:
+                    ConnectionError: If no available port is found.
+                """
+                if minimum < 1024:
+                    # Note that this raising of ValueError is not mentioned in the doc
+                    # string's "Raises:" section because it is not appropriate to
+                    # guarantee this specific behavioral reaction to API misuse.
+                    raise ValueError(f'Min. port must be at least 1024, not {minimum}.')
+                port = self._find_next_open_port(minimum)
+                if not port:
+                    raise ConnectionError(
+                        f'Could not connect to service on port {minimum} or higher.')
+                assert port >= minimum, (
+                    f'Unexpected port {port} when minimum was {minimum}.')
+                return port
+
+        No:
+
+        .. code-block:: python
+
+            def connect_to_next_port(self, minimum):
+                """Connects to the next available port.
+
+                Args:
+                minimum: A port value greater or equal to 1024.
+
+                Returns:
+                The new minimum port.
+                """
+                assert minimum >= 1024, 'Minimum port must be at least 1024.'
+                port = self._find_next_open_port(minimum)
+                assert port is not None
+                return port
+
+    #. 模块或包应该定义自己的特定域的异常基类, 这个基类应该从内建的Exception类继承. 模块的异常基类后缀应该叫做 ``Error``.
     #. 永远不要使用 ``except:`` 语句来捕获所有异常, 也不要捕获 ``Exception`` 或者 ``StandardError`` , 除非你打算重新触发该异常, 或者你已经在当前线程的最外层(记得还是要打印一条错误消息). 在异常这方面, Python非常宽容, ``except:`` 真的会捕获包括Python语法错误在内的任何错误. 使用 ``except:`` 很容易隐藏真正的bug. 
     #. 尽量减少try/except块中的代码量. try块的体积越大, 期望之外的异常就越容易被触发. 这种情况下, try/except块将隐藏真正的错误. 
     #. 使用finally子句来执行那些无论try块中有没有异常都应该被执行的代码. 这对于清理资源常常很有用, 例如关闭文件.
-    #. 当捕获异常时, 使用 ``as`` 而不要用逗号. 例如
-        
-        .. code-block:: python
-        
-            try:
-                raise Error
-            except Error as error:
-                pass
-
 
 全局变量
 --------------------
@@ -156,39 +214,37 @@ Lint
     导入时可能改变模块行为, 因为导入模块时会对模块级变量赋值. 
     
 结论:
-    避免使用全局变量, 用类变量来代替. 但也有一些例外:
+    避免使用全局变量.
+    鼓励使用模块级的常量,例如 ``MAX_HOLY_HANDGRENADE_COUNT = 3``.注意常量命名必须全部大写,用 ``_`` 分隔.具体参见 `命名规则 <https://google.github.io/styleguide/pyguide.html#s3.16-naming>`_
+    若必须要使用全局变量,应在模块内声明全局变量,并在名称前 ``_`` 使之成为模块内部变量.外部访问必须通过模块级的公共函数.具体参见 `命名规则 <>`_
     
-    #. 脚本的默认选项.
-    #. 模块级常量. 例如:　PI = 3.14159. 常量应该全大写, 用下划线连接. 
-    #. 有时候用全局变量来缓存值或者作为函数返回值很有用. 
-    #. 如果需要, 全局变量应该仅在模块内部可用, 并通过模块级的公共函数来访问. 
     
 嵌套/局部/内部类或函数
 ------------------------
 
 .. tip::
-    鼓励使用嵌套/本地/内部类或函数
+    使用内部类或者嵌套函数可以用来覆盖某些局部变量.
 
 定义:
-    类可以定义在方法, 函数或者类中. 函数可以定义在方法或函数中. 封闭区间中定义的变量对嵌套函数是只读的. 
+    类可以定义在方法, 函数或者类中. 函数可以定义在方法或函数中. 封闭区间中定义的变量对嵌套函数是只读的. (译者注:即内嵌函数可以读外部函数中定义的变量,但是无法改写,除非使用 `nonlocal`)
 
 优点:
-    允许定义仅用于有效范围的工具类和函数. 
+    允许定义仅用于有效范围的工具类和函数.在装饰器中比较常用. 
 
 缺点:
-    嵌套类或局部类的实例不能序列化(pickled).
+    嵌套类或局部类的实例不能序列化(pickled). 内嵌的函数和类无法直接测试.同时内嵌函数和类会使外部函数的可读性变差.
     
 结论:
-    推荐使用.
+    使用内部类或者内嵌函数可以忽视一些警告.但是应该避免使用内嵌函数或类,除非是想覆盖某些值.若想对模块的用户隐藏某个函数,不要采用嵌套它来隐藏,应该在需要被隐藏的方法的模块级名称加 ``_`` 前缀,这样它依然是可以被测试的.
     
-列表推导(List Comprehensions)
+推导式&生成式
 --------------------------------
 
 .. tip::
     可以在简单情况下使用    
 
 定义:
-    列表推导(list comprehensions)与生成器表达式(generator expression)提供了一种简洁高效的方式来创建列表和迭代器, 而不必借助map(), filter(), 或者lambda.
+    列表,字典和集合的推导&生成式提供了一种简洁高效的方式来创建容器和迭代器, 而不必借助map(), filter(), 或者lambda.(译者注: 元组是没有推导式的, ``()`` 内加类似推导式的句式返回的是个生成器)
     
 优点:
     简单的列表推导可以比其它的列表创建方法更加清晰简单. 生成器表达式可以十分高效, 因为它们避免了创建整个列表. 
@@ -199,34 +255,45 @@ Lint
 结论:
     适用于简单情况. 每个部分应该单独置于一行: 映射表达式, for语句, 过滤器表达式. 禁止多重for语句或过滤器表达式. 复杂情况下还是使用循环.
     
+    Yes:
+
     .. code-block:: python 
-    
-        Yes:
-          result = []
-          for x in range(10):
-              for y in range(5):
-                  if x * y > 10:
-                      result.append((x, y))
 
-          for x in xrange(5):
-              for y in xrange(5):
-                  if x != y:
-                      for z in xrange(5):
-                          if y != z:
-                              yield (x, y, z)
+        result = [mapping_expr for value in iterable if filter_expr]
 
-          return ((x, complicated_transform(x))
-                  for x in long_generator_function(parameter)
-                  if x is not None)
+        result = [{'key': value} for value in iterable
+                    if a_long_filter_expression(value)]
 
-          squares = [x * x for x in range(10)]
+        result = [complicated_transform(x)
+                    for x in iterable if predicate(x)]
 
-          eat(jelly_bean for jelly_bean in jelly_beans
-              if jelly_bean.color == 'black')   
+        descriptive_name = [
+            transform({'key': key, 'value': value}, color='black')
+            for key, value in generate_iterable(some_input)
+            if complicated_condition_is_met(key, value)
+        ]
+
+        result = []
+        for x in range(10):
+            for y in range(5):
+                if x * y > 10:
+                    result.append((x, y))
+
+        return {x: complicated_transform(x)
+                for x in long_generator_function(parameter)
+                if x is not None}
+
+        squares_generator = (x**2 for x in range(10))
+
+        unique_names = {user.name for user in users if user is not None}
+
+        eat(jelly_bean for jelly_bean in jelly_beans
+            if jelly_bean.color == 'black')    
               
+    No:
+
     .. code-block:: python 
     
-        No:
           result = [(x, y) for x in range(10) for y in range(5) if x * y > 10]
 
           return ((x, y, z)
@@ -252,21 +319,25 @@ Lint
     你没法通过阅读方法名来区分对象的类型(例如, has_key()意味着字典). 不过这也是优点. 
     
 结论:
-    如果类型支持, 就使用默认迭代器和操作符, 例如列表, 字典和文件. 内建类型也定义了迭代器方法. 优先考虑这些方法, 而不是那些返回列表的方法. 当然，这样遍历容器时，你将不能修改容器. 
-    
+    如果类型支持, 就使用默认迭代器和操作符, 例如列表, 字典和文件. 内建类型也定义了迭代器方法. 优先考虑这些方法, 而不是那些返回列表的方法. 当然，这样遍历容器时，你将不能修改容器. 除非必要,否则不要使用诸如 `dict.iter*()` 这类python2的特定迭代方法.
+
+    Yes:
+
     .. code-block:: python
     
-        Yes:  for key in adict: ...
-              if key not in adict: ...
-              if obj in alist: ...
-              for line in afile: ...
-              for k, v in dict.iteritems(): ...
- 
+        for key in adict: ...
+        if key not in adict: ...
+        if obj in alist: ...
+        for line in afile: ...
+        for k, v in dict.iteritems(): ...
+
+    No: 
+
     .. code-block:: python 
     
-        No:   for key in adict.keys(): ...
-              if not adict.has_key(key): ...
-              for line in afile.readlines(): ...
+        for key in adict.keys(): ...
+        if not adict.has_key(key): ...
+        for line in afile.readlines(): ...
     
 生成器
 --------------------
@@ -316,7 +387,7 @@ Lambda函数
     适用于单行函数
 
 定义:
-    条件表达式是对于if语句的一种更为简短的句法规则. 例如: ``x = 1 if cond else 2`` .
+    条件表达式(又名三元运算符)是对于if语句的一种更为简短的句法规则. 例如: ``x = 1 if cond else 2`` .
     
 优点:
     比if语句更加简短和方便.
@@ -325,7 +396,26 @@ Lambda函数
     比if语句难于阅读. 如果表达式很长， 难于定位条件. 
     
 结论:
-    适用于单行函数. 在其他情况下，推荐使用完整的if语句.    
+    适用于单行函数. 写法上推荐真实表达式,if表达式,else表达式每个独占一行.在其他情况下，推荐使用完整的if语句.    
+
+    .. code-block:: python 
+
+        one_line = 'yes' if predicate(value) else 'no'
+        slightly_split = ('yes' if predicate(value)
+                        else 'no, nein, nyet')
+        the_longest_ternary_style_that_can_be_done = (
+            'yes, true, affirmative, confirmed, correct'
+            if predicate(value)
+            else 'no, false, negative, nay')
+
+    .. code-block:: python 
+
+        bad_line_breaking = ('yes' if predicate(value) else
+                        'no')
+        portion_too_long = ('yes'
+                            if some_long_module.some_long_predicate_function(
+                                really_long_variable_name)
+                            else 'no, false, negative, nay')
     
 默认参数值
 --------------------
@@ -350,33 +440,42 @@ Lambda函数
     .. code-block:: python
     
         Yes: def foo(a, b=None):
-                 if b is None:
-                     b = []        
-    
+                if b is None:
+                    b = []
+        Yes: def foo(a, b: Optional[Sequence] = None):
+                if b is None:
+                    b = []
+        Yes: def foo(a, b: Sequence = ()):  # Empty tuple OK since tuples are immutable 
+
     .. code-block:: python  
 
         No:  def foo(a, b=[]):
-                 ...    
+            ...
         No:  def foo(a, b=time.time()):  # The time the module was loaded???
-                 ...
+            ...
         No:  def foo(a, b=FLAGS.my_thing):  # sys.argv has not yet been parsed...
-                 ...
-                 
+            ...
+        No:  def foo(a, b: Mapping = {}):  # Could still get passed to unchecked code             
+            ...
         
-属性(properties)
+
+特性(properties) 
 --------------------
 
+(译者注:参照fluent python.这里将 "property" 译为"特性",而 "attribute" 译为属性. python中数据的属性和处理数据的方法统称属性"(arrtibute)", 而在不改变类接口的前提下用来修改数据属性的存取方法我们称为"特性(property)".)
+
 .. tip::
-    访问和设置数据成员时, 你通常会使用简单, 轻量级的访问和设置函数. 建议用属性（properties）来代替它们.    
+    访问和设置数据成员时, 你通常会使用简单, 轻量级的访问和设置函数.建议使用特性(properties)来代替它们.    
     
 定义:
     一种用于包装方法调用的方式. 当运算量不大, 它是获取和设置属性(attribute)的标准方式. 
     
 优点:
-    通过消除简单的属性(attribute)访问时显式的get和set方法调用, 可读性提高了. 允许懒惰的计算. 用Pythonic的方式来维护类的接口. 就性能而言, 当直接访问变量是合理的, 添加访问方法就显得琐碎而无意义. 使用属性(properties)可以绕过这个问题. 将来也可以在不破坏接口的情况下将访问方法加上. 
+    通过消除简单的属性(attribute)访问时显式的get和set方法调用, 可读性提高了. 允许懒惰的计算. 用Pythonic的方式来维护类的接口. 就性能而言, 当直接访问变量是合理的, 添加访问方法就显得琐碎而无意义. 使用特性(properties)可以绕过这个问题. 将来也可以在不破坏接口的情况下将访问方法加上. 
     
 缺点:
-    属性(properties)是在get和set方法声明后指定, 这需要使用者在接下来的代码中注意: set和get是用于属性(properties)的(除了用 ``@property`` 装饰器创建的只读属性).  必须继承自object类. 可能隐藏比如操作符重载之类的副作用. 继承时可能会让人困惑. 
+    特性(properties)是在get和set方法声明后指定, 这需要使用者在接下来的代码中注意: set和get是用于特性(properties)的(除了用 ``@property`` 装饰器创建的只读属性).  必须继承自object类. 可能隐藏比如操作符重载之类的副作用. 继承时可能会让人困惑. 
+    (译者注:这里没有修改原始翻译,其实就是 @property 装饰器是不会被继承的)
 
 结论:
     你通常习惯于使用访问或设置方法来访问或设置数据, 它们简单而轻量. 不过我们建议你在新的代码中使用属性. 只读属性应该用 ``@property`` `装饰器 <http://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Function_and_Method_Decorators>`_ 来创建.
@@ -385,48 +484,49 @@ Lambda函数
     
     .. code-block:: python
     
-    Yes: import math
+        Yes: 
+            import math
 
-        class Square:
-            """A square with two properties: a writable area and a read-only perimeter.
+            class Square:
+                """A square with two properties: a writable area and a read-only perimeter.
 
-            To use:
-            >>> sq = Square(3)
-            >>> sq.area
-            9
-            >>> sq.perimeter
-            12
-            >>> sq.area = 16
-            >>> sq.side
-            4
-            >>> sq.perimeter
-            16
-            """
+                To use:
+                >>> sq = Square(3)
+                >>> sq.area
+                9
+                >>> sq.perimeter
+                12
+                >>> sq.area = 16
+                >>> sq.side
+                4
+                >>> sq.perimeter
+                16
+                """
 
-            def __init__(self, side):
-                self.side = side
+                def __init__(self, side):
+                    self.side = side
 
-            @property
-            def area(self):
-                """Area of the square."""
-                return self._get_area()
+                @property
+                def area(self):
+                    """Area of the square."""
+                    return self._get_area()
 
-            @area.setter
-            def area(self, area):
-                return self._set_area(area)
+                @area.setter
+                def area(self, area):
+                    return self._set_area(area)
 
-            def _get_area(self):
-                """Indirect accessor to calculate the 'area' property."""
-                return self.side ** 2
+                def _get_area(self):
+                    """Indirect accessor to calculate the 'area' property."""
+                    return self.side ** 2
 
-            def _set_area(self, area):
-                """Indirect setter to set the 'area' property."""
-                self.side = math.sqrt(area)
+                def _set_area(self, area):
+                    """Indirect setter to set the 'area' property."""
+                    self.side = math.sqrt(area)
 
-            @property
-            def perimeter(self):
-                return self.side * 4 
-    
+                @property
+                def perimeter(self):
+                    return self.side * 4 
+        
     (译者注: 老实说, 我觉得这段示例代码很不恰当, 有必要这么蛋疼吗?)
     
 True/False的求值
@@ -447,33 +547,44 @@ True/False的求值
 结论:
     尽可能使用隐式的false, 例如: 使用 ``if foo:`` 而不是 ``if foo != []:`` . 不过还是有一些注意事项需要你铭记在心:
     
-    #. 永远不要用==或者!=来比较单件, 比如None. 使用is或者is not.
-    #. 注意: 当你写下 ``if x:`` 时, 你其实表示的是 ``if x is not None`` . 例如: 当你要测试一个默认值是None的变量或参数是否被设为其它值. 这个值在布尔语义下可能是false!
+    #. 对于 ``None`` 等单例对象测试时,使用 ``is`` 或者 ``is not``.当你要测试一个默认值是None的变量或参数是否被设为其它值. 这个值在布尔语义下可能是false!
+           (译者注: ``is`` 比较的是对象的id(), 这个函数返回的通常是对象的内存地址,考虑到CPython的对象重用机制,可能会出现生命周不重叠的两个对象会有相同的id)
     #. 永远不要用==将一个布尔量与false相比较. 使用 ``if not x:`` 代替. 如果你需要区分false和None, 你应该用像 ``if not x and x is not None:`` 这样的语句.
     #. 对于序列(字符串, 列表, 元组), 要注意空序列是false. 因此 ``if not seq:`` 或者 ``if seq:`` 比 ``if len(seq):`` 或 ``if not len(seq):`` 要更好.
     #. 处理整数时, 使用隐式false可能会得不偿失(即不小心将None当做0来处理). 你可以将一个已知是整型(且不是len()的返回结果)的值与0比较. 
     
+        Yes: 
+
         .. code-block:: python
         
-            Yes: if not users:
-                     print 'no users'
+            if not users:
+                print('no users')
 
-                 if foo == 0:
-                     self.handle_zero()
+            if foo == 0:
+                self.handle_zero()
 
-                 if i % 10 == 0:
-                     self.handle_multiple_of_ten()  
-                     
+            if i % 10 == 0:
+                self.handle_multiple_of_ten()
+
+            def f(x=None):
+                if x is None:
+                    x = []
+
+        No:
+
         .. code-block:: python
         
-            No:  if len(users) == 0:
-                     print 'no users'
+            if len(users) == 0:
+                print 'no users'
 
-                 if foo is not None and not foo:
-                     self.handle_zero()
+            if foo is not None and not foo:
+                self.handle_zero()
 
-                 if not i % 10:
-                     self.handle_multiple_of_ten()  
+            if not i % 10:
+                self.handle_multiple_of_ten()  
+
+            def f(x=None):
+                x = x or []
                      
     #. 注意'0'(字符串)会被当做true.
 
