@@ -484,7 +484,8 @@ Lambda函数
     
     .. code-block:: python
     
-        Yes: import math
+        Yes: 
+            import math
 
             class Square:
                 """A square with two properties: a writable area and a read-only perimeter.
@@ -546,33 +547,44 @@ True/False的求值
 结论:
     尽可能使用隐式的false, 例如: 使用 ``if foo:`` 而不是 ``if foo != []:`` . 不过还是有一些注意事项需要你铭记在心:
     
-    #. 永远不要用==或者!=来比较单件, 比如None. 使用is或者is not.
-    #. 注意: 当你写下 ``if x:`` 时, 你其实表示的是 ``if x is not None`` . 例如: 当你要测试一个默认值是None的变量或参数是否被设为其它值. 这个值在布尔语义下可能是false!
+    #. 对于 ``None`` 等单例对象测试时,使用 ``is`` 或者 ``is not``.当你要测试一个默认值是None的变量或参数是否被设为其它值. 这个值在布尔语义下可能是false!
+           (译者注: ``is`` 比较的是对象的id(), 这个函数返回的通常是对象的内存地址,考虑到CPython的对象重用机制,可能会出现生命周不重叠的两个对象会有相同的id)
     #. 永远不要用==将一个布尔量与false相比较. 使用 ``if not x:`` 代替. 如果你需要区分false和None, 你应该用像 ``if not x and x is not None:`` 这样的语句.
     #. 对于序列(字符串, 列表, 元组), 要注意空序列是false. 因此 ``if not seq:`` 或者 ``if seq:`` 比 ``if len(seq):`` 或 ``if not len(seq):`` 要更好.
     #. 处理整数时, 使用隐式false可能会得不偿失(即不小心将None当做0来处理). 你可以将一个已知是整型(且不是len()的返回结果)的值与0比较. 
     
+        Yes: 
+
         .. code-block:: python
         
-            Yes: if not users:
-                     print 'no users'
+            if not users:
+                print('no users')
 
-                 if foo == 0:
-                     self.handle_zero()
+            if foo == 0:
+                self.handle_zero()
 
-                 if i % 10 == 0:
-                     self.handle_multiple_of_ten()  
-                     
+            if i % 10 == 0:
+                self.handle_multiple_of_ten()
+
+            def f(x=None):
+                if x is None:
+                    x = []
+
+        No:
+
         .. code-block:: python
         
-            No:  if len(users) == 0:
-                     print 'no users'
+            if len(users) == 0:
+                print 'no users'
 
-                 if foo is not None and not foo:
-                     self.handle_zero()
+            if foo is not None and not foo:
+                self.handle_zero()
 
-                 if not i % 10:
-                     self.handle_multiple_of_ten()  
+            if not i % 10:
+                self.handle_multiple_of_ten()  
+
+            def f(x=None):
+                x = x or []
                      
     #. 注意'0'(字符串)会被当做true.
 
