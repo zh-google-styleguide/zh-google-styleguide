@@ -44,7 +44,7 @@ Lint
 
     其他消除这个告警的方法还有使用`_`标志未使用参数,或者给这些参数名加上前缀 ``unused_``, 或者直接把它们绑定到 ``_``.但这些方法都不推荐.
 
-导入(imports)
+导入
 --------------------
 
 .. tip::
@@ -80,7 +80,7 @@ Lint
 
     导入 ``typing`` 和 `six.moves <https://six.readthedocs.io/#module-six.moves>`_ 模块时可以例外.
     
-包(Packages)
+包
 --------------------
 
 .. tip::
@@ -126,7 +126,7 @@ Lint
     不应假定主入口脚本所在的目录就在 `sys.path` 中，虽然这种情况是存在的。当主入口脚本所在目录不在 `sys.path` 中时，代码将假设 `import jodie` 是导入的一个第三方库或者是一个名为 `jodie` 的顶层包，而不是本地的 `jodie.py`
 
 
-异常(Exceptions)
+异常
 --------------------
 
 .. tip::
@@ -149,6 +149,7 @@ Lint
         Yes:
         
         .. code-block:: python
+
             def connect_to_next_port(self, minimum):
                 """Connects to the next available port.
 
@@ -177,6 +178,7 @@ Lint
         No:
 
         .. code-block:: python
+
             def connect_to_next_port(self, minimum):
                 """Connects to the next available port.
 
@@ -196,7 +198,7 @@ Lint
     #. 尽量减少try/except块中的代码量. try块的体积越大, 期望之外的异常就越容易被触发. 这种情况下, try/except块将隐藏真正的错误. 
     #. 使用finally子句来执行那些无论try块中有没有异常都应该被执行的代码. 这对于清理资源常常很有用, 例如关闭文件.
 
-全局变量(Global variables)
+全局变量
 --------------------
 
 .. tip::
@@ -235,14 +237,14 @@ Lint
 结论:
     使用内部类或者内嵌函数可以忽视一些警告.但是应该避免使用内嵌函数或类,除非是想覆盖某些值.若想对模块的用户隐藏某个函数,不要采用嵌套它来隐藏,应该在需要被隐藏的方法的模块级名称加 ``_`` 前缀,这样它依然是可以被测试的.
     
-列表推导(List Comprehensions)
+推导式&生成式
 --------------------------------
 
 .. tip::
     可以在简单情况下使用    
 
 定义:
-    列表推导(list comprehensions)与生成器表达式(generator expression)提供了一种简洁高效的方式来创建列表和迭代器, 而不必借助map(), filter(), 或者lambda.
+    列表,字典和集合的推导&生成式提供了一种简洁高效的方式来创建容器和迭代器, 而不必借助map(), filter(), 或者lambda.(译者注: 元组是没有推导式的, ``()`` 内加类似推导式的句式返回的是个生成器)
     
 优点:
     简单的列表推导可以比其它的列表创建方法更加清晰简单. 生成器表达式可以十分高效, 因为它们避免了创建整个列表. 
@@ -253,34 +255,45 @@ Lint
 结论:
     适用于简单情况. 每个部分应该单独置于一行: 映射表达式, for语句, 过滤器表达式. 禁止多重for语句或过滤器表达式. 复杂情况下还是使用循环.
     
+    Yes:
+
     .. code-block:: python 
-    
-        Yes:
-          result = []
-          for x in range(10):
-              for y in range(5):
-                  if x * y > 10:
-                      result.append((x, y))
 
-          for x in xrange(5):
-              for y in xrange(5):
-                  if x != y:
-                      for z in xrange(5):
-                          if y != z:
-                              yield (x, y, z)
+        result = [mapping_expr for value in iterable if filter_expr]
 
-          return ((x, complicated_transform(x))
-                  for x in long_generator_function(parameter)
-                  if x is not None)
+        result = [{'key': value} for value in iterable
+                    if a_long_filter_expression(value)]
 
-          squares = [x * x for x in range(10)]
+        result = [complicated_transform(x)
+                    for x in iterable if predicate(x)]
 
-          eat(jelly_bean for jelly_bean in jelly_beans
-              if jelly_bean.color == 'black')   
+        descriptive_name = [
+            transform({'key': key, 'value': value}, color='black')
+            for key, value in generate_iterable(some_input)
+            if complicated_condition_is_met(key, value)
+        ]
+
+        result = []
+        for x in range(10):
+            for y in range(5):
+                if x * y > 10:
+                    result.append((x, y))
+
+        return {x: complicated_transform(x)
+                for x in long_generator_function(parameter)
+                if x is not None}
+
+        squares_generator = (x**2 for x in range(10))
+
+        unique_names = {user.name for user in users if user is not None}
+
+        eat(jelly_bean for jelly_bean in jelly_beans
+            if jelly_bean.color == 'black')    
               
+    No:
+
     .. code-block:: python 
     
-        No:
           result = [(x, y) for x in range(10) for y in range(5) if x * y > 10]
 
           return ((x, y, z)
@@ -306,21 +319,25 @@ Lint
     你没法通过阅读方法名来区分对象的类型(例如, has_key()意味着字典). 不过这也是优点. 
     
 结论:
-    如果类型支持, 就使用默认迭代器和操作符, 例如列表, 字典和文件. 内建类型也定义了迭代器方法. 优先考虑这些方法, 而不是那些返回列表的方法. 当然，这样遍历容器时，你将不能修改容器. 
-    
+    如果类型支持, 就使用默认迭代器和操作符, 例如列表, 字典和文件. 内建类型也定义了迭代器方法. 优先考虑这些方法, 而不是那些返回列表的方法. 当然，这样遍历容器时，你将不能修改容器. 除非必要,否则不要使用诸如 `dict.iter*()` 这类python2的特定迭代方法.
+
+    Yes:
+
     .. code-block:: python
     
-        Yes:  for key in adict: ...
-              if key not in adict: ...
-              if obj in alist: ...
-              for line in afile: ...
-              for k, v in dict.iteritems(): ...
- 
+        for key in adict: ...
+        if key not in adict: ...
+        if obj in alist: ...
+        for line in afile: ...
+        for k, v in dict.iteritems(): ...
+
+    No: 
+
     .. code-block:: python 
     
-        No:   for key in adict.keys(): ...
-              if not adict.has_key(key): ...
-              for line in afile.readlines(): ...
+        for key in adict.keys(): ...
+        if not adict.has_key(key): ...
+        for line in afile.readlines(): ...
     
 生成器
 --------------------
@@ -370,7 +387,7 @@ Lambda函数
     适用于单行函数
 
 定义:
-    条件表达式是对于if语句的一种更为简短的句法规则. 例如: ``x = 1 if cond else 2`` .
+    条件表达式(又名三元运算符)是对于if语句的一种更为简短的句法规则. 例如: ``x = 1 if cond else 2`` .
     
 优点:
     比if语句更加简短和方便.
@@ -379,7 +396,26 @@ Lambda函数
     比if语句难于阅读. 如果表达式很长， 难于定位条件. 
     
 结论:
-    适用于单行函数. 在其他情况下，推荐使用完整的if语句.    
+    适用于单行函数. 写法上推荐真实表达式,if表达式,else表达式每个独占一行.在其他情况下，推荐使用完整的if语句.    
+
+    .. code-block:: python 
+
+        one_line = 'yes' if predicate(value) else 'no'
+        slightly_split = ('yes' if predicate(value)
+                        else 'no, nein, nyet')
+        the_longest_ternary_style_that_can_be_done = (
+            'yes, true, affirmative, confirmed, correct'
+            if predicate(value)
+            else 'no, false, negative, nay')
+
+    .. code-block:: python 
+
+        bad_line_breaking = ('yes' if predicate(value) else
+                        'no')
+        portion_too_long = ('yes'
+                            if some_long_module.some_long_predicate_function(
+                                really_long_variable_name)
+                            else 'no, false, negative, nay')
     
 默认参数值
 --------------------
@@ -404,33 +440,42 @@ Lambda函数
     .. code-block:: python
     
         Yes: def foo(a, b=None):
-                 if b is None:
-                     b = []        
-    
+                if b is None:
+                    b = []
+        Yes: def foo(a, b: Optional[Sequence] = None):
+                if b is None:
+                    b = []
+        Yes: def foo(a, b: Sequence = ()):  # Empty tuple OK since tuples are immutable 
+
     .. code-block:: python  
 
         No:  def foo(a, b=[]):
-                 ...    
+            ...
         No:  def foo(a, b=time.time()):  # The time the module was loaded???
-                 ...
+            ...
         No:  def foo(a, b=FLAGS.my_thing):  # sys.argv has not yet been parsed...
-                 ...
-                 
+            ...
+        No:  def foo(a, b: Mapping = {}):  # Could still get passed to unchecked code             
+            ...
         
-属性(properties)
+
+特性(properties) 
 --------------------
 
+(译者注:参照fluent python.这里将 "property" 译为"特性",而 "attribute" 译为属性. python中数据的属性和处理数据的方法统称属性"(arrtibute)", 而在不改变类接口的前提下用来修改数据属性的存取方法我们称为"特性(property)".)
+
 .. tip::
-    访问和设置数据成员时, 你通常会使用简单, 轻量级的访问和设置函数. 建议用属性（properties）来代替它们.    
+    访问和设置数据成员时, 你通常会使用简单, 轻量级的访问和设置函数.建议使用特性(properties)来代替它们.    
     
 定义:
     一种用于包装方法调用的方式. 当运算量不大, 它是获取和设置属性(attribute)的标准方式. 
     
 优点:
-    通过消除简单的属性(attribute)访问时显式的get和set方法调用, 可读性提高了. 允许懒惰的计算. 用Pythonic的方式来维护类的接口. 就性能而言, 当直接访问变量是合理的, 添加访问方法就显得琐碎而无意义. 使用属性(properties)可以绕过这个问题. 将来也可以在不破坏接口的情况下将访问方法加上. 
+    通过消除简单的属性(attribute)访问时显式的get和set方法调用, 可读性提高了. 允许懒惰的计算. 用Pythonic的方式来维护类的接口. 就性能而言, 当直接访问变量是合理的, 添加访问方法就显得琐碎而无意义. 使用特性(properties)可以绕过这个问题. 将来也可以在不破坏接口的情况下将访问方法加上. 
     
 缺点:
-    属性(properties)是在get和set方法声明后指定, 这需要使用者在接下来的代码中注意: set和get是用于属性(properties)的(除了用 ``@property`` 装饰器创建的只读属性).  必须继承自object类. 可能隐藏比如操作符重载之类的副作用. 继承时可能会让人困惑. 
+    特性(properties)是在get和set方法声明后指定, 这需要使用者在接下来的代码中注意: set和get是用于特性(properties)的(除了用 ``@property`` 装饰器创建的只读属性).  必须继承自object类. 可能隐藏比如操作符重载之类的副作用. 继承时可能会让人困惑. 
+    (译者注:这里没有修改原始翻译,其实就是 @property 装饰器是不会被继承的)
 
 结论:
     你通常习惯于使用访问或设置方法来访问或设置数据, 它们简单而轻量. 不过我们建议你在新的代码中使用属性. 只读属性应该用 ``@property`` `装饰器 <http://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Function_and_Method_Decorators>`_ 来创建.
