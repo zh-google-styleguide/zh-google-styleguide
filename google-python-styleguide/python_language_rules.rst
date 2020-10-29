@@ -694,7 +694,7 @@ True/False的求值
     优雅的在函数上指定一些转换. 该转换可能减少一些重复代码, 保持已有函数不变(enforce invariants), 等.
     
 缺点:
-    装饰器可以在函数的参数或返回值上执行任何操作, 这可能导致让人惊异的隐藏行为. 而且, 装饰器在导入时执行. 从装饰器代码的失败中恢复更加不可能.
+    装饰器可以在函数的参数或返回值上执行任何操作, 这可能导致让人惊异的隐藏行为. 而且, 装饰器在导入时执行. 从装饰器代码中捕获错误并处理是很困难的.
     
 结论:
     如果好处很显然, 就明智而谨慎的使用装饰器. 装饰器应该遵守和函数一样的导入和命名规则. 装饰器的python文档应该清晰的说明该函数是一个装饰器. 请为装饰器编写单元测试. 
@@ -702,6 +702,10 @@ True/False的求值
     避免装饰器自身对外界的依赖(即不要依赖于文件, socket, 数据库连接等), 因为装饰器运行时这些资源可能不可用(由 ``pydoc`` 或其它工具导入). 应该保证一个用有效参数调用的装饰器在所有情况下都是成功的.
     
     装饰器是一种特殊形式的"顶级代码". 参考后面关于 :ref:`Main <main>` 的话题. 
+
+    除非是为了将方法和现有的API集成，否则不要使用 ``staticmethod`` .多数情况下，将方法封装成模块级的函数可以达到同样的效果.
+
+    谨慎使用 ``classmethod`` .通常只在定义备选构造函数，或者写用于修改诸如进程级缓存等必要的全局状态的特定类方法才用。
     
 线程
 --------------------
@@ -730,3 +734,78 @@ True/False的求值
     
 结论:
     在你的代码中避免这些特性.     
+    
+    当然，利用了这些特性的来编写的一些标准库是值得去使用的，比如 ``abc.ABCMeta``, ``collection.namedtuple``, ``dataclasses`` , ``enum``等.
+
+
+现代python: python3 和from __future__ imports
+--------------------
+
+.. tip::
+    尽量使用 python3,  即使使用非 python3 写的代码.也应该尽量兼容.
+
+定义:
+    python3 是 python 的一个重大变化,虽然已有大量代码是 python2.7 写的,但是通过一些简单的调整,就可以使之在 python3 下运行.
+
+优点:
+    只要确定好项目的所有依赖,那么用 python3 写代码可以更加清晰和方便运行.
+
+缺点:
+    导入一些看上去实际用不到的模块到代码里显得有些奇葩.
+
+结论:
+    **from __future__ imports**
+
+    鼓励使用 ``from __future__ import`` 语句,所有的新代码都应该包含以下内容,并尽可能的与之兼容:
+
+    .. code-block:: python
+        
+        from __future__ import absolute_import
+        from __future__ import division
+        from __future__ import print_function
+
+    以上导入的详情参见 `absolute imports <https://www.python.org/dev/peps/pep-0328/>`_ , `division behavior <https://www.python.org/dev/peps/pep-0238/>`_, `print function <https://www.python.org/dev/peps/pep-3105/>`_ .
+    除非代码是只在python3下运行,否则不要删除以上导入.最好在所有文件里都保留这样的导入,这样若有人用到了这些方法时,编辑时不会忘记导入.
+    还有其他的一些来自 ``from __future__`` 的语句.请在你认为合适的地方使用它们.本文没有推荐 ``unicode_literals`` ,因为我们认为它不是很棒的改进,它在 python2.7 中大量引入例隐式的默认编码转换.大多数情况下还是推荐显式的使用 ``b`` 和 ``u`` 以及 unicode字符串来显式的指示编码转换.
+
+    **six,future,past**
+
+     当项目需要同时支持 python2 和 python3 时,请根据需要使用 `six <https://pypi.org/project/six/>`_ , `future <https://pypi.org/project/future/>`_ , `past <https://pypi.org/project/past/>`_ . 这些库可以使代码更加清晰和简单.
+
+
+代码类型注释
+--------------------
+
+.. tip::
+    你可以根据 `PEP-484 <https://www.python.org/dev/peps/pep-0484/>`_ 来对 python3 代码进行注释,并使用诸如 `pytype <https://github.com/google/pytype>`_ 之类的类型检查工具来检查代码.
+    类型注释既可以写在源码,也可以写在 `pyi <https://www.python.org/dev/peps/pep-0484/#stub-files>`_ 中.推荐尽量写在源码里,对于第三方扩展包,可以写在pyi文件里.
+
+定义:
+    用于函数参数和返回值的类型注释: 
+
+    .. code-block:: python
+
+        def func(a: int) -> List[int]:
+
+    也可以使用 `PEP-526 <https://www.python.org/dev/peps/pep-0526/>`_ 中的语法来声明变量类型:
+    
+    .. code-block:: python
+
+        a: SomeType = some_func()
+
+    在必须支持老版本 python 运行的代码中则可以这样注释:
+
+    .. code-block:: python
+
+        a = some_func() #type: SomeType
+
+优点:
+    可以提高代码可读性和可维护性.同时一些类型检查器可以帮您提早发现一些运行时错误,并降低您使用大威力特性的必要.
+
+缺点:
+    必须时常更新类型声明.过时的类型声明可能会误导您.使用类型检查器会抑制您使用大威力特性.
+
+结论:
+     强烈推荐您在更新代码时使用 python 类型分析.在添加或修改公共API时使用类型注释,在最终构建整个项目前使用 pytype 来进行检查.由于静态分析对于 python 来说还不够成熟,因此可能会出现一些副作用(例如错误推断的类型)可能会阻碍项目的部署.在这种情况下,建议作者添加一个 TODO 注释或者链接,来描述当前构建文件或是代码本身中使用类型注释导致的问题.
+     
+     (译者注: 代码类型注释在帮助IDE或是vim等进行补全倒是很有效)

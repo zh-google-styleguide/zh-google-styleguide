@@ -1,7 +1,7 @@
 扉页
 ================================
 
-:版本: 2.59
+:版本: 2.6
 
 :原作者:
     .. line-block::
@@ -18,6 +18,7 @@
 
         `guoqiao <http://guoqiao.me/>`_ v2.19
         `xuxinkun <https://github.com/xuxinkun>`_ v2.59
+        `captainfffsama <https://github.com/captainfffsama>`_ v2.6
 
 :项目主页:
     - `Google Style Guide <https://github.com/google/styleguide>`_
