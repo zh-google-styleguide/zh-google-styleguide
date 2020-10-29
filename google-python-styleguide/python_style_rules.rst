@@ -18,9 +18,12 @@ Python风格规范
 例外:
  
 #. 长的导入模块语句
-#. 注释里的URL
+#. 注释里的URL,路径以及其他的一些长标记
+#. 不便于换行，不包含空格的模块级字符串常量，比如url或者路径
+   
+    #. Pylint 禁用注释.（例如：``# pylint: disable=invalid-name） 
 
-不要使用反斜杠连接行.
+除非是在 ``with`` 语句需要三个以上的上下文管理器的情况下，否则不要使用反斜杠连接行.
 
 Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <http://docs.python.org/2/reference/lexical_analysis.html#implicit-line-joining>`_ , 你可以利用这个特点. 如果需要, 你可以在表达式外围增加一对额外的圆括号. 
 
@@ -52,7 +55,31 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
          # http://www.example.com/us/developer/documentation/api/content/\
          # v2.0/csv_file_name_extension_full_specification.html     
 
+当 ``with`` 表达式需要使用三个及其以上的上下文管理器时，可以使用反斜杠换行.若只需要两个，请使用嵌套的with.
+
+.. code-block:: python
+
+    Yes:  with very_long_first_expression_function() as spam, \
+               very_long_second_expression_function() as beans, \
+               third_thing() as eggs:
+              place_order(eggs, beans, spam, beans)
+
+.. code-block:: python
+
+    No:  with VeryLongFirstExpressionFunction() as spam, \
+              VeryLongSecondExpressionFunction() as beans:
+           PlaceOrder(eggs, beans, spam, beans)
+
+.. code-block:: python
+
+    Yes:  with very_long_first_expression_function() as spam:
+              with very_long_second_expression_function() as beans:
+                  place_order(beans, spam)
+
 注意上面例子中的元素缩进; 你可以在本文的 :ref:`缩进 <indentation>` 部分找到解释. 
+
+另外在其他所有情况下，若一行超过80个字符，但 `yapf <https://github.com/google/yapf/>`_ 却无法将该行字数降至80个字符以下时，则允许该行超过80个字符长度.
+
     
 括号
 --------------------
@@ -64,17 +91,21 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
     
 .. code-block:: python    
   
-    Yes: if foo:
+	Yes: if foo: 
              bar()
-         while x:
-             x = bar()
-         if x and y:
-             bar()
-         if not x:
-             bar()
-         return foo
-         for (x, y) in dict.items(): ...  
-
+ 	 	 while x:
+ 	 		 x = bar()
+ 	 	 if x and y:
+ 	 		 bar()
+ 	 	 if not x:
+ 	 		 bar()
+ 	 	 # For a 1 item tuple the ()s are more visually obvious than the comma.
+ 	 	 onesie = (foo,)
+ 	 	 return foo
+ 	 	 return spam, beans
+ 	 	 return (spam, beans)
+ 	 	 for (x, y) in dict.items(): ...
+ 
 .. code-block:: python
        
     No:  if (x):
@@ -136,6 +167,31 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
                   ...
           }
          
+序列元素尾部逗号
+--------------------
+
+.. tip::
+	仅当 ``]``, ``)``, ``}`` 和末位元素不在同一行时，推荐使用序列元素尾部逗号. 当末位元素尾部有逗号时，元素后的逗号可以指示 `YAPF <https://pypi.org/project/yapf/>`_ 将序列格式化为每行一项.
+
+.. code-block:: python
+
+	Yes:   golomb3 = [0, 1, 3]
+	Yes:   golomb4 = [
+			   0,
+			   1,
+			   4,
+			   6,
+		   ]
+
+.. code-block:: python
+
+	No:    golomb4 = [
+		       0,
+			   1,
+			   4,
+			   6
+		   ]
+
 空行
 --------------------
 
