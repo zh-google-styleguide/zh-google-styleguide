@@ -222,13 +222,13 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
 .. code-block:: python
 
     Yes: if x == 4:
-             print x, y
+             print(x, y)
          x, y = y, x
      
 .. code-block:: python
     
     No:  if x == 4 :
-             print x , y
+             print(x , y)
          x , y = y , x
 
 参数列表, 索引或切片的左括号前不应加空格.
@@ -259,15 +259,18 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
     
     No:  x<1
 
-当'='用于指示关键字参数或默认参数值时, 不要在其两侧使用空格. 
+当 ``=`` 用于指示关键字参数或默认参数值时, 不要在其两侧使用空格. 但若存在类型注释的时候,需要在 ``=`` 周围使用空格.
 
 .. code-block:: python
 
     Yes: def complex(real, imag=0.0): return magic(r=real, i=imag)
+    Yes: def complex(real, imag: float = 0.0): return Magic(r=real, i=imag)
+
     
 .. code-block:: python
     
     No:  def complex(real, imag = 0.0): return magic(r = real, i = imag)
+    No:  def complex(real, imag: float=0.0): return Magic(r = real, i = imag)
     
 不要用空格来垂直对齐多行间的标记, 因为这会成为维护的负担(适用于:, #, =等):
 
@@ -314,11 +317,27 @@ Shebang
 
 **文档字符串**
 
-    Python有一种独一无二的的注释方式: 使用文档字符串. 文档字符串是包, 模块, 类或函数里的第一个语句. 这些字符串可以通过对象的__doc__成员被自动提取, 并且被pydoc所用. (你可以在你的模块上运行pydoc试一把, 看看它长什么样). 我们对文档字符串的惯例是使用三重双引号"""( `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 一个文档字符串应该这样组织: 首先是一行以句号, 问号或惊叹号结尾的概述(或者该文档字符串单纯只有一行). 接着是一个空行. 接着是文档字符串剩下的部分, 它应该与文档字符串的第一行的第一个引号对齐. 下面有更多文档字符串的格式化规范. 
+    Python有一种独一无二的的注释方式: 使用文档字符串. 文档字符串是包, 模块, 类或函数里的第一个语句. 这些字符串可以通过对象的 ``__doc__`` 成员被自动提取, 并且被pydoc所用. (你可以在你的模块上运行pydoc试一把, 看看它长什么样). 我们对文档字符串的惯例是使用三重双引号"""( `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 一个文档字符串应该这样组织: 首先是一行以句号, 问号或惊叹号结尾的概述(或者该文档字符串单纯只有一行). 接着是一个空行. 接着是文档字符串剩下的部分, 它应该与文档字符串的第一行的第一个引号对齐. 下面有更多文档字符串的格式化规范. 
     
 **模块**
 
     每个文件应该包含一个许可样板. 根据项目使用的许可(例如, Apache 2.0, BSD, LGPL, GPL), 选择合适的样板.
+    其开头应是对模块内容和用法的描述.
+
+.. code-block:: python
+
+    """A one line summary of the module or program, terminated by a period.
+
+    Leave one blank line.  The rest of this docstring should contain an
+    overall description of the module or program.  Optionally, it may also
+    contain a brief description of exported classes and functions and/or usage
+    examples.
+
+    Typical usage example:
+
+    foo = ClassFoo()
+    bar = foo.FunctionBar()
+    """
 
 **函数和方法**
    
@@ -331,6 +350,7 @@ Shebang
     #. 简单明了
     
     文档字符串应该包含函数做什么, 以及输入和输出的详细描述. 通常, 不应该描述"怎么做", 除非是一些复杂的算法. 文档字符串应该提供足够的信息, 当别人编写代码调用该函数时, 他不需要看一行代码, 只要看文档字符串就可以了. 对于复杂的代码, 在代码旁边加注释会比使用文档字符串更有意义.
+    覆盖基类的子类方法应有一个类似 ``See base class`` 的简单注释来指引读者到基类方法的文档注释.若重载的子类方法和基类方法有很大不同,那么注释中应该指明这些信息.
     
     关于函数的几个方面应该在特定的小节中进行描述记录， 这几个方面如下文所述. 每节应该以一个标题行开始. 标题行以冒号结尾. 除标题行外, 节的其他内容应被缩进2个空格. 
     
@@ -347,36 +367,81 @@ Shebang
 
     .. code-block:: python
 
-        def fetch_bigtable_rows(big_table, keys, other_silly_variable=None):
-            """Fetches rows from a Bigtable.
+        def fetch_smalltable_rows(table_handle: smalltable.Table,
+                                keys: Sequence[Union[bytes, str]],
+                                require_all_keys: bool = False,
+        ) -> Mapping[bytes, Tuple[str]]:
+            """Fetches rows from a Smalltable.
 
             Retrieves rows pertaining to the given keys from the Table instance
-            represented by big_table.  Silly things may happen if
-            other_silly_variable is not None.
+            represented by table_handle.  String keys will be UTF-8 encoded.
 
             Args:
-                big_table: An open Bigtable Table instance.
-                keys: A sequence of strings representing the key of each table row
-                    to fetch.
-                other_silly_variable: Another optional variable, that has a much
-                    longer name than the other args, and which does nothing.
+                table_handle: An open smalltable.Table instance.
+                keys: A sequence of strings representing the key of each table
+                row to fetch.  String keys will be UTF-8 encoded.
+                require_all_keys: Optional; If require_all_keys is True only
+                rows with values set for all keys will be returned.
 
             Returns:
                 A dict mapping keys to the corresponding table row data
                 fetched. Each row is represented as a tuple of strings. For
                 example:
 
-                {'Serak': ('Rigel VII', 'Preparer'),
-                 'Zim': ('Irk', 'Invader'),
-                 'Lrrr': ('Omicron Persei 8', 'Emperor')}
+                {b'Serak': ('Rigel VII', 'Preparer'),
+                b'Zim': ('Irk', 'Invader'),
+                b'Lrrr': ('Omicron Persei 8', 'Emperor')}
 
-                If a key from the keys argument is missing from the dictionary,
-                then that row was not found in the table.
+                Returned keys are always bytes.  If a key from the keys argument is
+                missing from the dictionary, then that row was not found in the
+                table (and require_all_keys must have been False).
 
             Raises:
-                IOError: An error occurred accessing the bigtable.Table object.
+                IOError: An error occurred accessing the smalltable.
             """
-            pass
+
+        在 ``Args:`` 上进行换行也是可以的:
+
+
+    在 ``Args:`` 上进行换行也是可以的:
+
+    .. code-block:: python
+
+        def fetch_smalltable_rows(table_handle: smalltable.Table,
+                                keys: Sequence[Union[bytes, str]],
+                                require_all_keys: bool = False,
+        ) -> Mapping[bytes, Tuple[str]]:
+            """Fetches rows from a Smalltable.
+
+            Retrieves rows pertaining to the given keys from the Table instance
+            represented by table_handle.  String keys will be UTF-8 encoded.
+
+            Args:
+            table_handle:
+                An open smalltable.Table instance.
+            keys:
+                A sequence of strings representing the key of each table row to
+                fetch.  String keys will be UTF-8 encoded.
+            require_all_keys:
+                Optional; If require_all_keys is True only rows with values set
+                for all keys will be returned.
+
+            Returns:
+            A dict mapping keys to the corresponding table row data
+            fetched. Each row is represented as a tuple of strings. For
+            example:
+
+            {b'Serak': ('Rigel VII', 'Preparer'),
+            b'Zim': ('Irk', 'Invader'),
+            b'Lrrr': ('Omicron Persei 8', 'Emperor')}
+
+            Returned keys are always bytes.  If a key from the keys argument is
+            missing from the dictionary, then that row was not found in the
+            table (and require_all_keys must have been False).
+
+            Raises:
+            IOError: An error occurred accessing the smalltable.
+            """
 
 **类**
             
@@ -428,11 +493,20 @@ Shebang
         # the next element is i+1
     
     
+标点符号,拼写和语法
+--------------------
+
+.. tip::
+    注意标点符号,拼写和语法
+
+    注释应有适当的大写和标点,句子应该尽量完整.对于诸如在行尾上的较短注释,可以不那么正式,但是也应该尽量保持风格抑制.
+
+
 类
 --------------------
 
 .. tip::
-    如果一个类不继承自其它类, 就显式的从object继承. 嵌套类也一样.
+    如果一个类不继承自其它类, 就显式的从object继承. 嵌套类也一样.(除非是为了和 python2 兼容)
             
 .. code-block:: python
 
@@ -500,9 +574,7 @@ Shebang
             employee_table += '<tr><td>%s, %s</td></tr>' % (last_name, first_name)
         employee_table += '</table>'
 
-在同一个文件中, 保持使用字符串引号的一致性. 使用单引号'或者双引号"之一用以引用字符串, 并在同一文件中沿用. 在字符串内可以使用另外一种引号, 以避免在字符串中使用\. GPyLint已经加入了这一检查.
-
-(译者注:GPyLint疑为笔误, 应为PyLint.)  
+在同一个文件中, 保持使用字符串引号的一致性. 使用单引号'或者双引号"之一用以引用字符串, 并在同一文件中沿用. 在字符串内可以使用另外一种引号, 以避免在字符串中使用\. 
 
 .. code-block:: python
 
@@ -518,20 +590,41 @@ Shebang
         Gollum('The lint. It burns. It burns us.')
         Gollum("Always the great lint. Watching. Watching.")
 
-为多行字符串使用三重双引号"""而非三重单引号'''. 当且仅当项目中使用单引号'来引用字符串时, 才可能会使用三重'''为非文档字符串的多行字符串来标识引用. 文档字符串必须使用三重双引号""". 不过要注意, 通常用隐式行连接更清晰, 因为多行字符串与程序其他部分的缩进方式不一致. 
+为多行字符串使用三重双引号"""而非三重单引号'''. 当且仅当项目中使用单引号'来引用字符串时, 才可能会使用三重'''为非文档字符串的多行字符串来标识引用. 文档字符串必须使用三重双引号""". 
+多行字符串不应随着代码其他部分缩进的调整而发生位置移动. 如果需要避免在字符串中嵌入额外的空间,可以使用串联的单行字符串或者使用 `textwrap.dedent() <https://docs.python.org/zh-cn/3/library/textwrap.html#textwrap.dedent>`_ 来删除每行多余的空间.
+
+.. code-block:: python
+
+    No:
+    long_string = """This is pretty ugly.
+    Don't do this.
+    """
+               
+.. code-block:: python
+
+    Yes:
+    long_string = """This is fine if your use case can accept
+      extraneous leading spaces."""
 
 .. code-block:: python
 
     Yes:
-        print ("This is much nicer.\n"
-               "Do it this way.\n")
-               
+    long_string = ("And this is fine if you cannot accept\n" +
+           "extraneous leading spaces.")
+
 .. code-block:: python
 
-    No:
-          print """This is pretty ugly.
-      Don't do this.
-      """
+    Yes:
+    long_string = ("And this too is fine if you cannot accept\n"
+           "extraneous leading spaces.")
+.. code-block:: python
+
+    Yes:
+    import textwrap
+
+    long_string = textwrap.dedent("""\
+      This is also fine, because textwrap.dedent()
+      will collapse common leading spaces in each line.""")
 
 文件和sockets
 --------------------
@@ -591,33 +684,72 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
 --------------------
 
 .. tip::
-    每个导入应该独占一行
+    每个导入应该独占一行, ``typing`` 的导入除外
 
 .. code-block:: python  
   
     Yes: import os
-         import sys
-     
+        import sys
+        from typing import Mapping, Sequence 
+
 .. code-block:: python  
    
     No:  import os, sys
     
 导入总应该放在文件顶部, 位于模块注释和文档字符串之后, 模块全局变量和常量之前.  导入应该按照从最通用到最不通用的顺序分组:
 
+#. ``__future__`` 导入
+
+.. code-block:: python
+
+    from __future__ import absolute_import
+    from __future__ import division
+    from __future__ import print_function
+
 #. 标准库导入
+
+.. code-block:: python
+
+    import sys
+
 #. 第三方库导入
-#. 应用程序指定导入
+
+.. code-block:: python
+    
+    import tensorflow as tf
+
+#. 本地代码子包导入
+
+.. code-block:: python
+
+    from otherproject.ai import mind
 
 每种分组中,  应该根据每个模块的完整包路径按字典序排序, 忽略大小写.
 
 .. code-block:: python
 
-    import foo
-    from foo import bar
-    from foo.bar import baz
-    from foo.bar import Quux
-    from Foob import ar
-  
+    import collections
+    import queue
+    import sys
+
+    from absl import app
+    from absl import flags
+    import bs4
+    import cryptography
+    import tensorflow as tf
+
+    from book.genres import scifi
+    from myproject.backend import huxley
+    from myproject.backend.hgwells import time_machine
+    from myproject.backend.state_machine import main_loop
+    from otherproject.ai import body
+    from otherproject.ai import mind
+    from otherproject.ai import soul
+
+    # Older style code may have these imports down here instead:
+    #from myproject.backend.hgwells import time_machine
+    #from myproject.backend.state_machine import main_loop 
+
 语句
 --------------------
 
@@ -665,7 +797,7 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
 
 **应该避免的名称**
     
-    #. 单字符名称, 除了计数器和迭代器.
+    #. 单字符名称, 除了计数器和迭代器,作为 ``try/except`` 中异常声明的 ``e``,作为 ``with`` 语句中文件句柄的 ``f``.
     #. 包/模块名中的连字符(-)
     #. 双下划线开头并结尾的名称(Python保留, 例如__init__)
     
@@ -676,6 +808,10 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
     #. 用双下划线(__)开头的实例变量或方法表示类内私有.
     #. 将相关的类和顶级函数放在同一个模块里. 不像Java, 没必要限制一个类一个模块.
     #. 对类名使用大写字母开头的单词(如CapWords, 即Pascal风格), 但是模块名应该用小写加下划线的方式(如lower_with_under.py). 尽管已经有很多现存的模块使用类似于CapWords.py这样的命名, 但现在已经不鼓励这样做, 因为如果模块名碰巧和类名一致, 这会让人困扰. 
+
+**文件名**
+
+    所有python脚本文件都应该以 ``.py`` 为后缀名且不包含 ``-``.若是需要一个无后缀名的可执行文件,可以使用软联接或者包含 ``exec "$0.py" "$@" 的bash脚本.
 
 **Python之父Guido推荐的规范**    
 
@@ -695,7 +831,6 @@ Function/Method Parameters     lower_with_under
 Local Variables                lower_with_under                           
 ===========================    ====================    ======================================================================
 
-.. _main:  
 
 Main
 --------------------
@@ -705,12 +840,38 @@ Main
 
 在Python中, pydoc以及单元测试要求模块必须是可导入的. 你的代码应该在执行主程序前总是检查 ``if __name__ == '__main__'`` , 这样当模块被导入时主程序就不会被执行. 
 
+若使用 `absl <https://github.com/abseil/abseil-py>`_, 请使用 ``app.run`` :
+
+.. code-block:: python
+
+    from absl import app
+    ...
+
+    def main(argv):
+        # process non-flag arguments
+        ...
+
+    if __name__ == '__main__':
+        app.run(main)
+
+否则,使用:
+
 .. code-block:: python
 
     def main():
-          ...
+        ...
 
     if __name__ == '__main__':
         main()
 
 所有的顶级代码在模块导入时都会被执行. 要小心不要去调用函数, 创建对象, 或者执行那些不应该在使用pydoc时执行的操作.
+
+函数长度
+--------------------
+
+.. tip::
+    推荐函数功能尽量集中,简单,小巧
+
+不对函数长度做硬性限制.但是若一个函数超过来40行,推荐考虑一下是否可以在不损害程序结构的情况下对其进行分解.
+因为即使现在长函数运行良好,但几个月后可能会有人修改它并添加一些新的行为,这容易产生难以发现的bug.保持函数的简练,使其更加容易阅读和修改.
+当遇到一些很长的函数时,若发现调试比较困难或是想在其他地方使用函数的一部分功能,不妨考虑将这个场函数进行拆分.
