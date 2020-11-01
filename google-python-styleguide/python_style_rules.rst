@@ -875,3 +875,286 @@ Main
 不对函数长度做硬性限制.但是若一个函数超过来40行,推荐考虑一下是否可以在不损害程序结构的情况下对其进行分解.
 因为即使现在长函数运行良好,但几个月后可能会有人修改它并添加一些新的行为,这容易产生难以发现的bug.保持函数的简练,使其更加容易阅读和修改.
 当遇到一些很长的函数时,若发现调试比较困难或是想在其他地方使用函数的一部分功能,不妨考虑将这个场函数进行拆分.
+
+
+类型注释
+--------------------
+
+**通用规则** 
+
+    #. 请先熟悉下 'PEP-484 <https://www.python.org/dev/peps/pep-0484/>'_
+    #. 对于方法，仅在必要时才对 ``self`` 或 ``cls`` 注释
+    #. 若对类型没有任何显示，请使用 ``Any``
+    #. 无需注释模块中的所有函数
+        #. 公共的API需要注释
+        #. 在代码的安全性，清晰性和灵活性上进行权衡是否注释
+        #. 对于容易出现类型相关的错误的代码进行注释
+        #. 难以理解的代码请进行注释
+        #. 若代码中的类型已经稳定，可以进行注释. 对于一份成熟的代码，多数情况下，即使注释了所有的函数，也不会丧失太多的灵活性.
+
+**换行**
+    
+    尽量遵守既定的缩进规则.注释后，很多函数签名将会变成每行一个参数.
+
+	.. code-block:: python
+
+		def my_method(self,
+				      first_var: int,
+				      second_var: Foo,
+				      third_var: Optional[Bar]) -> int:
+		...
+
+	
+	尽量在变量之间换行而不是在变量和类型注释之间.当然,若所有东西都在一行上,也可以接受.		
+
+	.. code-block:: python
+
+		def my_method(self, first_var: int) -> int:
+		...
+
+	若是函数名,末位形参和返回值的类型注释太长,也可以进行换行,并在新行进行4格缩进.
+
+	.. code-block:: python
+
+		def my_method(
+			self, first_var: int) -> Tuple[MyLongType1, MyLongType1]:
+		...
+
+    若是末位形参和返回值类型注释不适合在同一行上,可以换行,缩进为4空格,并保持闭合的括号 ``)``和 ``def`` 对齐
+
+	.. code-block:: python
+ 
+		Yes:
+		def my_method(
+			self, other_arg: Optional[MyLongType]
+		) -> Dict[OtherLongType, MyLongType]:
+		...
+
+	``pylint`` 允许闭合括号 ``)`` 换至新行并与 开启括号 ``(`` 对齐,但这样的可读性不好.
+
+	.. code-block:: python
+
+		No:
+		def my_method(self,
+      				  other_arg: Optional[MyLongType]
+					 ) -> Dict[OtherLongType, MyLongType]:
+		...	
+
+	如上所示,尽量不要在一个类型注释中进行换行.但是有时类型注释过长需要换行时,请尽量保持子类型中不被换行.
+
+	.. code-block:: python
+
+		def my_method(
+			self,
+			first_var: Tuple[List[MyLongType1],
+							 List[MyLongType2]],
+			second_var: List[Dict[
+				MyLongType3, MyLongType4]]) -> None:
+		...
+
+    若一个类型注释确实太长,则应优先考虑对过长的类型使用别名 ``alise <https://google.github.io/styleguide/pyguide.html#typing-aliases>``_. 其次是考虑在冒号后 ``:``进行换行并添加4格空格缩进.
+	
+	.. code-block:: python
+
+		Yes:
+		def my_function(
+			long_variable_name:
+				long_module_name.LongTypeName,
+		) -> None:
+		...
+
+	.. code-block:: python
+
+		No:
+		def my_function(
+			long_variable_name: long_module_name.
+				LongTypeName,
+		) -> None:
+		...
+
+**预先声明**
+
+	若需要使用一个当前模块尚未定义的类名,比如想在类声明中使用类名,请使用类名的字符串
+
+    .. code-block:: python
+		
+		class MyClass:
+
+		  def __init__(self,
+					   stack: List["MyClass"]) -> None:
+
+**参数默认值**
+
+	依据 `PEP-008 <https://www.python.org/dev/peps/pep-0008/#other-recommendations>`_ ,仅对同时具有类型注释和默认值的参数的 ``=`` 周围加空格.
+
+	.. code-block:: python
+
+		Yes:
+		def func(a: int = 0) -> int:
+		...
+
+	.. code-block:: python
+
+		No:
+		def func(a:int=0) -> int:
+		...
+
+**NoneType**
+
+	在python的类型系统中, ``NoneType`` 是 "一等对象",为了输入方便, ``None`` 是 ``NoneType`` 的别名.一个变量若是 ``None``,则该变量必须被声明.我们可以使用 ``Union``, 但若类型仅仅只是对应另一个其他类型,建议使用 ``Optional``.
+	尽量显式而非隐式的使用 ``Optional``.在PEP-484的早期版本中允许使用 ``a: Text = None`` 来替代 ``a: Optional[Text] = None``,当然,现在不推荐这么做了.
+
+    .. code-block:: python
+		
+		Yes:
+		def func(a: Optional[Text], b: Optional[Text] = None) -> Text:
+			...
+		def multiple_nullable_union(a: Union[None, Text, int]) -> Text
+			...
+
+	.. code-block:: python
+
+		No:
+		def nullable_union(a: Union[None, Text]) -> Text:
+			...
+		def implicit_optional(a: Text = None) -> Text:
+			...
+
+**类型别名**
+
+	复杂类型应使用别名,别名的命名可参照帕斯卡命名.若别名仅在当前模块使用,应在名称前加``_``变为私有的.
+	如下例子中,模块名和类型名连一起过长:
+
+	.. code-block:: python
+       
+		_ShortName = module_with_long_name.TypeWithLongName
+		ComplexMap = Mapping[Text, List[Tuple[int, int]]]
+
+**忽略类型注释**
+	
+	可以使用特殊的行尾注释 ``# type: ignore`` 来禁用该行的类型检查.
+	``pytype`` 针对特定错误有一个禁用选项(类似lint):
+
+	.. code-block:: python
+		
+		# pytype: disable=attribute-error
+
+**变量类型注解**
+
+	当一个内部变量难以推断其类型时,可以有以下方法来指示其类型:
+
+	**类型注释**
+		
+	使用行尾注释 ``# type:``:
+	
+		.. code-block:: python
+
+			a = SomeUndecoratedFunction()  # type: Foo
+
+	**带类型注解的复制**
+	如函数形参一样,在变量名和等号间加入冒号和类型:
+
+		.. code-block:: python
+	
+			a: Foo = SomeUndecoratedFunction()
+
+**Tuples vs Lists**
+
+	类型化的Lists只能包含单一类型的元素.但类型化的Tuples可以包含单一类型的元素或者若干个不同类型的元素,通常被用来注解返回值的类型.
+	(译者注: 注意这里是指的类型注解中的写法,实际python中,list和tuple都是可以在一个序列中包含不同类型元素的,当然,本质其实list和tuple中放的是元素的引用)
+
+	.. code-block:: python
+
+		a = [1, 2, 3]  # type: List[int]
+		b = (1, 2, 3)  # type: Tuple[int, ...]
+		c = (1, "2", 3.5)  # type: Tuple[int, Text, float]	
+
+**TypeVars**
+
+	python的类型系统是支持泛型的.一种常见的方式就是使用工厂函数 ``TypeVars``.
+
+	.. code-block:: python
+
+		from typing import List, TypeVar
+		T = TypeVar("T")
+		...
+		def next(l: List[T]) -> T:
+			return l.pop()
+
+	TypeVar也可以被限定成若干种类型
+
+	.. code-block:: python
+		
+		AddableType = TypeVar("AddableType", int, float, Text)
+		def add(a: AddableType, b: AddableType) -> AddableType:
+			return a + b
+
+	``typing`` 模块中一个常见的预定义类型变量是 ``AnyStr``.它可以用来注解类似 ``bytes``, ``unicode`` 以及一些相似类型.
+
+	.. code-block:: python
+
+		from typing import AnyStr
+		def check_length(x: AnyStr) -> AnyStr:
+			if len(x) <= 42:
+				return x
+			raise ValueError()
+
+**字符串类型**
+    
+    如何正确的注释字符串的相关类型和要使用的python版本有关.
+    对于仅在 python3 下运行的代码,首选使用 ``str``. 使用 ``Text`` 也可以.但是两个不要混用,保持风格一致.
+    对于需要兼容 python2 的代码,使用 ``Text``.在少数情况下,使用 ``str`` 也许更加清晰.不要使用 ``unicode``,因为 python3 里没有这个类型.
+    造成这种差异的原因是因为,在不同的python版本中,``str`` 意义不同.
+
+    .. code-block:: python
+        No:
+        def py2_code(x: str) -> unicode:
+        ...
+
+    对于需要处理二进制数据的代码,使用 ``bytes``.
+
+    .. code-block:: python
+    
+        def deals_with_binary_data(x: bytes) -> bytes:
+          ...
+
+    python2 中的文本类数据类型包括``str``和``unicode``,而python3 中仅有 ``str``.
+
+    .. code-block:: python
+        
+        from typing import Text
+        ...
+        def py2_compatible(x: Text) -> Text:
+        ...
+        def py3_only(x: str) -> str:
+        ...
+
+    若类型既可以是二进制也可以是文本,那么就使用 ``Union`` 进行注解,并按照之前规则使用合适的文本类型注释.
+
+    .. code-block:: python
+
+        from typing import Text, Union
+        ...
+        def py2_compatible(x: Union[bytes, Text]) -> Union[bytes, Text]:
+        ...
+        def py3_only(x: Union[bytes, str]) -> Union[bytes, str]:
+        ...
+
+    若一个函数中的字符串类型始终相同,比如上述函数中返回值类型和形参类型都一样,使用 `AnyStr <https://google.github.io/styleguide/pyguide.html#typing-type-var>`_.
+    这样写可以方便将代码移植到 python3
+
+**类型的导入**
+
+    对于 ``typing`` 模块中类的导入,请直接导入类本身.你可以显式的在一行中从``typing``模块导入多个特定的类,例如:
+
+    .. code-block:: python
+        
+        from typing import Any, Dict, Optional
+    
+    以此方式导入的类将被加入到本地的命名空间,因此所有 ``typing`` 模块中的类都应被视为关键字,不要在代码中定义并覆盖它们.若这些类和现行代码中的变量或者方法发生命名冲突,可以考虑使用 ``import x as y``的导入形式:
+
+    .. code-block:: python
+
+        from typing import Any as AnyType
+
+**条件导入**
