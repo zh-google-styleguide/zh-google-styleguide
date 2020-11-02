@@ -952,7 +952,7 @@ Main
 				MyLongType3, MyLongType4]]) -> None:
 		...
 
-    若一个类型注释确实太长,则应优先考虑对过长的类型使用别名 ``alise <https://google.github.io/styleguide/pyguide.html#typing-aliases>``_. 其次是考虑在冒号后 ``:``进行换行并添加4格空格缩进.
+    若一个类型注释确实太长,则应优先考虑对过长的类型使用别名 `alias <https://google.github.io/styleguide/pyguide.html#typing-aliases>`_. 其次是考虑在冒号后 ``:``进行换行并添加4格空格缩进.
 	
 	.. code-block:: python
 
@@ -1158,3 +1158,65 @@ Main
         from typing import Any as AnyType
 
 **条件导入**
+
+    在一些特殊情况下,比如当在运行时需要避免类型检查所需的一些导入时,可能会用到条件导入.但这类方法并不推荐,首选方法应是重构代码使类型检查所需的模块可以在顶层导入.
+    仅用于类型注解的导入可以放在 ``if TYPE_CHECKING:`` 语句块内.
+
+    #. 通过条件导入引入的类的注解须是字符串string,这样才能和python3.6之前的代码兼容.因为python3.6之前,类型注解是会进行求值的.
+    #. 条件导入引入的包应仅仅用于类型注解,别名也是如此.否则,将引起运行错误,条件导入的包在运行时是不会被实际导入的.
+    #. 条件导入的语句块应放在所有常规导入的语句块之后.
+    #. 在条件导入的语句块的导入语句之间不应有空行.
+    #. 和常规导入一样,请对该导入语句进行排序.
+
+    .. code-block:: python
+
+        import typing
+        if typing.TYPE_CHECKING:
+            import sketch
+        def f(x: "sketch.Sketch"): ...
+
+**循环依赖**
+
+    由类型注释引起的循环依赖可能会导致代码异味,应对其进行重构.虽然从技术上我们可以兼容循环依赖,但是 `构建系统 <https://google.github.io/styleguide/pyguide.html#typing-build-deps>`_ 是不会容忍这样做的,因为每个模块都需要依赖一个其他模块.
+    将引起循环依赖的导入模块使用 ``Any`` 导入.使用 ``alias`` 来起一个有意义的别名,推荐使用真正模块的类型名的字符串作为别名(Any的任何属性依然是Any,使用字符串只是帮助我们理解代码).别名的定义应该和最后的导入语句之间空一行.
+
+    .. code-block:: python
+        
+        from typing import Any
+
+        some_mod = Any  # some_mod.py imports this module.
+        ...
+
+        def my_method(self, var: "some_mod.SomeType") -> None:
+        ...
+
+**泛型**
+    
+    在注释时,尽量将泛型类型注释为类型参数.否则, `泛型参数将被视为是 Any <https://www.python.org/dev/peps/pep-0484/#the-any-type>`_ .
+
+    .. code-block:: python
+
+        def get_names(employee_ids: List[int]) -> Dict[int, Any]:
+        ...
+
+    .. code-block:: python
+
+        # These are both interpreted as get_names(employee_ids: List[Any]) -> Dict[Any, Any]
+        def get_names(employee_ids: list) -> Dict:
+        ...
+
+        def get_names(employee_ids: List) -> Dict:
+        ...
+
+    若实在要用 Any 作为泛型类型,请显式的使用它.但在多数情况下, ``TypeVar`` 通常可能是更好的选择.
+
+    .. code-block:: python
+
+        def get_names(employee_ids: List[Any]) -> Dict[Any, Text]:
+            """Returns a mapping from employee ID to employee name for given IDs."""
+
+    .. code-block:: python
+
+        T = TypeVar('T')
+        def get_names(employee_ids: List[T]) -> Dict[T, Text]:
+            """Returns a mapping from employee ID to employee name for given IDs.""" 

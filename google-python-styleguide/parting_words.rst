@@ -11,7 +11,7 @@
 
 .. line-block::
 
-    Revision 2.59
+    Revision 2.60
 
     Amit Patel
     Antoine Picard
