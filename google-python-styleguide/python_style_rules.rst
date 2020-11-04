@@ -91,20 +91,20 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
     
 .. code-block:: python    
   
-	Yes: if foo: 
+    Yes: if foo: 
              bar()
- 	 	 while x:
- 	 		 x = bar()
- 	 	 if x and y:
- 	 		 bar()
- 	 	 if not x:
- 	 		 bar()
- 	 	 # For a 1 item tuple the ()s are more visually obvious than the comma.
- 	 	 onesie = (foo,)
- 	 	 return foo
- 	 	 return spam, beans
- 	 	 return (spam, beans)
- 	 	 for (x, y) in dict.items(): ...
+           while x:
+               x = bar()
+           if x and y:
+               bar()
+           if not x:
+               bar()
+           # For a 1 item tuple the ()s are more visually obvious than the comma.
+           onesie = (foo,)
+           return foo
+           return spam, beans
+           return (spam, beans)
+           for (x, y) in dict.items(): ...
  
 .. code-block:: python
        
@@ -171,26 +171,26 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
 --------------------
 
 .. tip::
-	仅当 ``]``, ``)``, ``}`` 和末位元素不在同一行时，推荐使用序列元素尾部逗号. 当末位元素尾部有逗号时，元素后的逗号可以指示 `YAPF <https://pypi.org/project/yapf/>`_ 将序列格式化为每行一项.
+    仅当 ``]``, ``)``, ``}`` 和末位元素不在同一行时，推荐使用序列元素尾部逗号. 当末位元素尾部有逗号时，元素后的逗号可以指示 `YAPF <https://pypi.org/project/yapf/>`_ 将序列格式化为每行一项.
 
 .. code-block:: python
 
-	Yes:   golomb3 = [0, 1, 3]
-	Yes:   golomb4 = [
-			   0,
-			   1,
-			   4,
-			   6,
-		   ]
+    Yes:   golomb3 = [0, 1, 3]
+    Yes:   golomb4 = [
+               0,
+               1,
+               4,
+               6,
+           ]
 
 .. code-block:: python
 
-	No:    golomb4 = [
-		       0,
-			   1,
-			   4,
-			   6
-		   ]
+    No:    golomb4 = [
+               0,
+               1,
+               4,
+               6
+           ]
 
 空行
 --------------------
@@ -300,11 +300,11 @@ Shebang
 --------------------
 
 .. tip::
-    大部分.py文件不必以#!作为文件的开始. 根据 `PEP-394 <http://www.python.org/dev/peps/pep-0394/>`_ , 程序的main文件应该以 #!/usr/bin/python2或者 #!/usr/bin/python3开始.
+    大部分.py文件不必以#!作为文件的开始. 根据 `PEP-394 <http://www.python.org/dev/peps/pep-0394/>`_ , 程序的main文件应该以 ``#!/usr/bin/python2`` 或者 ``#!/usr/bin/python3`` 开始.
 
 (译者注: 在计算机科学中, `Shebang <http://en.wikipedia.org/wiki/Shebang_(Unix)>`_ (也称为Hashbang)是一个由井号和叹号构成的字符串行(#!), 其出现在文本文件的第一行的前两个字符. 在文件中存在Shebang的情况下, 类Unix操作系统的程序载入器会分析Shebang后的内容, 将这些内容作为解释器指令, 并调用该指令, 并将载有Shebang的文件路径作为该解释器的参数. 例如, 以指令#!/bin/sh开头的文件在执行时会实际调用/bin/sh程序.)
 
-#!先用于帮助内核找到Python解释器, 但是在导入模块时, 将会被忽略. 因此只有被直接执行的文件中才有必要加入#!.
+``#!`` 先用于帮助内核找到Python解释器, 但是在导入模块时, 将会被忽略. 因此只有被直接执行的文件中才有必要加入 ``#!`` .
    
    
 .. _comments:  
@@ -399,9 +399,6 @@ Shebang
             Raises:
                 IOError: An error occurred accessing the smalltable.
             """
-
-        在 ``Args:`` 上进行换行也是可以的:
-
 
     在 ``Args:`` 上进行换行也是可以的:
 
@@ -662,7 +659,7 @@ Shebang
           for line in front_page:
               print line
               
-Legacy AppEngine 中Python 2.5的代码如使用"with"语句, 需要添加 "from __future__ import with_statement".
+Legacy AppEngine 中Python 2.5的代码如使用"with"语句, 需要添加 ``from __future__ import with_statement`` .
 
              
 TODO注释
@@ -793,7 +790,9 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
 --------------------
 
 .. tip::
-    module_name, package_name, ClassName, method_name, ExceptionName, function_name, GLOBAL_VAR_NAME, instance_var_name, function_parameter_name, local_var_name.   
+    模块名写法: ``module_name`` ;包名写法: ``package_name`` ;类名: ``ClassName`` ;方法名: ``method_name`` ;异常名: ``ExceptionName`` ;函数名: ``function_name`` ;全局常量名: ``GLOBAL_CONSTANT_NAME`` ;全局变量名: ``global_var_name`` ;实例名: ``instance_var_name`` ;函数参数名: ``function_parameter_name`` ;局部变量名: ``local_var_name`` .
+    函数名,变量名和文件名应该是描述性的,尽量避免缩写,特别要避免使用非项目人员不清楚难以理解的缩写,不要通过删除单词中的字母来进行缩写.
+    始终使用 ``.py`` 作为文件后缀名,不要用破折号.
 
 **应该避免的名称**
     
@@ -811,7 +810,7 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
 
 **文件名**
 
-    所有python脚本文件都应该以 ``.py`` 为后缀名且不包含 ``-``.若是需要一个无后缀名的可执行文件,可以使用软联接或者包含 ``exec "$0.py" "$@" 的bash脚本.
+    所有python脚本文件都应该以 ``.py`` 为后缀名且不包含 ``-``.若是需要一个无后缀名的可执行文件,可以使用软联接或者包含 ``exec "$0.py" "$@"`` 的bash脚本.
 
 **Python之父Guido推荐的规范**    
 
@@ -896,208 +895,208 @@ Main
     
     尽量遵守既定的缩进规则.注释后，很多函数签名将会变成每行一个参数.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		def my_method(self,
-				      first_var: int,
-				      second_var: Foo,
-				      third_var: Optional[Bar]) -> int:
-		...
+        def my_method(self,
+                      first_var: int,
+                      second_var: Foo,
+                      third_var: Optional[Bar]) -> int:
+        ...
 
-	
-	尽量在变量之间换行而不是在变量和类型注释之间.当然,若所有东西都在一行上,也可以接受.		
+    
+    尽量在变量之间换行而不是在变量和类型注释之间.当然,若所有东西都在一行上,也可以接受.        
 
-	.. code-block:: python
+    .. code-block:: python
 
-		def my_method(self, first_var: int) -> int:
-		...
+        def my_method(self, first_var: int) -> int:
+        ...
 
-	若是函数名,末位形参和返回值的类型注释太长,也可以进行换行,并在新行进行4格缩进.
+    若是函数名,末位形参和返回值的类型注释太长,也可以进行换行,并在新行进行4格缩进.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		def my_method(
-			self, first_var: int) -> Tuple[MyLongType1, MyLongType1]:
-		...
+        def my_method(
+            self, first_var: int) -> Tuple[MyLongType1, MyLongType1]:
+        ...
 
-    若是末位形参和返回值类型注释不适合在同一行上,可以换行,缩进为4空格,并保持闭合的括号 ``)``和 ``def`` 对齐
+    若是末位形参和返回值类型注释不适合在同一行上,可以换行,缩进为4空格,并保持闭合的括号 ``)`` 和 ``def`` 对齐
 
-	.. code-block:: python
+    .. code-block:: python
  
-		Yes:
-		def my_method(
-			self, other_arg: Optional[MyLongType]
-		) -> Dict[OtherLongType, MyLongType]:
-		...
+        Yes:
+        def my_method(
+            self, other_arg: Optional[MyLongType]
+        ) -> Dict[OtherLongType, MyLongType]:
+        ...
 
-	``pylint`` 允许闭合括号 ``)`` 换至新行并与 开启括号 ``(`` 对齐,但这样的可读性不好.
+    ``pylint`` 允许闭合括号 ``)`` 换至新行并与 开启括号 ``(`` 对齐,但这样的可读性不好.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		No:
-		def my_method(self,
-      				  other_arg: Optional[MyLongType]
-					 ) -> Dict[OtherLongType, MyLongType]:
-		...	
+        No:
+        def my_method(self,
+                        other_arg: Optional[MyLongType]
+                     ) -> Dict[OtherLongType, MyLongType]:
+        ...    
 
-	如上所示,尽量不要在一个类型注释中进行换行.但是有时类型注释过长需要换行时,请尽量保持子类型中不被换行.
+    如上所示,尽量不要在一个类型注释中进行换行.但是有时类型注释过长需要换行时,请尽量保持子类型中不被换行.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		def my_method(
-			self,
-			first_var: Tuple[List[MyLongType1],
-							 List[MyLongType2]],
-			second_var: List[Dict[
-				MyLongType3, MyLongType4]]) -> None:
-		...
+        def my_method(
+            self,
+            first_var: Tuple[List[MyLongType1],
+                             List[MyLongType2]],
+            second_var: List[Dict[
+                MyLongType3, MyLongType4]]) -> None:
+        ...
 
     若一个类型注释确实太长,则应优先考虑对过长的类型使用别名 `alias <https://google.github.io/styleguide/pyguide.html#typing-aliases>`_. 其次是考虑在冒号后 ``:``进行换行并添加4格空格缩进.
-	
-	.. code-block:: python
+    
+    .. code-block:: python
 
-		Yes:
-		def my_function(
-			long_variable_name:
-				long_module_name.LongTypeName,
-		) -> None:
-		...
+        Yes:
+        def my_function(
+            long_variable_name:
+                long_module_name.LongTypeName,
+        ) -> None:
+        ...
 
-	.. code-block:: python
+    .. code-block:: python
 
-		No:
-		def my_function(
-			long_variable_name: long_module_name.
-				LongTypeName,
-		) -> None:
-		...
+        No:
+        def my_function(
+            long_variable_name: long_module_name.
+                LongTypeName,
+        ) -> None:
+        ...
 
 **预先声明**
 
-	若需要使用一个当前模块尚未定义的类名,比如想在类声明中使用类名,请使用类名的字符串
+    若需要使用一个当前模块尚未定义的类名,比如想在类声明中使用类名,请使用类名的字符串
 
     .. code-block:: python
-		
-		class MyClass:
+        
+        class MyClass:
 
-		  def __init__(self,
-					   stack: List["MyClass"]) -> None:
+          def __init__(self,
+                       stack: List["MyClass"]) -> None:
 
 **参数默认值**
 
-	依据 `PEP-008 <https://www.python.org/dev/peps/pep-0008/#other-recommendations>`_ ,仅对同时具有类型注释和默认值的参数的 ``=`` 周围加空格.
+    依据 `PEP-008 <https://www.python.org/dev/peps/pep-0008/#other-recommendations>`_ ,仅对同时具有类型注释和默认值的参数的 ``=`` 周围加空格.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		Yes:
-		def func(a: int = 0) -> int:
-		...
+        Yes:
+        def func(a: int = 0) -> int:
+        ...
 
-	.. code-block:: python
+    .. code-block:: python
 
-		No:
-		def func(a:int=0) -> int:
-		...
+        No:
+        def func(a:int=0) -> int:
+        ...
 
 **NoneType**
 
-	在python的类型系统中, ``NoneType`` 是 "一等对象",为了输入方便, ``None`` 是 ``NoneType`` 的别名.一个变量若是 ``None``,则该变量必须被声明.我们可以使用 ``Union``, 但若类型仅仅只是对应另一个其他类型,建议使用 ``Optional``.
-	尽量显式而非隐式的使用 ``Optional``.在PEP-484的早期版本中允许使用 ``a: Text = None`` 来替代 ``a: Optional[Text] = None``,当然,现在不推荐这么做了.
+    在python的类型系统中, ``NoneType`` 是 "一等对象",为了输入方便, ``None`` 是 ``NoneType`` 的别名.一个变量若是 ``None``,则该变量必须被声明.我们可以使用 ``Union``, 但若类型仅仅只是对应另一个其他类型,建议使用 ``Optional``.
+    尽量显式而非隐式的使用 ``Optional``.在PEP-484的早期版本中允许使用 ``a: Text = None`` 来替代 ``a: Optional[Text] = None``,当然,现在不推荐这么做了.
 
     .. code-block:: python
-		
-		Yes:
-		def func(a: Optional[Text], b: Optional[Text] = None) -> Text:
-			...
-		def multiple_nullable_union(a: Union[None, Text, int]) -> Text
-			...
+        
+        Yes:
+        def func(a: Optional[Text], b: Optional[Text] = None) -> Text:
+            ...
+        def multiple_nullable_union(a: Union[None, Text, int]) -> Text
+            ...
 
-	.. code-block:: python
+    .. code-block:: python
 
-		No:
-		def nullable_union(a: Union[None, Text]) -> Text:
-			...
-		def implicit_optional(a: Text = None) -> Text:
-			...
+        No:
+        def nullable_union(a: Union[None, Text]) -> Text:
+            ...
+        def implicit_optional(a: Text = None) -> Text:
+            ...
 
 **类型别名**
 
-	复杂类型应使用别名,别名的命名可参照帕斯卡命名.若别名仅在当前模块使用,应在名称前加``_``变为私有的.
-	如下例子中,模块名和类型名连一起过长:
+    复杂类型应使用别名,别名的命名可参照帕斯卡命名.若别名仅在当前模块使用,应在名称前加``_``变为私有的.
+    如下例子中,模块名和类型名连一起过长:
 
-	.. code-block:: python
+    .. code-block:: python
        
-		_ShortName = module_with_long_name.TypeWithLongName
-		ComplexMap = Mapping[Text, List[Tuple[int, int]]]
+        _ShortName = module_with_long_name.TypeWithLongName
+        ComplexMap = Mapping[Text, List[Tuple[int, int]]]
 
 **忽略类型注释**
-	
-	可以使用特殊的行尾注释 ``# type: ignore`` 来禁用该行的类型检查.
-	``pytype`` 针对特定错误有一个禁用选项(类似lint):
+    
+    可以使用特殊的行尾注释 ``# type: ignore`` 来禁用该行的类型检查.
+    ``pytype`` 针对特定错误有一个禁用选项(类似lint):
 
-	.. code-block:: python
-		
-		# pytype: disable=attribute-error
+    .. code-block:: python
+        
+        # pytype: disable=attribute-error
 
 **变量类型注解**
 
-	当一个内部变量难以推断其类型时,可以有以下方法来指示其类型:
+    当一个内部变量难以推断其类型时,可以有以下方法来指示其类型:
 
-	**类型注释**
-		
-	使用行尾注释 ``# type:``:
-	
-		.. code-block:: python
+    **类型注释**
+        
+    使用行尾注释 ``# type:``:
+    
+        .. code-block:: python
 
-			a = SomeUndecoratedFunction()  # type: Foo
+            a = SomeUndecoratedFunction()  # type: Foo
 
-	**带类型注解的复制**
-	如函数形参一样,在变量名和等号间加入冒号和类型:
+    **带类型注解的复制**
+    如函数形参一样,在变量名和等号间加入冒号和类型:
 
-		.. code-block:: python
-	
-			a: Foo = SomeUndecoratedFunction()
+        .. code-block:: python
+    
+            a: Foo = SomeUndecoratedFunction()
 
 **Tuples vs Lists**
 
-	类型化的Lists只能包含单一类型的元素.但类型化的Tuples可以包含单一类型的元素或者若干个不同类型的元素,通常被用来注解返回值的类型.
-	(译者注: 注意这里是指的类型注解中的写法,实际python中,list和tuple都是可以在一个序列中包含不同类型元素的,当然,本质其实list和tuple中放的是元素的引用)
+    类型化的Lists只能包含单一类型的元素.但类型化的Tuples可以包含单一类型的元素或者若干个不同类型的元素,通常被用来注解返回值的类型.
+    (译者注: 注意这里是指的类型注解中的写法,实际python中,list和tuple都是可以在一个序列中包含不同类型元素的,当然,本质其实list和tuple中放的是元素的引用)
 
-	.. code-block:: python
+    .. code-block:: python
 
-		a = [1, 2, 3]  # type: List[int]
-		b = (1, 2, 3)  # type: Tuple[int, ...]
-		c = (1, "2", 3.5)  # type: Tuple[int, Text, float]	
+        a = [1, 2, 3]  # type: List[int]
+        b = (1, 2, 3)  # type: Tuple[int, ...]
+        c = (1, "2", 3.5)  # type: Tuple[int, Text, float]    
 
 **TypeVars**
 
-	python的类型系统是支持泛型的.一种常见的方式就是使用工厂函数 ``TypeVars``.
+    python的类型系统是支持泛型的.一种常见的方式就是使用工厂函数 ``TypeVars``.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		from typing import List, TypeVar
-		T = TypeVar("T")
-		...
-		def next(l: List[T]) -> T:
-			return l.pop()
+        from typing import List, TypeVar
+        T = TypeVar("T")
+        ...
+        def next(l: List[T]) -> T:
+            return l.pop()
 
-	TypeVar也可以被限定成若干种类型
+    TypeVar也可以被限定成若干种类型
 
-	.. code-block:: python
-		
-		AddableType = TypeVar("AddableType", int, float, Text)
-		def add(a: AddableType, b: AddableType) -> AddableType:
-			return a + b
+    .. code-block:: python
+        
+        AddableType = TypeVar("AddableType", int, float, Text)
+        def add(a: AddableType, b: AddableType) -> AddableType:
+            return a + b
 
-	``typing`` 模块中一个常见的预定义类型变量是 ``AnyStr``.它可以用来注解类似 ``bytes``, ``unicode`` 以及一些相似类型.
+    ``typing`` 模块中一个常见的预定义类型变量是 ``AnyStr``.它可以用来注解类似 ``bytes``, ``unicode`` 以及一些相似类型.
 
-	.. code-block:: python
+    .. code-block:: python
 
-		from typing import AnyStr
-		def check_length(x: AnyStr) -> AnyStr:
-			if len(x) <= 42:
-				return x
-			raise ValueError()
+        from typing import AnyStr
+        def check_length(x: AnyStr) -> AnyStr:
+            if len(x) <= 42:
+                return x
+            raise ValueError()
 
 **字符串类型**
     
@@ -1107,6 +1106,7 @@ Main
     造成这种差异的原因是因为,在不同的python版本中,``str`` 意义不同.
 
     .. code-block:: python
+    
         No:
         def py2_code(x: str) -> unicode:
         ...
@@ -1145,7 +1145,7 @@ Main
 
 **类型的导入**
 
-    对于 ``typing`` 模块中类的导入,请直接导入类本身.你可以显式的在一行中从``typing``模块导入多个特定的类,例如:
+    对于 ``typing`` 模块中类的导入,请直接导入类本身.你可以显式的在一行中从 ``typing`` 模块导入多个特定的类,例如:
 
     .. code-block:: python
         
