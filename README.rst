@@ -5,6 +5,8 @@ Google 开源项目风格指南 (中文版)
 
 * 中文风格指南 GitHub 托管地址：`zh-google-styleguide <https://github.com/zh-google-styleguide/zh-google-styleguide>`_
 
+* 离线文档下载地址：`release <https://github.com/zh-google-styleguide/zh-google-styleguide/releases>`_
+
 .. note:: 声明.
 
     本项目并非 Google 官方项目, 而是由国内程序员凭热情创建和维护.

@@ -13,7 +13,7 @@ texlive-generic-recommended
 # Python pip
 
 ```shell
-sudo pip Sphinx commonmark sphinx-rtd-theme
+sudo pip install Sphinx commonmark sphinx-rtd-theme
 ```
 
 if download is too slow, try use local mirror
