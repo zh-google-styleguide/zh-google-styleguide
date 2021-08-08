@@ -1,8 +1,9 @@
-谷歌 TypeScript 风格指南
+TypeScript 风格指南
 ################################################################################
 
 .. toctree::
     :caption: 目录
     :numbered:
 
-    index
+    preface
+    syntax

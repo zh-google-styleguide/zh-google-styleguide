@@ -1046,6 +1046,8 @@ JavaScript中的类型
     //出现this未定义警告
     goog.bind(function() { this.someProperty; });
 
+.. _js-comments:
+
 注释
 ----------
 
