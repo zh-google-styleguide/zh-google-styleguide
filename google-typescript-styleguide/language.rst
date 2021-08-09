@@ -15,24 +15,26 @@
 
 .. code-block:: typescript
 
-   class Foo {
-      public bar = new Bar();  // 不要这样做！不需要 public 修饰符！
+    class Foo {
+        public bar = new Bar();  // 不要这样做！不需要 public 修饰符！
 
-      constructor(public readonly baz: Baz) {}  // 不要这样做！readonly 修饰符已经表明了 baz 是默认 public 的属性，因此不需要 public 修饰符！
-   }
+        constructor(public readonly baz: Baz) {}  // 不要这样做！readonly 修饰符已经表明了 baz 是默认 public 的属性，因此不需要 public 修饰符！
+    }
 
 .. code-block:: typescript
 
-   class Foo {
-     bar = new Bar();  // 应当这样做！将不需要的 public 修饰符省略！
+    class Foo {
+        bar = new Bar();  // 应当这样做！将不需要的 public 修饰符省略！
 
-     constructor(public baz: Baz) {}  // 可以这样做！公开且非只读的参数属性允许使用 public 修饰符！
-   }
+        constructor(public baz: Baz) {}  // 可以这样做！公开且非只读的参数属性允许使用 public 修饰符！
+    }
 
-关于可见性，还可参见 `导出可见性 </gsg-ts-ch03#导出可见性>`_ 一节。
+关于可见性，还可参见 :ref:`ts-export-visibility` 一节。
+
+.. _ts-constructors:
 
 构造函数
---------
+********************************************************************************
 
 调用构造函数时必须使用括号，即使不传递任何参数。
 
@@ -44,50 +46,52 @@
    // 应当这样做！
    const x = new Foo();
 
-根据 ES2015 标准，如果在类中并未显式地声明构造函数，则编译器会提供一个默认的构造函数。因此，没有必要为类提供一个空构造函数，或者简单地调用基类的构造函数。但是，如果构造函数中含有参数属性、访问限定符或者参数装饰器，即使函数体是空的也不能省略。
+.. code-block:: typescript
+
+    // 不要这样做！没有必要声明一个空的构造函数！
+    class UnnecessaryConstructor {
+        constructor() {}
+    }
 
 .. code-block:: typescript
 
-   // 不要这样做！没有必要声明一个空的构造函数！
-   class UnnecessaryConstructor {
-     constructor() {}
-   }
+    // 不要这样做！没有必要声明一个仅仅调用基类构造函数的构造函数！
+    class UnnecessaryConstructorOverride extends Base {
+        constructor(value: number) {
+            super(value);
+        }
+    }
 
 .. code-block:: typescript
 
-   // 不要这样做！没有必要声明一个仅仅调用基类构造函数的构造函数！
-   class UnnecessaryConstructorOverride extends Base {
-       constructor(value: number) {
-         super(value);
-       }
-   }
+    // 应当这样做！默认构造函数由编译器提供即可！
+    class DefaultConstructor {
+    }
 
-.. code-block:: typescript
+    // 应当这样做！含有参数属性的构造函数不能省略！
+    class ParameterProperties {
+        constructor(private myService) {}
+    }
 
-   // 应当这样做！默认构造函数由编译器提供即可！
-   class DefaultConstructor {
-   }
+    // 应当这样做！含有参数装饰器的构造函数不能省略！
+    class ParameterDecorators {
+        constructor(@SideEffectDecorator myService) {}
+    }
 
-   // 应当这样做！含有参数属性的构造函数不能省略！
-   class ParameterProperties {
-     constructor(private myService) {}
-   }
+    // 应当这样做！私有的构造函数不能省略！
+    class NoInstantiation {
+        private constructor() {}
+    }
 
-   // 应当这样做！含有参数装饰器的构造函数不能省略！
-   class ParameterDecorators {
-     constructor(@SideEffectDecorator myService) {}
-   }
-
-   // 应当这样做！私有的构造函数不能省略！
-   class NoInstantiation {
-     private constructor() {}
-   }
+.. _ts-class-members:
 
 类成员
-------
+********************************************************************************
+
+.. _
 
 ``#private`` 语法
-^^^^^^^^^^^^^^^^^^^^^
+================================================================================
 
 禁止使用 ``#private`` 私有字段（又称私有标识符）语法声明私有成员。
 
