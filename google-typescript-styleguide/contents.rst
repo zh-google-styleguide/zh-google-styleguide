@@ -8,3 +8,4 @@ TypeScript 风格指南
     preface
     syntax
     language
+    source_organization
