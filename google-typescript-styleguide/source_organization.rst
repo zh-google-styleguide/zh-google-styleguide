@@ -198,7 +198,7 @@ TypeScript 不支持限制导出符号的可见性。因此，不要导出不用
     export const FOO = 1;
     export function bar() { return 1; }
 
-.. _ts-imports:
+.. _ts-imports-source-organization:
 
 导入
 ********************************************************************************
@@ -318,7 +318,7 @@ TypeScript 不支持限制导出符号的可见性。因此，不要导出不用
 
 TypeScript 的工具链会自动区分用作类型的符号和用作值的符号。对于类型引用，工具链不会生成运行时加载的代码。这样做的原因是为了提供更好的开发体验，否则在 ``import type`` 和 ``import`` 之间反复切换会非常繁琐。同时， ``import type`` 并不提供任何保证，因为代码仍然可以通过其它的途径导入同一个依赖。
 
-如果需要在运行时加载代码以执行其副作用，应使用 ``import '...'`` ，参见 :ref:`ts-imports` 一节。
+如果需要在运行时加载代码以执行其副作用，应使用 ``import '...'`` ，参见 :ref:`ts-imports-source-organization` 一节。
 
 使用 ``export type`` 似乎可以避免将某个用作值的符号导出为 API。然而，和 ``import type`` 类似， ``export type`` 也不提供任何保证，因为外部代码仍然可以通过其它途径导入。如果需要拆分对 API 作为值的使用和作为类型的使用，并保证二者不被混用的话，应当显式地将其拆分成不同的符号，例如 ``UserService`` 和 ``AjaxUserService`` ，这样不容易造成错误，同时能更好地表达设计思路。
 
