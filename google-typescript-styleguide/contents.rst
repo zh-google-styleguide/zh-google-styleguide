@@ -9,3 +9,4 @@ TypeScript 风格指南
     syntax
     language
     source_organization
+    type_system
