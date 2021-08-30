@@ -10,3 +10,4 @@ TypeScript 风格指南
     language
     source_organization
     type_system
+    consistency
