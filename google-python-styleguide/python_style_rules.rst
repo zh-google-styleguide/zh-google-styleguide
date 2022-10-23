@@ -163,8 +163,8 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
           # No hanging indent in a dictionary
           foo = {
               long_dictionary_key:
-                  long_dictionary_value,
-                  ...
+              long_dictionary_value,
+              ...
           }
          
 序列元素尾部逗号
