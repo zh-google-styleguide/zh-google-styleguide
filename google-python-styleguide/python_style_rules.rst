@@ -5,114 +5,159 @@ Python风格规范
 --------------------
 
 .. tip::
-    不要在行尾加分号, 也不要用分号将两条命令放在同一行.   
+    不要在行尾加分号, 也不要用分号将两条语句合并到一行.
 
 .. _line_length:    
     
-行长度
+行宽
 --------------------
 
 .. tip::
-    每行不超过80个字符    
+    最大行宽是 80 个字符.
    
 例外:
  
-#. 长的导入模块语句
-#. 注释里的URL,路径以及其他的一些长标记
-#. 不便于换行，不包含空格的模块级字符串常量，比如url或者路径
-   
-    #. Pylint 禁用注释.（例如：``# pylint: disable=invalid-name） 
+#. 长的导入 (import) 语句.
+#. 注释里的 URL、路径名以及长的标志 (flag).
+#. 不便于换行、不包含空格、模块级的长字符串常量, 比如 URL 或路径名.
+#. Pylint 禁用注释. (例如: ``# pylint: disable=invalid-name``)
 
-除非是在 ``with`` 语句需要三个以上的上下文管理器的情况下，否则不要使用反斜杠连接行.
+不要用反斜杠表示 `显式续行 (explicit line continuation) <https://docs.python.org/3/reference/lexical_analysis.html#explicit-line-joining>`_.
 
-Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <http://docs.python.org/2/reference/lexical_analysis.html#implicit-line-joining>`_ , 你可以利用这个特点. 如果需要, 你可以在表达式外围增加一对额外的圆括号. 
+应该利用 Python 的 `圆括号, 中括号和花括号的隐式续行 (implicit line joining) <http://docs.python.org/2/reference/lexical_analysis.html#implicit-line-joining>`_ . 如有需要, 你可以在表达式外围添加一对括号. 
 
-.. code-block:: python
-
-    Yes: foo_bar(self, width, height, color='black', design=None, x='foo',
-                 emphasis=None, highlight=0)
-
-         if (width == 0 and height == 0 and
-             color == 'red' and emphasis == 'strong'):    
-
-如果一个文本字符串在一行放不下, 可以使用圆括号来实现隐式行连接:
+正确:
 
 .. code-block:: python
 
-    x = ('This will build a very long long '
-         'long long long long long long string')
+    foo_bar(self, width, height, color='黑', design=None, x='foo',
+            emphasis=None, highlight=0)
 
-在注释中，如果必要，将长的URL放在一行上。
+    if (width == 0 and height == 0 and
+        color == '红' and emphasis == '加粗'):
 
-.. code-block:: python
+     (bridge_questions.clarification_on
+      .average_airspeed_of.unladen_swallow) = '美国的还是欧洲的?'
 
-    Yes:  # See details at
-          # http://www.example.com/us/developer/documentation/api/content/v2.0/csv_file_name_extension_full_specification.html
+     with (
+         very_long_first_expression_function() as spam,
+         very_long_second_expression_function() as beans,
+         third_thing() as eggs,
+     ):
+       place_order(eggs, beans, spam, beans)
 
-.. code-block:: python
-  
-    No:  # See details at
-         # http://www.example.com/us/developer/documentation/api/content/\
-         # v2.0/csv_file_name_extension_full_specification.html     
-
-当 ``with`` 表达式需要使用三个及其以上的上下文管理器时，可以使用反斜杠换行.若只需要两个，请使用嵌套的with.
-
-.. code-block:: python
-
-    Yes:  with very_long_first_expression_function() as spam, \
-               very_long_second_expression_function() as beans, \
-               third_thing() as eggs:
-              place_order(eggs, beans, spam, beans)
+错误:
 
 .. code-block:: python
 
-    No:  with VeryLongFirstExpressionFunction() as spam, \
-              VeryLongSecondExpressionFunction() as beans:
-           PlaceOrder(eggs, beans, spam, beans)
+    if width == 0 and height == 0 and \
+         color == '红' and emphasis == '加粗':
+
+    bridge_questions.clarification_on \
+        .average_airspeed_of.unladen_swallow = '美国的还是欧洲的?'
+
+    with very_long_first_expression_function() as spam, \
+          very_long_second_expression_function() as beans, \
+          third_thing() as eggs:
+      place_order(eggs, beans, spam, beans)
+
+如果字符串的字面量 (literal) 超过一行, 应该用圆括号实现隐式续行:
 
 .. code-block:: python
 
-    Yes:  with very_long_first_expression_function() as spam:
-              with very_long_second_expression_function() as beans:
-                  place_order(beans, spam)
+    x = ('这是一个很长很长很长很长很长很长'
+         '很长很长很长很长很长的字符串')
 
-注意上面例子中的元素缩进; 你可以在本文的 :ref:`缩进 <indentation>` 部分找到解释. 
+最好在最外层的语法结构上分行. 如果你需要多次换行, 应该在同一层语法结构上换行.
 
-另外在其他所有情况下，若一行超过80个字符，但 `yapf <https://github.com/google/yapf/>`_ 却无法将该行字数降至80个字符以下时，则允许该行超过80个字符长度.
+正确:
 
+.. code-block:: python
+
+    bridgekeeper.answer(
+         name="亚瑟", quest=questlib.find(owner="亚瑟", perilous=True))
+
+     answer = (a_long_line().of_chained_methods()
+               .that_eventually_provides().an_answer())
+
+     if (
+         config is None
+         or 'editor.language' not in config
+         or config['editor.language'].use_spaces is False
+     ):
+       use_tabs()
+
+错误:
+
+.. code-block:: python
+
+    bridgekeeper.answer(name="亚瑟", quest=questlib.find(
+        owner="亚瑟", perilous=True))
+
+    answer = a_long_line().of_chained_methods().that_eventually_provides(
+        ).an_answer()
+
+    if (config is None or 'editor.language' not in config or config[
+        'editor.language'].use_spaces is False):
+      use_tabs()
+
+必要时, 注释中的长 URL 可以独立成行.
+
+正确:
+
+.. code-block:: python
+
+    # 详情参见
+    # http://www.example.com/us/developer/documentation/api/content/v2.0/csv_file_name_extension_full_specification.html
+
+错误:
+
+.. code-block:: python
+
+    # 详情参见
+    # http://www.example.com/us/developer/documentation/api/content/\
+    # v2.0/csv_file_name_extension_full_specification.html     
+
+注意上面各个例子中的缩进; 详情参见 :ref:`缩进 <indentation>` 章节的解释. 
+
+如果一行超过 80 个字符, 且 `Black <https://github.com/psf/black>`_ 或 `Pyink <https://github.com/google/pyink>`_ 自动格式化工具无法继续缩减行宽, 则允许该行超过 80 个字符. 我们也鼓励作者根据上面的规则手动拆分.
     
 括号
 --------------------
 
 .. tip::
-    宁缺毋滥的使用括号    
+    使用括号时宁缺毋滥.
 
-除非是用于实现行连接, 否则不要在返回语句或条件语句中使用括号. 不过在元组两边使用括号是可以的. 
-    
+可以把元组 (tuple) 括起来, 但不强制. 不要在返回语句或条件语句中使用括号, 除非用于隐式续行或表示元组.
+
+正确:
+
 .. code-block:: python    
   
-    Yes: if foo: 
-             bar()
-           while x:
-               x = bar()
-           if x and y:
-               bar()
-           if not x:
-               bar()
-           # For a 1 item tuple the ()s are more visually obvious than the comma.
-           onesie = (foo,)
-           return foo
-           return spam, beans
-           return (spam, beans)
-           for (x, y) in dict.items(): ...
- 
+    if foo: 
+        bar()
+    while x:
+        x = bar()
+    if x and y:
+        bar()
+    if not x:
+        bar()
+    # 对于包含单个元素的元组, 括号比逗号更直观.
+    onesie = (foo,)
+    return foo
+    return spam, beans
+    return (spam, beans)
+    for (x, y) in dict.items(): ...
+
+错误:
+
 .. code-block:: python
        
-    No:  if (x):
-             bar()
-         if not(x):
-             bar()
-         return (foo)
+    if (x):
+        bar()
+    if not(x):
+        bar()
+    return (foo)
          
 .. _indentation:  
 
@@ -120,528 +165,522 @@ Python会将 `圆括号, 中括号和花括号中的行隐式的连接起来 <ht
 --------------------
 
 .. tip::
-    用4个空格来缩进代码
+    用4个空格作为缩进.
     
-绝对不要用tab, 也不要tab和空格混用. 对于行连接的情况, 你应该要么垂直对齐换行的元素(见 :ref:`行长度 <line_length>` 部分的示例), 或者使用4空格的悬挂式缩进(这时第一行不应该有参数):
-         
+不要使用制表符. 使用隐式续行时, 应该把括起来的元素垂直对齐(参见 :ref:`行宽 <line_length>` 章节的示例), 或者添加4个空格的悬挂缩进. 右括号 (圆括号, 方括号或花括号) 可以置于表达式结尾或者另起一行. 另起一行时右括号应该和左括号所在的那一行缩进相同.
+
+正确:
+
 .. code-block:: python
 
-   Yes:   # Aligned with opening delimiter
-          foo = long_function_name(var_one, var_two,
-                                   var_three, var_four)
-   
-          # Aligned with opening delimiter in a dictionary
-          foo = {
-              long_dictionary_key: value1 +
-                                   value2,
-              ...
-          }
-   
-          # 4-space hanging indent; nothing on first line
-          foo = long_function_name(
-              var_one, var_two, var_three,
-              var_four)
-   
-          # 4-space hanging indent in a dictionary
-          foo = {
-              long_dictionary_key:
-                  long_dictionary_value,
-              ...
-          }
-           
+    # 与左括号对齐.
+    foo = long_function_name(var_one, var_two,
+                             var_three, var_four)
+    meal = (spam,
+            beans)
+
+    # 与字典的左括号对齐.
+    foo = {
+        'long_dictionary_key': value1 +
+                               value2,
+        ...
+    }
+
+    # 4个空格的悬挂缩进; 首行没有元素
+    foo = long_function_name(
+        var_one, var_two, var_three,
+        var_four)
+    meal = (
+        spam,
+        beans)
+
+    # 4个空格的悬挂缩进; 首行没有元素
+    # 右括号另起一行.
+    foo = long_function_name(
+        var_one, var_two, var_three,
+        var_four
+    )
+    meal = (
+        spam,
+        beans,
+    )
+
+    # 字典中的4空格悬挂缩进.
+    foo = {
+        'long_dictionary_key':
+            long_dictionary_value,
+        ...
+    }
+
+错误:
+
 .. code-block:: python
 
-    No:    # Stuff on first line forbidden
-          foo = long_function_name(var_one, var_two,
-              var_three, var_four)
-   
-          # 2-space hanging indent forbidden
-          foo = long_function_name(
-            var_one, var_two, var_three,
-            var_four)
-   
-          # No hanging indent in a dictionary
-          foo = {
-              long_dictionary_key:
-                  long_dictionary_value,
-                  ...
-          }
+    # 首行不能有元素.
+    foo = long_function_name(var_one, var_two,
+        var_three, var_four)
+
+    # 禁止2个空格的悬挂缩进.
+    foo = long_function_name(
+      var_one, var_two, var_three,
+      var_four)
+
+    # 字典没有悬挂缩进.
+    foo = {
+        'long_dictionary_key':
+        long_dictionary_value,
+        ...
+    }
          
-序列元素尾部逗号
+序列的尾部要添加逗号吗?
+-----------------------
+
+.. tip::
+    仅当 ``]``, ``)``, ``}`` 和最后一个元素不在同一行时, 推荐在序列尾部添加逗号. 我们的 Python 自动格式化工具会把尾部的逗号视为一种格式提示.
+
+Shebang行
 --------------------
 
 .. tip::
-    仅当 ``]``, ``)``, ``}`` 和末位元素不在同一行时，推荐使用序列元素尾部逗号. 当末位元素尾部有逗号时，元素后的逗号可以指示 `YAPF <https://pypi.org/project/yapf/>`_ 将序列格式化为每行一项.
-
-.. code-block:: python
-
-    Yes:   golomb3 = [0, 1, 3]
-    Yes:   golomb4 = [
-               0,
-               1,
-               4,
-               6,
-           ]
-
-.. code-block:: python
-
-    No:    golomb4 = [
-               0,
-               1,
-               4,
-               6
-           ]
-
-空行
---------------------
-
-.. tip::
-    顶级定义之间空两行, 方法定义之间空一行
-    
-顶级定义之间空两行, 比如函数或者类定义. 方法定义, 类定义与第一个方法之间, 都应该空一行. 函数或方法中, 某些地方要是你觉得合适, 就空一行.     
-      
-      
-空格
---------------------
-
-.. tip::
-    按照标准的排版规范来使用标点两边的空格
-
-括号内不要有空格.
-
-.. code-block:: python
-
-    Yes: spam(ham[1], {eggs: 2}, [])
-
-.. code-block:: python
-
-    No:  spam( ham[ 1 ], { eggs: 2 }, [ ] )
-    
-不要在逗号, 分号, 冒号前面加空格, 但应该在它们后面加(除了在行尾).
-
-.. code-block:: python
-
-    Yes: if x == 4:
-             print(x, y)
-         x, y = y, x
-     
-.. code-block:: python
-    
-    No:  if x == 4 :
-             print(x , y)
-         x , y = y , x
-
-参数列表, 索引或切片的左括号前不应加空格.
-         
-.. code-block:: python   
-
-    Yes: spam(1)
-    
-.. code-block:: python
-         
-    no: spam (1)
-    
-.. code-block:: python  
-
-    Yes: dict['key'] = list[index]
-    
-.. code-block:: python  
-
-    No:  dict ['key'] = list [index]       
-
-在二元操作符两边都加上一个空格, 比如赋值(=), 比较(==, <, >, !=, <>, <=, >=, in, not in, is, is not), 布尔(and, or, not).  至于算术操作符两边的空格该如何使用, 需要你自己好好判断. 不过两侧务必要保持一致. 
-
-.. code-block:: python
-
-    Yes: x == 1
-
-.. code-block:: python
-    
-    No:  x<1
-
-当 ``=`` 用于指示关键字参数或默认参数值时, 不要在其两侧使用空格. 但若存在类型注释的时候,需要在 ``=`` 周围使用空格.
-
-.. code-block:: python
-
-    Yes: def complex(real, imag=0.0): return magic(r=real, i=imag)
-    Yes: def complex(real, imag: float = 0.0): return Magic(r=real, i=imag)
-
-    
-.. code-block:: python
-    
-    No:  def complex(real, imag = 0.0): return magic(r = real, i = imag)
-    No:  def complex(real, imag: float=0.0): return Magic(r = real, i = imag)
-    
-不要用空格来垂直对齐多行间的标记, 因为这会成为维护的负担(适用于:, #, =等):
-
-.. code-block:: python
-
-    Yes:
-         foo = 1000  # comment
-         long_name = 2  # comment that should not be aligned
-   
-         dictionary = {
-             "foo": 1,
-             "long_name": 2,
-             }
-      
-.. code-block:: python
-
-    No:
-         foo       = 1000  # comment
-         long_name = 2     # comment that should not be aligned
-   
-         dictionary = {
-             "foo"      : 1,
-             "long_name": 2,
-             }
-          
-Shebang
---------------------
-
-.. tip::
-    大部分.py文件不必以#!作为文件的开始. 根据 `PEP-394 <http://www.python.org/dev/peps/pep-0394/>`_ , 程序的main文件应该以 ``#!/usr/bin/python2`` 或者 ``#!/usr/bin/python3`` 开始.
+    大部分 ``.py`` 文件不必以 ``#!`` 开始. 可以根据 `PEP-394 <http://www.python.org/dev/peps/pep-0394/>`_ , 在程序的主文件开头添加 ``#!/usr/bin/env python3`` (以支持 virtualenv) 或者 ``#!/usr/bin/python3``.
 
 (译者注: 在计算机科学中, `Shebang <http://en.wikipedia.org/wiki/Shebang_(Unix)>`_ (也称为Hashbang)是一个由井号和叹号构成的字符串行(#!), 其出现在文本文件的第一行的前两个字符. 在文件中存在Shebang的情况下, 类Unix操作系统的程序载入器会分析Shebang后的内容, 将这些内容作为解释器指令, 并调用该指令, 并将载有Shebang的文件路径作为该解释器的参数. 例如, 以指令#!/bin/sh开头的文件在执行时会实际调用/bin/sh程序.)
 
-``#!`` 先用于帮助内核找到Python解释器, 但是在导入模块时, 将会被忽略. 因此只有被直接执行的文件中才有必要加入 ``#!`` .
-   
-   
+内核会通过这行内容找到Python解释器, 但是Python解释器在导入模块时会忽略这行内容. 这行内容仅对需要直接运行的文件有效.
+
 .. _comments:  
  
-注释
---------------------
+注释和文档字符串 (docstring)
+----------------------------
 
 .. tip::
-    确保对模块, 函数, 方法和行内注释使用正确的风格    
+    模块、函数、方法的文档字符串和内部注释一定要采用正确的风格.    
 
 **文档字符串**
 
-    Python有一种独一无二的的注释方式: 使用文档字符串. 文档字符串是包, 模块, 类或函数里的第一个语句. 这些字符串可以通过对象的 ``__doc__`` 成员被自动提取, 并且被pydoc所用. (你可以在你的模块上运行pydoc试一把, 看看它长什么样). 我们对文档字符串的惯例是使用三重双引号"""( `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 一个文档字符串应该这样组织: 首先是一行以句号, 问号或惊叹号结尾的概述(或者该文档字符串单纯只有一行). 接着是一个空行. 接着是文档字符串剩下的部分, 它应该与文档字符串的第一行的第一个引号对齐. 下面有更多文档字符串的格式化规范. 
-    
+    Python 的文档字符串用于注释代码. 文档字符串是位于包、模块、类或函数里第一个语句的字符串. 可以用对象的 ``__doc__`` 成员自动提取这些字符串, 并为 ``pydoc`` 所用. (可以试试在你的模块上运行 ``pydoc`` 并观察结果). 文档字符串一定要用三重双引号 ``"""`` 的格式 (依据 `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 文档字符串应该是一行概述 (整行不超过 80 个字符), 以句号、问号或感叹号结尾. 如果要写更多注释 (推荐), 那么概述后面必须紧接着一个空行, 然后是剩下的内容, 缩进与文档字符串的第一行的第一个引号对齐. 下面是更多有关文档字符串的格式规范. 
+
 **模块**
 
-    每个文件应该包含一个许可样板. 根据项目使用的许可(例如, Apache 2.0, BSD, LGPL, GPL), 选择合适的样板.
-    其开头应是对模块内容和用法的描述.
+    每个文件应该包含一个许可协议模版. 应根据项目使用的许可协议 (例如, Apache 2.0, BSD, LGPL, GPL) 选择合适的模版.
 
-.. code-block:: python
+    文件的开头应该是文档字符串, 其中应该描述该模块内容和用法.
 
-    """A one line summary of the module or program, terminated by a period.
+    .. code-block:: python
 
-    Leave one blank line.  The rest of this docstring should contain an
-    overall description of the module or program.  Optionally, it may also
-    contain a brief description of exported classes and functions and/or usage
-    examples.
+        """模块或程序的一行概述, 以句号结尾.
 
-    Typical usage example:
+        留一个空行. 接下来应该写模块或程序的总体描述. 也可以选择简要描述导出的类和函数,
+        和/或描述使用示例.
 
-    foo = ClassFoo()
-    bar = foo.FunctionBar()
-    """
+        经典的使用示例:
+
+        foo = ClassFoo()
+        bar = foo.FunctionBar()
+        """
+
+**测试模块**
+
+    测试文件不必包含模块级文档字符串. 只有在文档字符串可以提供额外信息时才需要写入文件.
+
+    例如, 你可以描述运行测试时所需的特殊要求, 解释不常见的初始化模式, 描述外部环境的依赖等等.
+
+    .. code-block:: python
+
+        """这个blaze测试会使用样板文件.
+
+        若要更新这些文件, 你可以在 `google3` 文件夹中运行
+        `blaze run //foo/bar:foo_test -- --update_golden_files`
+        """
+
+    不要使用不能提供额外信息的文档字符串.
+
+    .. code-block:: python
+
+        """foo.bar 的测试."""
 
 **函数和方法**
    
-    下文所指的函数,包括函数, 方法, 以及生成器.
-    
-    一个函数必须要有文档字符串, 除非它满足以下条件:
-    
-    #. 外部不可见
-    #. 非常短小
-    #. 简单明了
-    
-    文档字符串应该包含函数做什么, 以及输入和输出的详细描述. 通常, 不应该描述"怎么做", 除非是一些复杂的算法. 文档字符串应该提供足够的信息, 当别人编写代码调用该函数时, 他不需要看一行代码, 只要看文档字符串就可以了. 对于复杂的代码, 在代码旁边加注释会比使用文档字符串更有意义.
-    覆盖基类的子类方法应有一个类似 ``See base class`` 的简单注释来指引读者到基类方法的文档注释.若重载的子类方法和基类方法有很大不同,那么注释中应该指明这些信息.
-    
-    关于函数的几个方面应该在特定的小节中进行描述记录， 这几个方面如下文所述. 每节应该以一个标题行开始. 标题行以冒号结尾. 除标题行外, 节的其他内容应被缩进2个空格. 
-    
-    Args:
-        列出每个参数的名字, 并在名字后使用一个冒号和一个空格, 分隔对该参数的描述.如果描述太长超过了单行80字符,使用2或者4个空格的悬挂缩进(与文件其他部分保持一致).
-        描述应该包括所需的类型和含义.
-        如果一个函数接受*foo(可变长度参数列表)或者**bar (任意关键字参数), 应该详细列出*foo和**bar.
+    本节中的函数是指函数、方法、生成器 (generator) 和特性 (property).
 
-    Returns: (或者 Yields: 用于生成器)
-        描述返回值的类型和语义. 如果函数返回None, 这一部分可以省略.
+    满足下列任意特征的任何函数都必须有文档字符串:
 
-    Raises:
-        列出与接口有关的所有异常.
+    #. 公开 API 的一部分
+    #. 长度过长
+    #. 逻辑不能一目了然
+
+    文档字符串应该提供充分的信息, 让调用者无需阅读函数的代码就能调用函数. 文档字符串应该描述函数的调用语法和语义信息, 而不应该描述具体的实现细节, 除非这些细节会影响函数的用法. 比如, 如果函数的副作用是会修改某个传入的对象, 那就需要在文档字符串中说明. 对于微妙、重要但是与调用者无关的实现细节, 相较于在文档字符串里说明, 还是在代码中间加注释更好.
+
+    文档字符串可以是陈述句 (``"""Fetches rows from a Bigtable."""``) 或者祈使句 (``"""Fetch rows from a Bigtable."""``), 不过一个文件内的风格应当一致. 对于 ``@property`` 修饰的数据描述符 (data descriptor), 文档字符串应采用和属性 (attribute) 或 :ref:`函数参数 <doc_function_args>` 一样的风格 (``"""Bigtable 路径."""`` 而非 ``"""返回 Bigtable 路径."""``).
+
+    对于覆写 (override) 基类 (base class) 方法的子类方法, 可以用简单的文档字符串引导读者阅读基类方法的文档字符串, 比如 ``"""参见基类.""""``. 这样是为了避免到处复制基类方法中已有的文档字符串. 然而, 如果覆写的子类方法与基类方法截然不同, 或者有更多细节需要记录 (例如有额外的的副作用), 那么子类方法的文档字符串中至少要描述这些区别.
+    
+    函数的部分特征应该在以下列出特殊小节中记录. 每小节有一行标题, 标题以冒号结尾. 除标题行外, 小节的其他部分应有2个或4个空格 (同一文件内应保持一致) 的悬挂缩进. 如果函数名和函数签名 (signature) 可以见名知意, 以至于一行文档字符串就能恰当地描述该函数, 那么可以省略这些小节.
+
+.. _doc_function_args:    
+
+    Args: (参数:)
+        列出所有参数名. 参数名后面是一个冒号, 然后是一个空格或者换行符, 最后是描述. 如果描述过长以至于一行超出了 80 字符, 则描述部分应该比参数名所在的行多2个或者4个空格 (文件内应当一致) 的悬挂缩进. 如果代码没有类型注解, 则描述中应该说明所需的类型. 如果一个函数有形如 ``*foo`` (可变长参数列表) 或者 ``**bar`` (任意关键字参数) 的参数, 那么列举参数名时应该写成 ``*foo`` 和 ``**bar`` 的这样的格式.
+
+    Returns: ("返回:")
+        生成器应该用 "Yields:" ("生成:" )
+
+        描述返回值的类型和意义. 如果函数仅仅返回 ``None``, 这一小节可以省略. 如果文档字符串以 Returns (返回) 或者 Yields (生成) 开头 (例如 ``"""返回 Bigtable 的行, 类型是字符串构成的元组."""``) 且这句话已经足以描述返回值, 也可以省略这一小节. 不要模仿 Numpy 风格的文档 (`例子 <http://numpy.org/doc/stable/reference/generated/numpy.linalg.qr.html>`_). 他们在文档中记录作为返回值的元组时, 写得就像返回值是多个值且每个值都有名字 (没有提到返回的是元组). 应该这样描述此类情况: "返回: 一个元组 (mat_a, mat_b), 其中 mat_a 是..., 且 ...". 文档字符串中使用的辅助名称不需要和函数体的内部变量名一致 (因为这些名称不是 API 的一部分).
+
+    Raises: (抛出:)
+        列出与接口相关的所有异常和异常描述. 用类似 Args (参数) 小节的格式，写成异常名+冒号+空格/换行, 并添加悬挂缩进. 不要在文档中记录违反 API 的使用条件时会抛出的异常 (因为这会让违背 API 时出现的效果成为 API 的一部分, 这是矛盾的).
 
     .. code-block:: python
 
-        def fetch_smalltable_rows(table_handle: smalltable.Table,
-                                keys: Sequence[Union[bytes, str]],
-                                require_all_keys: bool = False,
-        ) -> Mapping[bytes, Tuple[str]]:
-            """Fetches rows from a Smalltable.
+        def fetch_smalltable_rows(
+            table_handle: smalltable.Table,
+            keys: Sequence[bytes | str],
+            require_all_keys: bool = False,
+        ) -> Mapping[bytes, tuple[str, ...]]:
+            """从 Smalltable 获取数据行.
 
-            Retrieves rows pertaining to the given keys from the Table instance
-            represented by table_handle.  String keys will be UTF-8 encoded.
+            从 table_handle 代表的 Table 实例中检索指定键值对应的行. 如果键值是字符串,
+            字符串将用 UTF-8 编码.
 
-            Args:
-                table_handle: An open smalltable.Table instance.
-                keys: A sequence of strings representing the key of each table
-                row to fetch.  String keys will be UTF-8 encoded.
-                require_all_keys: Optional; If require_all_keys is True only
-                rows with values set for all keys will be returned.
+            参数:
+                table_handle: 处于打开状态的 smalltable.Table 实例.
+                keys: 一个字符串序列, 代表要获取的行的键值. 字符串将用 UTF-8 编码.
+                require_all_keys: 如果为 True, 只返回那些所有键值都有对应数据的
+                    行.
 
-            Returns:
-                A dict mapping keys to the corresponding table row data
-                fetched. Each row is represented as a tuple of strings. For
-                example:
+            返回:
+                一个字典, 把键值映射到行数据上. 行数据是字符串构成的元组. 例如:
 
                 {b'Serak': ('Rigel VII', 'Preparer'),
-                b'Zim': ('Irk', 'Invader'),
-                b'Lrrr': ('Omicron Persei 8', 'Emperor')}
+                 b'Zim': ('Irk', 'Invader'),
+                 b'Lrrr': ('Omicron Persei 8', 'Emperor')}
 
-                Returned keys are always bytes.  If a key from the keys argument is
-                missing from the dictionary, then that row was not found in the
-                table (and require_all_keys must have been False).
+                返回的键值一定是字节串. 如果字典中没有 keys 参数中的某个键值, 说明
+                表格中没有找到这一行 (且 require_all_keys 一定是 false).
 
-            Raises:
-                IOError: An error occurred accessing the smalltable.
+            抛出:
+                IOError: 访问 smalltable 时出现错误.
             """
 
-    在 ``Args:`` 上进行换行也是可以的:
+    以下这种在 Args (参数) 小节中换行的写法也是可以的:
 
     .. code-block:: python
 
-        def fetch_smalltable_rows(table_handle: smalltable.Table,
-                                keys: Sequence[Union[bytes, str]],
-                                require_all_keys: bool = False,
-        ) -> Mapping[bytes, Tuple[str]]:
-            """Fetches rows from a Smalltable.
+        def fetch_smalltable_rows(
+            table_handle: smalltable.Table,
+            keys: Sequence[bytes | str],
+            require_all_keys: bool = False,
+        ) -> Mapping[bytes, tuple[str, ...]]:
+            """从 Smalltable 获取数据行.
 
-            Retrieves rows pertaining to the given keys from the Table instance
-            represented by table_handle.  String keys will be UTF-8 encoded.
+            从 table_handle 代表的 Table 实例中检索指定键值对应的行. 如果键值是字符串,
+            字符串将用 UTF-8 编码.
 
-            Args:
-            table_handle:
-                An open smalltable.Table instance.
-            keys:
-                A sequence of strings representing the key of each table row to
-                fetch.  String keys will be UTF-8 encoded.
-            require_all_keys:
-                Optional; If require_all_keys is True only rows with values set
-                for all keys will be returned.
+            参数:
+                table_handle:
+                  处于打开状态的 smalltable.Table 实例.
+                keys:
+                  一个字符串序列, 代表要获取的行的键值. 字符串将用 UTF-8 编码.
+                require_all_keys:
+                  如果为 True, 只返回那些所有键值都有对应数据的行.
 
-            Returns:
-            A dict mapping keys to the corresponding table row data
-            fetched. Each row is represented as a tuple of strings. For
-            example:
+            返回:
+                一个字典, 把键值映射到行数据上. 行数据是字符串构成的元组. 例如:
 
-            {b'Serak': ('Rigel VII', 'Preparer'),
-            b'Zim': ('Irk', 'Invader'),
-            b'Lrrr': ('Omicron Persei 8', 'Emperor')}
+                {b'Serak': ('Rigel VII', 'Preparer'),
+                 b'Zim': ('Irk', 'Invader'),
+                 b'Lrrr': ('Omicron Persei 8', 'Emperor')}
 
-            Returned keys are always bytes.  If a key from the keys argument is
-            missing from the dictionary, then that row was not found in the
-            table (and require_all_keys must have been False).
+                返回的键值一定是字节串. 如果字典中没有 keys 参数中的某个键值, 说明
+                表格中没有找到这一行 (且 require_all_keys 一定是 false).
 
-            Raises:
-            IOError: An error occurred accessing the smalltable.
+            抛出:
+                IOError: 访问 smalltable 时出现错误.
             """
 
-**类**
+**类 (class)**
             
-    类应该在其定义下有一个用于描述该类的文档字符串. 如果你的类有公共属性(Attributes), 那么文档中应该有一个属性(Attributes)段. 并且应该遵守和函数参数相同的格式.
+    类的定义下方应该有一个描述该类的文档字符串. 如果你的类包含公有属性 (attributes), 应该在 ``Attributes`` (属性) 小节中记录这些属性, 格式与函数的 ``Args`` (参数) 小节类似.
 
     .. code-block:: python
 
         class SampleClass(object):
-            """Summary of class here.
+            """这里是类的概述.
 
-            Longer class information....
-            Longer class information....
+            这里是更多信息....
+            这里是更多信息....
 
-            Attributes:
-                likes_spam: A boolean indicating if we like SPAM or not.
-                eggs: An integer count of the eggs we have laid.
+            属性:
+                likes_spam: 布尔值, 表示我们是否喜欢午餐肉.
+                eggs: 用整数记录的下蛋的数量.
             """
 
-            def __init__(self, likes_spam=False):
-                """Inits SampleClass with blah."""
+            def __init__(self, likes_spam = False):
+                """用某某某初始化 SampleClass."""
                 self.likes_spam = likes_spam
                 self.eggs = 0
 
             def public_method(self):
-                """Performs operation blah."""
+                """执行某某操作."""
 
-                
+    类的文档字符串开头应该是一行概述, 描述类的实例所代表的事物. 这意味着 ``Exception`` 的子类 (subclass) 应该描述这个异常代表什么, 而不是描述抛出异常时的环境. 类的文档字符串不应该有无意义的重复, 例如说这个类是一种类.
+
+    正确:
+
+    .. code-block:: python
+
+        class CheeseShopAddress:
+        """奶酪店的地址.
+
+        ...
+        """
+
+        class OutOfCheeseError(Exception):
+        """没有可用的奶酪."""
+    
+    错误:
+
+    .. code-block:: python
+
+        class CheeseShopAddress:
+        """一个描述奶酪店地址的类.
+
+        ...
+        """
+
+        class OutOfCheeseError(Exception):
+        """在没有可用的奶酪时抛出."""
 
 **块注释和行注释**
 
-    最需要写注释的是代码中那些技巧性的部分. 如果你在下次 `代码审查 <http://en.wikipedia.org/wiki/Code_review>`_ 的时候必须解释一下, 那么你应该现在就给它写注释. 对于复杂的操作, 应该在其操作开始前写上若干行注释. 对于不是一目了然的代码, 应在其行尾添加注释. 
+    最后一种需要写注释的地方是代码中复杂的部分. 如果你可能在以后 `代码评审 (code review) <http://en.wikipedia.org/wiki/Code_review>`_ 时要解释某段代码, 那么现在就应该给这段代码加上注释. 应该在复杂的操作开始前写上若干行注释. 对于不是一目了然的代码, 应该在行尾添加注释. 
 
     .. code-block:: python
 
-        # We use a weighted dictionary search to find out where i is in
-        # the array.  We extrapolate position based on the largest num
-        # in the array and the array size and then do binary search to
-        # get the exact number.
+        # 我们用加权的字典搜索, 寻找 i 在数组中的位置. 我们基于数组中的最大值和数组
+        # 长度, 推断一个位置, 然后用二分搜索获得最终准确的结果.
 
-        if i & (i-1) == 0:        # True if i is 0 or a power of 2.
+        if i & (i-1) == 0:  # 如果 i 是 0 或者 2 的整数次幂, 则为真.
 
-    为了提高可读性, 注释应该至少离开代码2个空格. 
+    为了提高可读性, 注释的井号和代码之间应有至少2个空格, 井号和注释之间应该至少有一个空格.
 
-    另一方面, 绝不要描述代码. 假设阅读代码的人比你更懂Python, 他只是不知道你的代码要做什么. 
+    除此之外, 绝不要仅仅描述代码. 应该假设读代码的人比你更懂Python, 只是不知道你的代码要做什么. 
 
     .. code-block:: python
 
-        # BAD COMMENT: Now go through the b array and make sure whenever i occurs
-        # the next element is i+1
-    
-    
-标点符号,拼写和语法
+        # 不好的注释: 现在遍历数组 b, 确保每次 i 出现时, 下一个元素是 i+1
+
+标点符号、拼写和语法
 --------------------
 
 .. tip::
-    注意标点符号,拼写和语法
+    注意标点符号、拼写和语法. 文笔好的注释比差的注释更容易理解.
 
-    注释应有适当的大写和标点,句子应该尽量完整.对于诸如在行尾上的较短注释,可以不那么正式,但是也应该尽量保持风格一致.
+注释应该和记叙文一样可读, 使用恰当的大小写和标点. 一般而言, 完整的句子比残缺句更可读. 较短的注释 (比如行尾注释) 可以更随意, 但是你要保持风格一致.
 
-
-类
---------------------
-
-.. tip::
-    如果一个类不继承自其它类, 就显式的从object继承. 嵌套类也一样.(除非是为了和 python2 兼容)
-            
-.. code-block:: python
-
-    Yes: class SampleClass(object):
-             pass
-
-
-         class OuterClass(object):
-
-             class InnerClass(object):
-                 pass
-
-
-         class ChildClass(ParentClass):
-             """Explicitly inherits from another class already."""
-    
-.. code-block:: python
-    
-    No: class SampleClass:
-            pass
-
-
-        class OuterClass:
-
-            class InnerClass:
-                pass
-
-继承自 ``object`` 是为了使属性(properties)正常工作, 并且这样可以保护你的代码, 使其不受 `PEP-3000 <http://www.python.org/dev/peps/pep-3000/>`_ 的一个特殊的潜在不兼容性影响. 这样做也定义了一些特殊的方法, 这些方法实现了对象的默认语义, 包括 ``__new__, __init__, __delattr__, __getattribute__, __setattr__, __hash__, __repr__, and __str__`` .
+尽管你可能会因为代码审稿人指出你误把冒号写作逗号而灰心, 但是保持源代码清晰可读也是非常重要的. 正确的标点、拼写和语法有助于实现这一目标.
 
 字符串
 --------------------
 
 .. tip::
-    即使参数都是字符串, 使用%操作符或者格式化方法格式化字符串. 不过也不能一概而论, 你需要在+和%之间好好判定.
+    应该用 `f-string <https://docs.python.org/zh-cn/3/reference/lexical_analysis.html#f-strings>`_、 ``%`` 运算符或 ``format`` 方法来格式化字符串. 即使所有参数都是字符串, 也如此. 你可以自行评判合适的选项. 可以用 ``+`` 实现单次拼接, 但是不要用 ``+`` 实现格式化.
 
-.. code-block:: python
-    
-    Yes: x = a + b
-         x = '%s, %s!' % (imperative, expletive)
-         x = '{}, {}!'.format(imperative, expletive)
-         x = 'name: %s; score: %d' % (name, n)
-         x = 'name: {}; score: {}'.format(name, n)
-             
-.. code-block:: python
-
-    No: x = '%s%s' % (a, b)  # use + in this case
-        x = '{}{}'.format(a, b)  # use + in this case
-        x = imperative + ', ' + expletive + '!'
-        x = 'name: ' + name + '; score: ' + str(n)
-
-避免在循环中用+和+=操作符来累加字符串. 由于字符串是不可变的, 这样做会创建不必要的临时对象, 并且导致二次方而不是线性的运行时间. 作为替代方案, 你可以将每个子串加入列表, 然后在循环结束后用 ``.join`` 连接列表. (也可以将每个子串写入一个 ``cStringIO.StringIO`` 缓存中.)
+正确:
 
 .. code-block:: python
 
-    Yes: items = ['<table>']
-         for last_name, first_name in employee_list:
-             items.append('<tr><td>%s, %s</td></tr>' % (last_name, first_name))
-         items.append('</table>')
-         employee_table = ''.join(items)
+    x = f'名称: {name}; 分数: {n}'
+    x = '%s, %s!' % (imperative, expletive)
+    x = '{}, {}'.format(first, second)
+    x = '名称: %s; 分数: %d' % (name, n)
+    x = '名称: %(name)s; 分数: %(score)d' % {'name':name, 'score':n}
+    x = '名称: {}; 分数: {}'.format(name, n)
+    x = a + b
+
+错误:
 
 .. code-block:: python
 
-    No: employee_table = '<table>'
-        for last_name, first_name in employee_list:
-            employee_table += '<tr><td>%s, %s</td></tr>' % (last_name, first_name)
-        employee_table += '</table>'
+    x = first + ', ' + second
+    x = '名称: ' + name + '; 分数: ' + str(n)
 
-在同一个文件中, 保持使用字符串引号的一致性. 使用单引号'或者双引号"之一用以引用字符串, 并在同一文件中沿用. 在字符串内可以使用另外一种引号, 以避免在字符串中使用\. 
+不要在循环中用 ``+`` 和 ``+=`` 操作符来堆积字符串. 这有时会产生平方而不是线性的时间复杂度. 有时 CPython 会优化这种情况, 但这是一种实现细节. 我们无法轻易预测这种优化是否生效, 而且未来情况可能出现变化. 作为替代方案, 你可以将每个子串加入列表, 然后在循环结束后用 ``''.join`` 拼接列表. 也可以将每个子串写入一个 ``io.StringIO`` 缓冲区中. 这些技巧保证始终有线性的平摊 (amortized) 时间复杂度.
+
+正确:
 
 .. code-block:: python
 
-   Yes:
-        Python('Why are you hiding your eyes?')
-        Gollum("I'm scared of lint errors.")
-        Narrator('"Good!" thought a happy Python reviewer.')
+    items = ['<table>']
+    for last_name, first_name in employee_list:
+        items.append('<tr><td>%s, %s</td></tr>' % (last_name, first_name))
+    items.append('</table>')
+    employee_table = ''.join(items)
+
+错误:
+
+.. code-block:: python
+
+    employee_table = '<table>'
+    for last_name, first_name in employee_list:
+        employee_table += '<tr><td>%s, %s</td></tr>' % (last_name, first_name)
+    employee_table += '</table>'
+
+应该保持同一文件中字符串引号的一致性. 选择 ``'`` 或者 ``"`` 以后不要改变主意. 如果需要避免用反斜杠来转义引号, 则可以使用另一种引号. 
+
+正确:
+
+.. code-block:: python
+
+        Python('为什么你要捂眼睛?')
+        Gollum("I'm scared of lint errors. (我害怕格式错误.)")
+        Narrator('"很好!" 一个开心的 Python 审稿人心想.')
+
+(译者注: 注意 "I'm" 中间有一个单引号，所以这一行的外层引号可以用不同的引号.)
+
+错误:
 
 .. code-block:: python
   
-   No:
-        Python("Why are you hiding your eyes?")
-        Gollum('The lint. It burns. It burns us.')
-        Gollum("Always the great lint. Watching. Watching.")
+        Python("为什么你要捂眼睛?")
+        Gollum('格式检查器. 它在闪耀. 它要亮瞎我们.')
+        Gollum("伟大的格式检查器永在. 它在看. 它在看.")
 
-为多行字符串使用三重双引号"""而非三重单引号'''. 当且仅当项目中使用单引号'来引用字符串时, 才可能会使用三重'''为非文档字符串的多行字符串来标识引用. 文档字符串必须使用三重双引号""". 
-多行字符串不应随着代码其他部分缩进的调整而发生位置移动. 如果需要避免在字符串中嵌入额外的空间,可以使用串联的单行字符串或者使用 `textwrap.dedent() <https://docs.python.org/zh-cn/3/library/textwrap.html#textwrap.dedent>`_ 来删除每行多余的空间.
+多行字符串推荐使用 ``"""`` 而非 ``'''``. 当且仅当项目中用 ``'`` 给常规字符串打引号时, 才能在文档字符串以外的多行字符串上使用 ``'''``. 无论如何, 文档字符串必须使用 ``"""``.
+
+多行字符串不会跟进代码其他部分的缩进. 如果需要避免字符串中的额外空格, 可以用多个单行字符串拼接, 或者用 `textwrap.dedent() <https://docs.python.org/zh-cn/3/library/textwrap.html#textwrap.dedent>`_ 删除每行开头的空格.
+
+错误:
 
 .. code-block:: python
 
-    No:
-    long_string = """This is pretty ugly.
-    Don't do this.
+        long_string = """这样很难看.
+    不要这样做.
     """
-               
-.. code-block:: python
 
-    Yes:
-    long_string = """This is fine if your use case can accept
-      extraneous leading spaces."""
+正确:
 
 .. code-block:: python
 
-    Yes:
-    long_string = ("And this is fine if you cannot accept\n" +
-           "extraneous leading spaces.")
+    long_string = """如果你可以接受多余的空格,
+        就可以这样."""
+
+    long_string = ("如果你不能接受多余的空格,\n" +
+                   "可以这样.")
+
+    long_string = ("如果你不能接受多余的空格,\n"
+                   "也可以这样.")
 
 .. code-block:: python
 
-    Yes:
-    long_string = ("And this too is fine if you cannot accept\n"
-           "extraneous leading spaces.")
-.. code-block:: python
-
-    Yes:
     import textwrap
 
     long_string = textwrap.dedent("""\
-      This is also fine, because textwrap.dedent()
-      will collapse common leading spaces in each line.""")
+      这样也行, 因为 textwrap.dedent()
+      会删除每一行开头共有的空格.""")
 
-文件和sockets
---------------------
+注意, 这里的反斜杠没有违反 :ref:`显式续行的禁令 <line_length>`. 此时, 反斜杠用于在字符串字面量 (literal) 中 `对换行符转义 <https://docs.python.org/zh-cn/3/reference/lexical_analysis.html#string-and-bytes-literals>`_.
+
+**日志**
+
+    对于那些第一个参数是格式字符串 (包含 ``%`` 占位符) 的日志函数: 一定要用字符串字面量 (而非 f-string!) 作为第一个参数, 并用占位符的参数作为其他参数. 有些日志的实现会收集未展开的格式字符串, 作为可搜索的项目. 这样也可以免于渲染那些被设置为不用输出的消息.
+
+    正确；
+
+    .. code-block:: python
+
+        import tensorflow as tf
+        logger = tf.get_logger()
+        logger.info('TensorFlow 的版本是: %s', tf.__version__)
+
+    .. code-block:: python
+
+        import os
+        from absl import logging
+
+        logging.info('当前的 $PAGER 是: %s', os.getenv('PAGER', default=''))
+
+        homedir = os.getenv('HOME')
+        if homedir is None or not os.access(homedir, os.W_OK):
+            logging.error('无法写入主目录, $HOME=%r', homedir)
+
+    错误:
+
+    .. code-block:: python
+
+        import os
+        from absl import logging
+
+        logging.info('当前的 $PAGER 是:')
+        logging.info(os.getenv('PAGER', default=''))
+
+        homedir = os.getenv('HOME')
+        if homedir is None or not os.access(homedir, os.W_OK):
+            logging.error(f'无法写入主目录, $HOME={homedir!r}')
+
+**错误信息**
+
+    错误信息 (例如: 诸如 ``ValueError`` 等异常的信息字符串和展示给用户的信息) 应该遵守以下三条规范:
+
+    #. 信息需要精确地匹配真正的错误条件.
+    #. 插入的片段一定要能清晰地分辨出来.
+    #. 要便于简单的自动化处理 (例如正则搜索, 也就是 grepping).
+
+    正确:
+
+    .. code-block:: python
+
+        if not 0 <= p <= 1:
+            raise ValueError(f'这不是概率值: {p!r}')
+
+        try:
+            os.rmdir(workdir)
+        except OSError as error:
+            logging.warning('无法删除这个文件夹 (原因: %r): %r',
+                            error, workdir)
+
+    错误:
+
+    .. code-block:: python
+
+        if p < 0 or p > 1:  # 问题: 遇到 float('nan') 时也为假!
+            raise ValueError(f'这不是概率值: {p!r}')
+
+        try:
+            os.rmdir(workdir)
+        except OSError:
+            # 问题: 信息中存在错误的揣测，
+            # 删除操作可能因为其他原因而失败, 此时会误导调试人员.
+            logging.warning('文件夹已被删除: %s', workdir)
+
+        try:
+            os.rmdir(workdir)
+        except OSError:
+            # 问题: 这个信息难以搜索, 而且某些 `workdir` 的值会让人困惑.
+            # 假如有人调用这段代码时让 workdir = '已删除'. 这个警告会变成:
+            # "无法删除已删除文件夹."
+            logging.warning('无法删除%s文件夹.', workdir)
+
+文件、套接字 (socket) 和类似的有状态资源
+--------------------------------------------
 
 .. tip::
-    在文件和sockets结束时, 显式的关闭它.
+    使用完文件和套接字以后, 显式地关闭它们. 自然地, 这条规则也应该扩展到其他在内部使用套接字的可关闭资源 (比如数据库连接) 和其他需要用类似方法关停的资源. 其他例子还有 `mmap <https://docs.python.org/zh-cn/3/library/mmap.html>`_ 映射、 `h5py 的文件对象 <https://docs.h5py.org/en/stable/high/file.html>`_ 和 `matplotlib.pyplot 的图像窗口 <https://matplotlib.org/2.1.0/api/_as_gen/matplotlib.pyplot.close.html>`_ .
 
-除文件外, sockets或其他类似文件的对象在没有必要的情况下打开, 会有许多副作用, 例如:
+如果保持不必要的文件、套接字或其他有状态对象开启, 会产生很多缺点:
 
-#. 它们可能会消耗有限的系统资源, 如文件描述符. 如果这些资源在使用后没有及时归还系统, 那么用于处理这些对象的代码会将资源消耗殆尽.
-#. 持有文件将会阻止对于文件的其他诸如移动、删除之类的操作.
-#. 仅仅是从逻辑上关闭文件和sockets, 那么它们仍然可能会被其共享的程序在无意中进行读或者写操作. 只有当它们真正被关闭后, 对于它们尝试进行读或者写操作将会抛出异常, 并使得问题快速显现出来.
+#. 它们可能消耗有限的系统资源, 例如文件描述符. 如果代码需要使用大量类似的资源而没有及时返还给系统, 就有可能出现原本可以避免的资源枯竭情况.
+#. 保持文件的开启状态会阻碍其他操作, 例如移动、删除文件, 卸载 (unmont) 文件系统等等.
+#. 如果程序的多个部分共享文件和套接字, 即使逻辑上文件已经关闭了, 仍然有可能出现意外的读写操作. 如果这些资源真正关闭了, 读写操作会抛出异常, 让问题早日浮出水面.
 
-而且, 幻想当文件对象析构时, 文件和sockets会自动关闭, 试图将文件对象的生命周期和文件的状态绑定在一起的想法, 都是不现实的. 因为有如下原因: 
+此外, 即使文件和套接字 (以及其他行为类似的资源) 会在析构 (destruct) 时自动关闭, 把对象的生命周期和资源状态绑定的行为依然不妥: 
 
-#. 没有任何方法可以确保运行环境会真正的执行文件的析构. 不同的Python实现采用不同的内存管理技术, 比如延时垃圾处理机制. 延时垃圾处理机制可能会导致对象生命周期被任意无限制的延长.
+#. 无法保证运行时 (runtime) 调用 ``__del__`` 方法的真正时机. 不同的 Python 实现采用了不同的内存管理技巧 (比如延迟垃圾处理机制, delayed garbage collection), 可能会随意、无限期地延长对象的生命周期.
+#. 意想不到的文件引用 (例如全局对象和异常的堆栈跟踪, exception tracebacks) 可能让文件的存续时间比想象的更长.
 
-#. 对于文件意外的引用,会导致对于文件的持有时间超出预期(比如对于异常的跟踪, 包含有全局变量等).
+依赖于终结器 (finalizer) 实现自动清理的方法有显著的副作用. 这在几十年的时间里、在多种语言中 (参见 `这篇 <https://wiki.sei.cmu.edu/confluence/display/java/MET12-J.+Do+not+use+finalizers>`_ Java 的文章) 多次引发严重问题.
 
-推荐使用 `"with"语句 <http://docs.python.org/reference/compound_stmts.html#the-with-statement>`_ 以管理文件:
+推荐使用 `"with"语句 <https://docs.python.org/zh-cn/3/reference/compound_stmts.html#the-with-statement>`_ 管理文件和类似的资源:
 
 .. code-block:: python
 
@@ -649,7 +688,7 @@ Shebang
           for line in hello_file:
               print line
 
-对于不支持使用"with"语句的类似文件的对象,使用 contextlib.closing():
+对于不支持 ``with`` 语句且类似文件的对象, 应该使用 ``contextlib.closing()``:
 
 .. code-block:: python
 
@@ -659,69 +698,83 @@ Shebang
           for line in front_page:
               print line
               
-Legacy AppEngine 中Python 2.5的代码如使用"with"语句, 需要添加 ``from __future__ import with_statement`` .
+少数情况下无法使用基于上下文 (context) 的资源管理, 此时文档应该清楚地解释代码会如何管理资源的生命周期.
 
-             
-TODO注释
+TODO (待办) 注释
 --------------------
 
 .. tip::
-    为临时代码使用TODO注释, 它是一种短期解决方案. 不算完美, 但够好了.
+    在临时、短期和不够完美的代码上添加 TODO (待办) 注释.
 
-TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号括起来的你的名字, email地址或其它标识符. 然后是一个可选的冒号. 接着必须有一行注释, 解释要做什么. 主要目的是为了有一个统一的TODO格式, 这样添加注释的人就可以搜索到(并可以按需提供更多细节). 写了TODO注释并不保证写的人会亲自解决问题. 当你写了一个TODO, 请注上你的名字. 
+待办注释以 ``TODO`` (待办) 这个全部大写的词开头, 紧跟着是用括号括起来的上下文标识符 (最好是 bug 链接, 有时是你的用户名). 最好是诸如 ``TODO(https://crbug.com/<bug编号>):`` 这样的 bug 链接, 因为 bug 有历史追踪和评论, 而程序员可能发生变动并忘记上下文. TODO 后面应该解释待办的事情.
 
-.. code-block:: python    
+统一 TODO 的格式是为了方便搜索并查看详情. TODO 不代表注释中提到的人要做出修复问题的保证. 所以, 当你创建带有用户名的 TODO 时, 大部分情况下应该用你自己的用户名. 
 
-    # TODO(kl@gmail.com): Use a "*" here for string repetition.
-    # TODO(Zeke) Change this to use relations.
+.. code-block:: python
+
+    # TODO(crbug.com/192795): 研究 cpufreq 的优化.
+    # TODO(你的用户名): 提交一个议题 (issue), 用 '*' 代表重复.
     
-如果你的TODO是"将来做某事"的形式, 那么请确保你包含了一个指定的日期("2009年11月解决")或者一个特定的事件("等到所有的客户都可以处理XML请求就移除这些代码"). 
+如果你的 TODO 形式类似于"将来做某事", 请确保其中包含特别具体的日期 ("2009年11月前解决") 或者特别具体的事件 ("当所有客户端都能处理 XML 响应时, 删除这些代码"), 以便于未来的代码维护者理解.
 
-导入格式
---------------------
+导入 (import) 语句的格式
+-------------------------
 
 .. tip::
-    每个导入应该独占一行, ``typing`` 的导入除外
+    导入语句应该各自独占一行. :ref:`typing 和 collections.abc 的导入除外 <typing_imports>`. 例如:
+
+正确:
 
 .. code-block:: python  
   
-    Yes: import os
-        import sys
-        from typing import Mapping, Sequence 
+    from collections.abc import Mapping, Sequence
+    import os
+    import sys
+    from typing import Any, NewType
+
+错误:
 
 .. code-block:: python  
    
-    No:  import os, sys
+    import os, sys
     
-导入总应该放在文件顶部, 位于模块注释和文档字符串之后, 模块全局变量和常量之前.  导入应该按照从最通用到最不通用的顺序分组:
+导入语句必须在文件顶部, 位于模块的注释和文档字符串之后、全局变量和全局常量之前. 导入语句应该按照如下顺序分组, 从通用到特殊:
 
-#. ``__future__`` 导入
+#. 导入 Python 的 ``__future__``. 例如:
 
-.. code-block:: python
+    .. code-block:: python
 
-    from __future__ import absolute_import
-    from __future__ import division
-    from __future__ import print_function
+        from __future__ import annotations
 
-#. 标准库导入
+    参见前文有关 ``__future__`` 语句的描述.
 
-.. code-block:: python
+#. 导入 Python 的标准库. 例如:
 
-    import sys
+    .. code-block:: python
 
-#. 第三方库导入
+        import sys
 
-.. code-block:: python
-    
-    import tensorflow as tf
+#. 导入 `第三方 <https://pypi.org/>`_ 模块和包. 例如:
 
-#. 本地代码子包导入
+    .. code-block:: python
 
-.. code-block:: python
+        import tensorflow as tf
 
-    from otherproject.ai import mind
+#. 导入代码仓库中的子包. 例如:
 
-每种分组中,  应该根据每个模块的完整包路径按字典序排序, 忽略大小写.
+    .. code-block:: python
+
+        from otherproject.ai import mind
+
+#. **已废弃的规则**: 导入应用专属的、与该文件属于同一个子包的模块. 例如:
+
+    .. code-block:: python
+
+        from myproject.backend.hgwells import time_machine
+
+    你可能会在较老的谷歌风格 Python 代码中遇到这样的模式, 但现在不再执行这条规则. **我们建议新代码忽略这条规则.** 同等对待应用专属的子包和其他子包即可.
+
+在每个分组内部, 应该按照模块完整包路径 (例如 ``from path import ...`` 中的 ``path``) 的字典序排序, 忽略大小写. 可以选择在分组之间插入空行.
 
 .. code-block:: python
 
@@ -743,7 +796,7 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
     from otherproject.ai import mind
     from otherproject.ai import soul
 
-    # Older style code may have these imports down here instead:
+    # 旧的代码可能会把这些导入语句放在下面这里:
     #from myproject.backend.hgwells import time_machine
     #from myproject.backend.state_machine import main_loop 
 
@@ -751,19 +804,19 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
 --------------------
 
 .. tip::
-    通常每个语句应该独占一行   
+    通常每个语句应该独占一行.
 
-不过, 如果测试结果与测试语句在一行放得下, 你也可以将它们放在同一行.  如果是if语句, 只有在没有else时才能这样做. 特别地, 绝不要对 ``try/except`` 这样做, 因为try和except不能放在同一行. 
+不过, 如果判断语句的主体与判断条件可以挤进一行, 你可以将它们放在同一行. 特别注意这不适用于 ``try`` / ``except``, 因为 ``try`` 和 ``except`` 不能放在同一行. 只有在 ``if`` 语句没有对应的 ``else`` 时才适用.
 
-.. code-block:: python
-    
-    Yes:
-
-      if foo: bar(foo)
+正确:
 
 .. code-block:: python
-      
-    No:
+
+    if foo: bar(foo)
+
+错误:
+
+.. code-block:: python
 
       if foo: bar(foo)
       else:   baz(foo)
@@ -774,72 +827,157 @@ TODO注释应该在所有开头处包含"TODO"字符串, 紧跟着是用括号�
       try:
           bar(foo)
       except ValueError: baz(foo)
-    
-    
-访问控制
---------------------
+
+.. _getter_setter:  
+
+访问器 (getter) 和设置器 (setter)
+--------------------------------------
 
 .. tip::
-    在Python中, 对于琐碎又不太重要的访问函数, 你应该直接使用公有变量来取代它们, 这样可以避免额外的函数调用开销. 当添加更多功能时, 你可以用属性(property)来保持语法的一致性. 
-    
-    (译者注: 重视封装的面向对象程序员看到这个可能会很反感, 因为他们一直被教育: 所有成员变量都必须是私有的! 其实, 那真的是有点麻烦啊. 试着去接受Pythonic哲学吧)
-    
-另一方面, 如果访问更复杂, 或者变量的访问开销很显著, 那么你应该使用像 ``get_foo()`` 和 ``set_foo()`` 这样的函数调用. 如果之前的代码行为允许通过属性(property)访问 , 那么就不要将新的访问函数与属性绑定. 这样, 任何试图通过老方法访问变量的代码就没法运行, 使用者也就会意识到复杂性发生了变化. 
+    在访问和设置变量值时, 如果访问器和设置器 (又名为访问子 accessor 和变异子 mutator) 可以产生有意义的作用或效果, 则可以使用.
+
+特别来说, 如果在当下或者可以预见的未来, 读写某个变量的过程很复杂或者成本高昂, 则应该使用这种函数.
+
+如果一对访问器和设置器仅仅用于读写一个内部属性 (attribute), 你应该直接用公有属性取代它们. 相较而言, 如果设置操作会让部分状态无效化或引发重建, 则需要使用设置器. 显式的函数调用表示可能出现特殊的操作. 如果只有简单的逻辑, 或者在重构代码后不再需要访问器和设置器, 你可以用属性 (property) 替代. 
+
+(译者注: 重视封装的面向对象程序员看到这个可能会很反感, 因为他们一直被教育: 所有成员变量都必须是私有的! 其实, 那真的是有点麻烦啊. 试着去接受Pythonic哲学吧)
+
+访问器和设置器应该遵守命名规范, 例如 ``get_foo()`` 和 ``set_foo()``.
+
+如果之前的代码通过属性获取数据, 则不能把重新编写的访问器/设置器与这一属性绑定. 应该让任何用老办法访问变量的代码出现显眼的错误, 让使用者意识到代码复杂度有变化.
     
 命名
 --------------------
 
 .. tip::
-    模块名写法: ``module_name`` ;包名写法: ``package_name`` ;类名: ``ClassName`` ;方法名: ``method_name`` ;异常名: ``ExceptionName`` ;函数名: ``function_name`` ;全局常量名: ``GLOBAL_CONSTANT_NAME`` ;全局变量名: ``global_var_name`` ;实例名: ``instance_var_name`` ;函数参数名: ``function_parameter_name`` ;局部变量名: ``local_var_name`` .
-    函数名,变量名和文件名应该是描述性的,尽量避免缩写,特别要避免使用非项目人员不清楚难以理解的缩写,不要通过删除单词中的字母来进行缩写.
-    始终使用 ``.py`` 作为文件后缀名,不要用破折号.
+    模块名: ``module_name``; 包名: ``package_name``; 类名: ``ClassName``; 方法名: ``method_name``; 异常名: ``ExceptionName``; 函数名: ``function_name``, ``query_proper_noun_for_thing``, ``send_acronym_via_https``; 全局常量名: ``GLOBAL_CONSTANT_NAME`` ; 全局变量名: ``global_var_name``; 实例名: ``instance_var_name``; 函数参数名: ``function_parameter_name``; 局部变量名: ``local_var_name``.
 
-**应该避免的名称**
+函数名、变量名和文件名应该是描述性的, 避免缩写. 特别要避免那些对于项目之外的人有歧义或不熟悉的缩写, 也不要通过省略单词中的字母来进行缩写.
+
+必须用 ``.py`` 作为文件后缀名. 不要用连字符.
+
+**需要避免的名称**
     
-    #. 单字符名称, 除了计数器和迭代器,作为 ``try/except`` 中异常声明的 ``e``,作为 ``with`` 语句中文件句柄的 ``f``.
-    #. 包/模块名中的连字符(-)
-    #. 双下划线开头并结尾的名称(Python保留, 例如__init__)
+    #. 只有单个字符的名称, 除了以下特别批准的情况:
+
+        #. 计数器和迭代器 (例如, ``i``, ``j``, ``k``, ``v`` 等等).
+        #. 在 ``try/except`` 语句中代表异常的 ``e``.
+        #. 在 ``with`` 语句中代表文件句柄的 ``f``.
+        #. 私有的、没有约束 (constrain) 的类型变量 (type variable, 例如 ``_T = TypeVar("_T")``, ``_P = ParamSpec("_P")``).
+
+    #. 包含连字符(``-``) 的包名/模块名.
+    #. 首尾均为双下划线的名称, 例如 ``__double_leading_and_trailing_underscore__`` (此类名称是 Python 的保留名称).
+    #. 包含冒犯性词语的名称.
+    #. 在不必要的情况下包含变量类型的名称 (例如 ``id_to_name_dict``).
     
-**命名约定**
+**命名规范**
     
-    #. 所谓"内部(Internal)"表示仅模块内可用, 或者, 在类内是保护或私有的.
-    #. 用单下划线(_)开头表示模块变量或函数是protected的(使用from module import \*时不会包含).
-    #. 用双下划线(__)开头的实例变量或方法表示类内私有.
-    #. 将相关的类和顶级函数放在同一个模块里. 不像Java, 没必要限制一个类一个模块.
-    #. 对类名使用大写字母开头的单词(如CapWords, 即Pascal风格), 但是模块名应该用小写加下划线的方式(如lower_with_under.py). 尽管已经有很多现存的模块使用类似于CapWords.py这样的命名, 但现在已经不鼓励这样做, 因为如果模块名碰巧和类名一致, 这会让人困扰. 
+    #. "内部(Internal)"这个词表示仅在模块内可用, 或者在类内是保护/私有的.
+    #. 在一定程度上, 在名称前加单下划线 (``_``) 可以保护模块变量和函数 (格式检查器会对受保护的成员访问操作发出警告).
+    #. 在实例的变量或方法名称前加双下划线 (``__``, 又名为 dunder) 可以有效地把变量或方法变成类的私有成员 (基于名称修饰 name mangling 机制). 我们不鼓励这种用法, 因为这会严重影响可读性和可测试性, 而且没有 **真正** 实现私有. 建议使用单下划线.
+    #. 应该把相关的类和顶级函数放在同一个模块里. 与Java不同, 不必限制一个模块只有一个类.
+    #. 类名应该使用首字母大写的形式 (如 CapWords), 但是模块名应该用小写加下划线的形式 (如 lower_with_under.py). 尽管有些旧的模块使用类似于 CapWords.py 这样的形式, 现在我们不再鼓励这种命名方式, 因为模块名和类名相同时会让人困惑 ("等等, 我刚刚写的是 ``import StringIO`` 还是 ``from StringIO import StringIO``?").
+    #. 新的 **单元测试** 文件应该遵守 PEP 8, 用小写加下划线格式的方法名, 例如 ``test_<被测试的方法名>_<状态>.``. 有些老旧的模块有 ``CapWords`` 这样大写方法名, 为了保持风格一致, 可以在 test 这个词和方法名之后, 用下划线分割名称中不同的逻辑成分. 比如一种可行的格式之一是 ``test<被测试的方法>_<状态>``.
 
 **文件名**
 
-    所有python脚本文件都应该以 ``.py`` 为后缀名且不包含 ``-``.若是需要一个无后缀名的可执行文件,可以使用软联接或者包含 ``exec "$0.py" "$@"`` 的bash脚本.
+    所有 Python 文件名都应该以 ``.py`` 为文件后缀且不能包含连字符 (``-``). 这样便于导入这些文件并编写单元测试. 如果想通过不含后缀的命令运行程序, 可以使用软链接文件 (symbolic link) 或者 ``exec "$0.py" "$@"`` 这样简单的 bash 脚本.
 
-**Python之父Guido推荐的规范**    
+**根据Python之父Guido的建议所制定的规范**
 
-===========================    ====================    ======================================================================
-Type                           Public                  Internal
-===========================    ====================    ======================================================================
-Modules                        lower_with_under        _lower_with_under
-Packages                       lower_with_under             
-Classes                        CapWords                _CapWords
-Exceptions                     CapWords                         
-Functions                      lower_with_under()      _lower_with_under()
-Global/Class Constants         CAPS_WITH_UNDER         _CAPS_WITH_UNDER
-Global/Class Variables         lower_with_under        _lower_with_under
-Instance Variables             lower_with_under        _lower_with_under (protected) or __lower_with_under (private)
-Method Names                   lower_with_under()      _lower_with_under() (protected) or __lower_with_under() (private)
-Function/Method Parameters     lower_with_under                     
-Local Variables                lower_with_under                           
-===========================    ====================    ======================================================================
+.. list-table:: 描述
+   :widths: 30 30 40
+   :header-rows: 1
 
+   * - 类型
+     - 公有
+     - 内部
+   * - 包
+     - 小写下划线
+     -
+   * - 模块
+     - 小写下划线
+     - 下划线+小写下划线
+   * - 类
+     - 大驼峰
+     - 下划线+大驼峰
+   * - 异常
+     - 大驼峰
+     -
+   * - 函数
+     - 小写下划线
+     - 下划线+小写下划线
+   * - 全局常量/类常量
+     - 大写下划线
+     - 下划线+大写下划线
+   * - 全局变量/类变量
+     - 小写下划线
+     - 下划线+小写下划线
+   * - 实例变量
+     - 小写下划线
+     - 下划线+小写下划线 (受保护)
+   * - 方法名
+     - 小写下划线
+     - 下划线+小写下划线 (受保护)
+   * - 函数参数/方法参数
+     - 小写下划线
+     -
+   * - 局部变量
+     - 小写下划线
+     -
 
-Main
+.. list-table:: 例子
+   :widths: 30 35 35
+   :header-rows: 1
+
+   * - 类型
+     - 公有
+     - 内部
+   * - 包
+     - ``lower_with_under``
+     -
+   * - 模块
+     - ``lower_with_under``
+     - ``_lower_with_under``
+   * - 类
+     - ``CapWords``
+     - ``_CapWords``
+   * - 异常
+     - ``CapWords``
+     -
+   * - 函数
+     - ``lower_with_under()``
+     - ``_lower_with_under()``
+   * - 全局常量/类常量
+     - ``CAPS_WITH_UNDER``
+     - ``_CAPS_WITH_UNDER``
+   * - 全局变量/类变量
+     - ``lower_with_under``
+     - ``_lower_with_under``
+   * - 实例变量
+     - ``lower_with_under``
+     - ``_lower_with_under``
+   * - 方法名
+     - ``lower_with_under()``
+     - ``_lower_with_under()``
+   * - 函数参数/方法参数
+     - ``lower_with_under``
+     -
+   * - 局部变量
+     - ``lower_with_under``
+     -
+
+**数学符号**
+
+对于涉及大量数学内容的代码, 如果相关论文或算法中有对应的符号, 则可以忽略以上命名规范并使用较短的变量名. 若要采用这种方法, 应该在注释或者文档字符串中注明你所使用的命名规范的来源. 如果原文无法访问, 则应该在文档中清楚地记录命名规范. 建议公开的 API 使用符合 PEP8 的、描述性的名称, 因为使用 API 的代码很可能缺少相关的上下文信息.
+
+主程序
 --------------------
 
 .. tip::
-    即使是一个打算被用作脚本的文件, 也应该是可导入的. 并且简单的导入不应该导致这个脚本的主功能(main functionality)被执行, 这是一种副作用. 主功能应该放在一个main()函数中. 
+    使用 Python 时, 提供给 ``pydoc`` 和单元测试的模块必须是可导入的. 如果一个文件是可执行文件, 该文件的主要功能应该位于 ``main()`` 函数中. 你的代码必须在执行主程序前检查 ``if __name__ == '__main__'`` , 这样导入模块时不会执行主程序.
 
-在Python中, pydoc以及单元测试要求模块必须是可导入的. 你的代码应该在执行主程序前总是检查 ``if __name__ == '__main__'`` , 这样当模块被导入时主程序就不会被执行. 
-
-若使用 `absl <https://github.com/abseil/abseil-py>`_, 请使用 ``app.run`` :
+使用 `absl <https://github.com/abseil/abseil-py>`_ 时, 请调用 ``app.run`` :
 
 .. code-block:: python
 
@@ -847,13 +985,13 @@ Main
     ...
 
     def main(argv):
-        # process non-flag arguments
+        # 处理非标志 (non-flag) 参数
         ...
 
     if __name__ == '__main__':
         app.run(main)
 
-否则,使用:
+否则, 使用:
 
 .. code-block:: python
 
@@ -863,232 +1001,293 @@ Main
     if __name__ == '__main__':
         main()
 
-所有的顶级代码在模块导入时都会被执行. 要小心不要去调用函数, 创建对象, 或者执行那些不应该在使用pydoc时执行的操作.
+导入模块时会执行该模块的所有顶级代码. 注意顶级代码中不能有 ``pydoc`` 不该执行的操作, 比如调用函数, 创建对象等.
 
 函数长度
 --------------------
 
 .. tip::
-    推荐函数功能尽量集中,简单,小巧
+    函数应该小巧且专一.
 
-不对函数长度做硬性限制.但是若一个函数超过来40行,推荐考虑一下是否可以在不损害程序结构的情况下对其进行分解.
-因为即使现在长函数运行良好,但几个月后可能会有人修改它并添加一些新的行为,这容易产生难以发现的bug.保持函数的简练,使其更加容易阅读和修改.
-当遇到一些很长的函数时,若发现调试比较困难或是想在其他地方使用函数的一部分功能,不妨考虑将这个场函数进行拆分.
+我们承认有时长函数也是合理的, 所以不硬性限制函数长度. 若一个函数超过 40 行, 应该考虑在不破坏程序结构的前提下拆分这个函数.
 
+即使一个长函数现在没有问题, 几个月后可能会有别人添加新的效果. 此时容易出现隐蔽的错误. 保持函数简练, 这样便于别人阅读并修改你的代码.
 
-类型注释
---------------------
+当你使用某些代码时, 可能发现一些冗长且复杂的函数. 要勇于修改现有的代码: 如果该函数难以使用或者存在难以调试的错误, 亦或是你想在不同场景下使用该函数的片段, 不妨考虑把函数拆分成更小、更容易管理的片段.
+
+类型注解 (type annotation)
+-------------------------------
 
 **通用规则** 
 
-    #. 请先熟悉下 'PEP-484 <https://www.python.org/dev/peps/pep-0484/>'_
-    #. 对于方法，仅在必要时才对 ``self`` 或 ``cls`` 注释
-    #. 若对类型没有任何显示，请使用 ``Any``
-    #. 无需注释模块中的所有函数
-        #. 公共的API需要注释
-        #. 在代码的安全性，清晰性和灵活性上进行权衡是否注释
-        #. 对于容易出现类型相关的错误的代码进行注释
-        #. 难以理解的代码请进行注释
-        #. 若代码中的类型已经稳定，可以进行注释. 对于一份成熟的代码，多数情况下，即使注释了所有的函数，也不会丧失太多的灵活性.
+    #. 熟读 `PEP-484 <https://www.python.org/dev/peps/pep-0484/>`_ .
+    #. 仅在有额外类型信息时才需要注解方法中 ``self`` 或 ``cls`` 的类型. 例如:
+
+        .. code-block:: python
+
+            @classmethod
+            def create(cls: Type[_T]) -> _T:
+                return cls()
+
+    #. 类似地, 不需要注解 ``__init__`` 的返回值 (只能返回 ``None``).
+    #. 对于其他不需要限制变量类型或返回类型的情况, 应该使用 ``Any``.
+    #. 无需注解模块中的所有函数.
+
+        #. 至少需要注解你的公开 API.
+        #. 你可以自行权衡, 一方面要保证代码的安全性和清晰性, 另一方面要兼顾灵活性.
+        #. 应该注解那些容易出现类型错误的代码 (比如曾经出现过错误或疑难杂症).
+        #. 应该注解晦涩难懂的代码.
+        #. 应该注解那些类型已经确定的代码. 多数情况下，即使注解了成熟的代码中所有的函数，也不会丧失太多灵活性.
 
 **换行**
+
+    尽量遵守前文所述的缩进规则.
     
-    尽量遵守既定的缩进规则.注释后，很多函数签名将会变成每行一个参数.
-
-    .. code-block:: python
-
-        def my_method(self,
-                      first_var: int,
-                      second_var: Foo,
-                      third_var: Optional[Bar]) -> int:
-        ...
-
-    
-    尽量在变量之间换行而不是在变量和类型注释之间.当然,若所有东西都在一行上,也可以接受.        
-
-    .. code-block:: python
-
-        def my_method(self, first_var: int) -> int:
-        ...
-
-    若是函数名,末位形参和返回值的类型注释太长,也可以进行换行,并在新行进行4格缩进.
-
-    .. code-block:: python
-
-        def my_method(
-            self, first_var: int) -> Tuple[MyLongType1, MyLongType1]:
-        ...
-
-    若是末位形参和返回值类型注释不适合在同一行上,可以换行,缩进为4空格,并保持闭合的括号 ``)`` 和 ``def`` 对齐
-
-    .. code-block:: python
- 
-        Yes:
-        def my_method(
-            self, other_arg: Optional[MyLongType]
-        ) -> Dict[OtherLongType, MyLongType]:
-        ...
-
-    ``pylint`` 允许闭合括号 ``)`` 换至新行并与 开启括号 ``(`` 对齐,但这样的可读性不好.
-
-    .. code-block:: python
-
-        No:
-        def my_method(self,
-                        other_arg: Optional[MyLongType]
-                     ) -> Dict[OtherLongType, MyLongType]:
-        ...    
-
-    如上所示,尽量不要在一个类型注释中进行换行.但是有时类型注释过长需要换行时,请尽量保持子类型中不被换行.
+    添加类型注解后, 很多函数签名 (signature) 会变成每行一个参数的形式. 若要让返回值单独成行, 可以在最后一个参数尾部添加逗号.
 
     .. code-block:: python
 
         def my_method(
             self,
-            first_var: Tuple[List[MyLongType1],
-                             List[MyLongType2]],
-            second_var: List[Dict[
-                MyLongType3, MyLongType4]]) -> None:
-        ...
-
-    若一个类型注释确实太长,则应优先考虑对过长的类型使用别名 `alias <https://google.github.io/styleguide/pyguide.html#typing-aliases>`_. 其次是考虑在冒号后 ``:``进行换行并添加4格空格缩进.
+            first_var: int,
+            second_var: Foo,
+            third_var: Bar | None,
+        ) -> int:
+            ...
     
+    尽量在变量之间换行, 避免在变量和类型注解之间换行. 当然, 若所有东西可以挤进一行, 也可以接受.
+
     .. code-block:: python
 
-        Yes:
+        def my_method(self, first_var: int) -> int:
+            ...
+
+    若最后一个参数加上返回值的类型注解太长, 也可以换行并添加4格缩进. 添加换行符时, 建议每个参数和返回值都在单独的一行里, 并且右括号和 ``def`` 对齐.
+
+    正确:
+
+    .. code-block:: python
+
+        def my_method(
+            self,
+            other_arg: MyLongType | None,
+        ) -> tuple[MyLongType1, MyLongType1]:
+            ...
+    
+    返回值类型和最后一个参数也可以放在同一行.
+
+    可以接受:
+
+    .. code-block:: python
+
+        def my_method(
+            self,
+            first_var: int,
+            second_var: int) -> dict[OtherLongType, MyLongType]:
+            ...
+
+    ``pylint`` 也允许你把右括号放在新行上, 与左括号对齐, 但相较而言可读性更差.
+
+    错误:
+
+    .. code-block:: python
+
+        def my_method(self,
+                      other_arg: MyLongType | None,
+                     ) -> dict[OtherLongType, MyLongType]:
+            ... 
+
+    正如上面所有的例子, 尽量不要在类型注解中间换行. 但是有时注解过长以至于一行放不下. 此时尽量保持子类型中间不换行.
+
+    .. code-block:: python
+
+        def my_method(
+            self,
+            first_var: tuple[list[MyLongType1],
+                             list[MyLongType2]],
+            second_var: list[dict[
+                MyLongType3, MyLongType4]],
+        ) -> None:
+            ...
+
+    若某个名称和对应的类型注解过长, 可以考虑用 :ref:`别名 (alias) <type_alias>` 代表类型. 下策是在冒号后换行并添加4格缩进.
+
+    正确:
+
+    .. code-block:: python
+
         def my_function(
             long_variable_name:
                 long_module_name.LongTypeName,
         ) -> None:
-        ...
+            ...
+
+    错误:
 
     .. code-block:: python
 
-        No:
         def my_function(
             long_variable_name: long_module_name.
                 LongTypeName,
         ) -> None:
-        ...
+            ...
 
-**预先声明**
+**前向声明 (foward declaration)**
 
-    若需要使用一个当前模块尚未定义的类名,比如想在类声明中使用类名,请使用类名的字符串
+    若需要使用一个尚未定义的类名 (比如想在声明一个类时使用自身的类名), 可以使用 ``from __future__ import annotations`` 或者字符串来代表类名.
+
+    正确:
 
     .. code-block:: python
         
+        from __future__ import annotations
+
         class MyClass:
+            def __init__(self, stack: Sequence[MyClass], item: OtherClass) -> None:
 
-          def __init__(self,
-                       stack: List["MyClass"]) -> None:
-
-**参数默认值**
-
-    依据 `PEP-008 <https://www.python.org/dev/peps/pep-0008/#other-recommendations>`_ ,仅对同时具有类型注释和默认值的参数的 ``=`` 周围加空格.
+        class OtherClass:
+            ...
 
     .. code-block:: python
 
-        Yes:
+        class MyClass:
+            def __init__(self, stack: Sequence['MyClass'], item: 'OtherClass') -> None:
+
+        class OtherClass:
+            ...
+
+**默认值**
+
+    根据 `PEP-008 <https://www.python.org/dev/peps/pep-0008/#other-recommendations>`_ , **只有** 对于同时拥有类型注解和默认值的参数, ``=`` 的周围应该加空格.
+
+    正确:
+
+    .. code-block:: python
+
         def func(a: int = 0) -> int:
-        ...
+            ...
+
+    错误:
 
     .. code-block:: python
 
-        No:
         def func(a:int=0) -> int:
-        ...
+            ...
 
 **NoneType**
 
-    在python的类型系统中, ``NoneType`` 是 "一等对象",为了输入方便, ``None`` 是 ``NoneType`` 的别名.一个变量若是 ``None``,则该变量必须被声明.我们可以使用 ``Union``, 但若类型仅仅只是对应另一个其他类型,建议使用 ``Optional``.
-    尽量显式而非隐式的使用 ``Optional``.在PEP-484的早期版本中允许使用 ``a: Text = None`` 来替代 ``a: Optional[Text] = None``,当然,现在不推荐这么做了.
+    在 Python 的类型系统中, ``NoneType`` 是 "一等" 类型. 在类型注解中, ``None`` 是 ``NoneType`` 的别名. 如果一个变量可能为 ``None``, 则必须声明这种情况! 你可以使用 ``|`` 这样的联合 (union) 类型表达式 (推荐在新的 Python 3.10+ 代码中使用) 或者老的 ``Optional`` 和 ``Union`` 语法.
+
+    应该用显式的 ``X | None`` 替代隐式声明. 早期的 PEP 484 允许将 ``a: str = None`` 解释为 ``a: str | None = None``, 但这不再是推荐的行为.
+
+    正确:
 
     .. code-block:: python
         
-        Yes:
-        def func(a: Optional[Text], b: Optional[Text] = None) -> Text:
+        # 现代的联合写法.
+        def modern_or_union(a: str | int | None, b: str | None = None) -> str:
             ...
-        def multiple_nullable_union(a: Union[None, Text, int]) -> Text
+        # 采用 Union / Optional.
+        def union_optional(a: Union[str, int, None], b: Optional[str] = None) -> str:
             ...
+
+    错误:
 
     .. code-block:: python
 
-        No:
-        def nullable_union(a: Union[None, Text]) -> Text:
+        # 用 Union 代替 Optional.
+        def nullable_union(a: Union[None, str]) -> str:
             ...
-        def implicit_optional(a: Text = None) -> Text:
+        # 隐式 Optional.
+        def implicit_optional(a: str = None) -> str:
             ...
 
-**类型别名**
+.. _type_alias:
 
-    复杂类型应使用别名,别名的命名可参照帕斯卡命名.若别名仅在当前模块使用,应在名称前加``_``变为私有的.
-    如下例子中,模块名和类型名连一起过长:
+**类型别名 (alias)**
+
+    你可以为复杂的类型声明一个别名. 别名的命名应该采用大驼峰 (例如 ``CapWorded``). 若别名仅在当前模块使用, 应在名称前加 ``_`` 代表私有 (例如 ``_Private``).
+
+    注意下面的 ``: TypeAlias`` 类型注解只能在 3.10 以后的版本使用.
 
     .. code-block:: python
        
-        _ShortName = module_with_long_name.TypeWithLongName
-        ComplexMap = Mapping[Text, List[Tuple[int, int]]]
+        from typing import TypeAlias
 
-**忽略类型注释**
+        _LossAndGradient: TypeAlias = tuple[tf.Tensor, tf.Tensor]
+        ComplexTFMap: TypeAlias = Mapping[str, _LossAndGradient]
+
+**忽略类型**
     
-    可以使用特殊的行尾注释 ``# type: ignore`` 来禁用该行的类型检查.
-    ``pytype`` 针对特定错误有一个禁用选项(类似lint):
+    你可以使用特殊的注释 ``# type: ignore`` 禁用某一行的类型检查.
+
+    ``pytype`` 有针对特定错误的禁用选项 (类似格式检查器):
 
     .. code-block:: python
         
         # pytype: disable=attribute-error
 
-**变量类型注解**
+**标注变量的类型**
 
-    当一个内部变量难以推断其类型时,可以有以下方法来指示其类型:
-
-    **类型注释**
+    **带类型注解的赋值**
         
-    使用行尾注释 ``# type:``:
+    如果难以自动推理某个内部变量的类型, 可以用带类型注解的赋值操作来指定类型: 在变量名和值的中间添加冒号和类型, 类似于有默认值的函数参数.
     
         .. code-block:: python
 
-            a = SomeUndecoratedFunction()  # type: Foo
-
-    **带类型注解的复制**
-    如函数形参一样,在变量名和等号间加入冒号和类型:
-
-        .. code-block:: python
-    
             a: Foo = SomeUndecoratedFunction()
 
-**Tuples vs Lists**
+    **类型注释**
 
-    类型化的Lists只能包含单一类型的元素.但类型化的Tuples可以包含单一类型的元素或者若干个不同类型的元素,通常被用来注解返回值的类型.
+    你可能在代码仓库中看到这种残留的注释 (在 Python 3.6 之前必须这样写注释), 但是不要再添加 ``# type: <类型>`` 这样的行尾注释了:
+
+        .. code-block:: python
+    
+            a = SomeUndecoratedFunction()  # type: Foo
+
+**元组还是列表**
+
+    有类型的列表中只能有一种类型的元素. 有类型的元组可以有相同类型的元素或者若干个不同类型的元素. 后面这种情况多用于注解返回值的类型.
+
     (译者注: 注意这里是指的类型注解中的写法,实际python中,list和tuple都是可以在一个序列中包含不同类型元素的,当然,本质其实list和tuple中放的是元素的引用)
 
     .. code-block:: python
 
-        a = [1, 2, 3]  # type: List[int]
-        b = (1, 2, 3)  # type: Tuple[int, ...]
-        c = (1, "2", 3.5)  # type: Tuple[int, Text, float]    
+        a: list[int] = [1, 2, 3]
+        b: tuple[int, ...] = (1, 2, 3)
+        c: tuple[int, str, float] = (1, "2", 3.5)
 
-**TypeVars**
+**类型变量 (type variable)**
 
-    python的类型系统是支持泛型的.一种常见的方式就是使用工厂函数 ``TypeVars``.
+    Python 的类型系统支持 `泛型 (generics) <https://peps.python.org/pep-0484/#generics>`_ . 使用泛型的常见方式是利用类型变量, 例如 ``TypeVar`` 和 ``ParamSpec``.
+
+    例如:
 
     .. code-block:: python
 
-        from typing import List, TypeVar
-        T = TypeVar("T")
+        from collections.abc import Callable
+        from typing import ParamSpec, TypeVar
+        _P = ParamSpec("_P")
+        _T = TypeVar("_T")
         ...
-        def next(l: List[T]) -> T:
+        def next(l: list[_T]) -> _T:
             return l.pop()
 
-    TypeVar也可以被限定成若干种类型
+        def print_when_called(f: Callable[_P, _T]) -> Callable[_P, _T]:
+            def inner(*args: P.args, **kwargs: P.kwargs) -> R:
+                print('函数被调用')
+                return f(*args, **kwargs)
+        return inner
+
+    ``TypeVar`` 可以有约束条件.
 
     .. code-block:: python
         
-        AddableType = TypeVar("AddableType", int, float, Text)
+        AddableType = TypeVar("AddableType", int, float, str)
         def add(a: AddableType, b: AddableType) -> AddableType:
             return a + b
 
-    ``typing`` 模块中一个常见的预定义类型变量是 ``AnyStr``.它可以用来注解类似 ``bytes``, ``unicode`` 以及一些相似类型.
+    ``AnyStr`` 是 ``typing`` 模块中常用的预定义类型变量. 可以用它注解那些接受 ``bytes`` 或 ``str`` 但是必须保持一致的类型.
 
     .. code-block:: python
 
@@ -1097,76 +1296,95 @@ Main
             if len(x) <= 42:
                 return x
             raise ValueError()
+    
+    (译者注: 这个例子中, x 和返回值必须同时是 ``bytes`` 或者同时是 ``str``.)
+
+    类型变量必须有描述性的名称, 除非满足以下所有标准:
+
+    #. 外部不可见
+    #. 没有约束条件
+
+    正确:
+
+    .. code-block:: python
+
+        _T = TypeVar("_T")
+        _P = ParamSpec("_P")
+        AddableType = TypeVar("AddableType", int, float, str)
+        AnyFunction = TypeVar("AnyFunction", bound=Callable)
+    
+    错误:
+
+    .. code-block:: python
+
+        T = TypeVar("T")
+        P = ParamSpec("P")
+        _T = TypeVar("_T", int, float, str)
+        _F = TypeVar("_F", bound=Callable)
 
 **字符串类型**
     
-    如何正确的注释字符串的相关类型和要使用的python版本有关.
-    对于仅在 python3 下运行的代码,首选使用 ``str``. 使用 ``Text`` 也可以.但是两个不要混用,保持风格一致.
-    对于需要兼容 python2 的代码,使用 ``Text``.在少数情况下,使用 ``str`` 也许更加清晰.不要使用 ``unicode``,因为 python3 里没有这个类型.
-    造成这种差异的原因是因为,在不同的python版本中,``str`` 意义不同.
+    不要在新代码中使用 ``typing.Text``. 这种写法只能用于处理 Python 2/3 的兼容问题.
+
+    用 ``str`` 表示字符串/文本数据. 用 ``bytes`` 处理二进制数据.
 
     .. code-block:: python
     
-        No:
-        def py2_code(x: str) -> unicode:
-        ...
-
-    对于需要处理二进制数据的代码,使用 ``bytes``.
-
-    .. code-block:: python
-    
+        # 处理文本数据
+        def deals_with_text_data(x: str) -> str:
+            ...
+        # 处理二进制数据
         def deals_with_binary_data(x: bytes) -> bytes:
-          ...
+            ...
 
-    python2 中的文本类数据类型包括``str``和``unicode``,而python3 中仅有 ``str``.
+    若一个函数中的字串类型始终一致, 比如上述代码中返回值类型和参数类型相同, 应该使用 `AnyStr <https://google.github.io/styleguide/pyguide.html#typing-type-var>`_.
 
-    .. code-block:: python
-        
-        from typing import Text
-        ...
-        def py2_compatible(x: Text) -> Text:
-        ...
-        def py3_only(x: str) -> str:
-        ...
+.. _typing_imports:
 
-    若类型既可以是二进制也可以是文本,那么就使用 ``Union`` 进行注解,并按照之前规则使用合适的文本类型注释.
+**导入类型**
 
-    .. code-block:: python
-
-        from typing import Text, Union
-        ...
-        def py2_compatible(x: Union[bytes, Text]) -> Union[bytes, Text]:
-        ...
-        def py3_only(x: Union[bytes, str]) -> Union[bytes, str]:
-        ...
-
-    若一个函数中的字符串类型始终相同,比如上述函数中返回值类型和形参类型都一样,使用 `AnyStr <https://google.github.io/styleguide/pyguide.html#typing-type-var>`_.
-    这样写可以方便将代码移植到 python3
-
-**类型的导入**
-
-    对于 ``typing`` 模块中类的导入,请直接导入类本身.你可以显式的在一行中从 ``typing`` 模块导入多个特定的类,例如:
+    为了静态分析和类型检查而导入 ``typing`` 和 ``collections.abc`` 模块中的符号时, 一定要导入符号本身. 这样常用的类型注解更简洁, 也符合全世界的习惯. 特别地, 你可以在一行内从 ``typing`` 和 ``collections.abc`` 模块中导入多个特定的类, 例如:
 
     .. code-block:: python
         
-        from typing import Any, Dict, Optional
+        from collections.abc import Mapping, Sequence
+        from typing import Any, Generic
     
-    以此方式导入的类将被加入到本地的命名空间,因此所有 ``typing`` 模块中的类都应被视为关键字,不要在代码中定义并覆盖它们.若这些类和现行代码中的变量或者方法发生命名冲突,可以考虑使用 ``import x as y``的导入形式:
+    采用这种方法时, 导入的类会进入本地命名空间, 因此所有 ``typing`` 和 ``collections.abc`` 模块中的名称都应该和关键词 (keyword) 同等对待. 你不能在自己的代码中定义相同的名字, 无论你是否采用类型注解. 若类型名和某模块中已有的名称出现冲突, 可以用 ``import x as y`` 的导入形式:
 
     .. code-block:: python
 
         from typing import Any as AnyType
 
-**条件导入**
+    只要可行, 就使用内置类型. 利用 Python 3.9 引入的 `PEP-585 <https://peps.python.org/pep-0585/>`_, 可以在类型注解中使用参数化的容器类型.
 
-    在一些特殊情况下,比如当在运行时需要避免类型检查所需的一些导入时,可能会用到条件导入.但这类方法并不推荐,首选方法应是重构代码使类型检查所需的模块可以在顶层导入.
-    仅用于类型注解的导入可以放在 ``if TYPE_CHECKING:`` 语句块内.
+    .. code-block:: python
 
-    #. 通过条件导入引入的类的注解须是字符串string,这样才能和python3.6之前的代码兼容.因为python3.6之前,类型注解是会进行求值的.
-    #. 条件导入引入的包应仅仅用于类型注解,别名也是如此.否则,将引起运行错误,条件导入的包在运行时是不会被实际导入的.
-    #. 条件导入的语句块应放在所有常规导入的语句块之后.
-    #. 在条件导入的语句块的导入语句之间不应有空行.
-    #. 和常规导入一样,请对该导入语句进行排序.
+        def generate_foo_scores(foo: set[str]) -> list[float]:
+            ...
+    
+    注意: `Apache Beam <https://github.com/apache/beam/issues/23366>`_ 的用户应该继续导入 ``typing`` 模块提供的参数化容器类型.
+
+    .. code-block:: python
+
+        from typing import Set, List
+
+        # 只有在你使用了 Apache Beam 这样没有为 PEP 585 更新的代码, 或者你的
+        # 代码需要在 Python 3.9 以下版本中运行时, 才能使用这种旧风格.
+        def generate_foo_scores(foo: Set[str]) -> List[float]:
+            ...
+
+**有条件的导入**
+
+    仅在一些特殊情况下, 比如必须在运行时避免导入类型检查所需的模块时, 才能有条件地导入. 不推荐这种写法. 替代方案是重构代码, 使类型检查所需的模块可以在顶层导入.
+
+    可以把仅用于类型注解的导入放在 ``if TYPE_CHECKING:`` 语句块内.
+
+    #. 在类型注解中, 有条件地导入的类型必须用字符串表示, 这样才能和 Python 3.6 之前的代码兼容. 因为 Python 3.6 之前真的会对类型注解求值.
+    #. 只有那些仅仅用于类型注解的实例才能有条件地导入, 别名也是如此. 否则会引发运行时错误, 因为运行时不会导入这些模块.
+    #. 有条件的导入语句应紧随所有常规导入语句之后.
+    #. 有条件的导入语句之间不能有空行.
+    #. 和常规导入一样, 请对有条件的导入语句排序.
 
     .. code-block:: python
 
@@ -1177,46 +1395,52 @@ Main
 
 **循环依赖**
 
-    由类型注释引起的循环依赖可能会导致代码异味,应对其进行重构.虽然从技术上我们可以兼容循环依赖,但是 `构建系统 <https://google.github.io/styleguide/pyguide.html#typing-build-deps>`_ 是不会容忍这样做的,因为每个模块都需要依赖一个其他模块.
-    将引起循环依赖的导入模块使用 ``Any`` 导入.使用 ``alias`` 来起一个有意义的别名,推荐使用真正模块的类型名的字符串作为别名(Any的任何属性依然是Any,使用字符串只是帮助我们理解代码).别名的定义应该和最后的导入语句之间空一行.
+    若类型注解引发了循环依赖, 说明代码可能存在问题. 这样的代码适合重构. 虽然技术上我们可以支持循环依赖, 但是很多构建系统 (build system) 不支持.
+
+    可以用 ``Any`` 替换引起循环依赖的模块. 起一个有意义的别名, 然后使用模块中的真实类型名 (Any 的任何属性依然是 Any). 定义别名的语句应该和最后一行导入语句之间间隔一行.
 
     .. code-block:: python
         
         from typing import Any
 
-        some_mod = Any  # some_mod.py imports this module.
+        some_mod = Any  # 因为 some_mod.py 导入了我们的模块.
         ...
 
         def my_method(self, var: "some_mod.SomeType") -> None:
-        ...
+            ...
 
-**泛型**
+**泛型 (generics)**
     
-    在注释时,尽量将泛型类型注释为类型参数.否则, `泛型参数将被视为是 Any <https://www.python.org/dev/peps/pep-0484/#the-any-type>`_ .
+    在注解类型时, 尽量为泛型类型填入类型参数. 否则, `泛型参数默认为 Any <https://www.python.org/dev/peps/pep-0484/#the-any-type>`_ .
+
+    正确:
 
     .. code-block:: python
 
-        def get_names(employee_ids: List[int]) -> Dict[int, Any]:
-        ...
+        def get_names(employee_ids: Sequence[int]) -> Mapping[int, str]:
+            ...
+    
+    错误:
 
     .. code-block:: python
 
-        # These are both interpreted as get_names(employee_ids: List[Any]) -> Dict[Any, Any]
-        def get_names(employee_ids: list) -> Dict:
-        ...
+        # 这表示 get_names(employee_ids: Sequence[Any]) -> Mapping[Any, Any]
+        def get_names(employee_ids: Sequence) -> Mapping:
+            ...
 
-        def get_names(employee_ids: List) -> Dict:
-        ...
+    如果泛型类型的参数的确应该是 ``Any``, 请显式地标注, 不过注意 ``TypeVar`` 很可能更合适.
 
-    若实在要用 Any 作为泛型类型,请显式的使用它.但在多数情况下, ``TypeVar`` 通常可能是更好的选择.
-
-    .. code-block:: python
-
-        def get_names(employee_ids: List[Any]) -> Dict[Any, Text]:
-            """Returns a mapping from employee ID to employee name for given IDs."""
+    错误:
 
     .. code-block:: python
 
-        T = TypeVar('T')
-        def get_names(employee_ids: List[T]) -> Dict[T, Text]:
-            """Returns a mapping from employee ID to employee name for given IDs.""" 
+        def get_names(employee_ids: Sequence[Any]) -> Mapping[Any, str]:
+            """返回员工ID到员工名的映射."""
+    
+    正确:
+
+    .. code-block:: python
+
+        _T = TypeVar('_T')
+        def get_names(employee_ids: Sequence[_T]) -> Mapping[_T, str]:
+            """返回员工ID到员工名的映射.""" 
