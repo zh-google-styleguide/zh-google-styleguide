@@ -15,3 +15,4 @@
    google-javascript-styleguide/contents
    google-typescript-styleguide/contents
    google-html-css-styleguide/contents
+   google-java-styleguide/contents
