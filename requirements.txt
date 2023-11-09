@@ -1,0 +1,7 @@
+sphinx
+sphinx_rtd_theme
+sphinx-markdown-tables
+readthedocs-sphinx-search
+myst_parser
+recommonmark
+sphinx_markdown_tables
