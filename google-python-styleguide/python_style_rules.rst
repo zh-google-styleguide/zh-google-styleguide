@@ -36,30 +36,30 @@ Python风格规范
     if (width == 0 and height == 0 and
         color == '红' and emphasis == '加粗'):
 
-     (bridge_questions.clarification_on
-      .average_airspeed_of.unladen_swallow) = '美国的还是欧洲的?'
+    (bridge_questions.clarification_on
+     .average_airspeed_of.unladen_swallow) = '美国的还是欧洲的?'
 
-     with (
-         very_long_first_expression_function() as spam,
-         very_long_second_expression_function() as beans,
-         third_thing() as eggs,
-     ):
-       place_order(eggs, beans, spam, beans)
+    with (
+        very_long_first_expression_function() as spam,
+        very_long_second_expression_function() as beans,
+        third_thing() as eggs,
+    ):
+        place_order(eggs, beans, spam, beans)
 
 错误:
 
 .. code-block:: python
 
     if width == 0 and height == 0 and \
-         color == '红' and emphasis == '加粗':
+        color == '红' and emphasis == '加粗':
 
     bridge_questions.clarification_on \
         .average_airspeed_of.unladen_swallow = '美国的还是欧洲的?'
 
     with very_long_first_expression_function() as spam, \
-          very_long_second_expression_function() as beans, \
-          third_thing() as eggs:
-      place_order(eggs, beans, spam, beans)
+            very_long_second_expression_function() as beans, \
+            third_thing() as eggs:
+        place_order(eggs, beans, spam, beans)
 
 如果字符串的字面量 (literal) 超过一行, 应该用圆括号实现隐式续行:
 
@@ -258,7 +258,7 @@ Shebang行
 
 **文档字符串**
 
-    Python 的文档字符串用于注释代码. 文档字符串是位于包、模块、类或函数里第一个语句的字符串. 可以用对象的 ``__doc__`` 成员自动提取这些字符串, 并为 ``pydoc`` 所用. (可以试试在你的模块上运行 ``pydoc`` 并观察结果). 文档字符串一定要用三重双引号 ``"""`` 的格式 (依据 `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 文档字符串应该是一行概述 (整行不超过 80 个字符), 以句号、问号或感叹号结尾. 如果要写更多注释 (推荐), 那么概述后面必须紧接着一个空行, 然后是剩下的内容, 缩进与文档字符串的第一行的第一个引号对齐. 下面是更多有关文档字符串的格式规范. 
+    Python 的文档字符串用于注释代码. 文档字符串是包、模块、类或函数里作为第一个语句的字符串. 可以用对象的 ``__doc__`` 成员自动提取这些字符串, 并为 ``pydoc`` 所用. (可以试试在你的模块上运行 ``pydoc`` 并观察结果). 文档字符串一定要用三重双引号 ``"""`` 的格式 (依据 `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 文档字符串应该是一行概述 (整行不超过 80 个字符), 以句号、问号或感叹号结尾. 如果要写更多注释 (推荐), 那么概述后面必须紧接着一个空行, 然后是剩下的内容, 缩进与文档字符串的第一行第一个引号对齐. 下面是更多有关文档字符串的格式规范. 
 
 **模块**
 
@@ -287,7 +287,7 @@ Shebang行
 
     .. code-block:: python
 
-        """这个blaze测试会使用样板文件.
+        """这个blaze测试会使用样板文件（golden files）.
 
         若要更新这些文件, 你可以在 `google3` 文件夹中运行
         `blaze run //foo/bar:foo_test -- --update_golden_files`
@@ -872,12 +872,12 @@ TODO (待办) 注释
     
 **命名规范**
     
-    #. "内部(Internal)"这个词表示仅在模块内可用, 或者在类内是保护/私有的.
+    #. "内部(Internal)"一词表示仅在模块内可用, 或者在类内是受保护/私有的.
     #. 在一定程度上, 在名称前加单下划线 (``_``) 可以保护模块变量和函数 (格式检查器会对受保护的成员访问操作发出警告).
     #. 在实例的变量或方法名称前加双下划线 (``__``, 又名为 dunder) 可以有效地把变量或方法变成类的私有成员 (基于名称修饰 name mangling 机制). 我们不鼓励这种用法, 因为这会严重影响可读性和可测试性, 而且没有 **真正** 实现私有. 建议使用单下划线.
     #. 应该把相关的类和顶级函数放在同一个模块里. 与Java不同, 不必限制一个模块只有一个类.
     #. 类名应该使用首字母大写的形式 (如 CapWords), 但是模块名应该用小写加下划线的形式 (如 lower_with_under.py). 尽管有些旧的模块使用类似于 CapWords.py 这样的形式, 现在我们不再鼓励这种命名方式, 因为模块名和类名相同时会让人困惑 ("等等, 我刚刚写的是 ``import StringIO`` 还是 ``from StringIO import StringIO``?").
-    #. 新的 **单元测试** 文件应该遵守 PEP 8, 用小写加下划线格式的方法名, 例如 ``test_<被测试的方法名>_<状态>.``. 有些老旧的模块有 ``CapWords`` 这样大写方法名, 为了保持风格一致, 可以在 test 这个词和方法名之后, 用下划线分割名称中不同的逻辑成分. 比如一种可行的格式之一是 ``test<被测试的方法>_<状态>``.
+    #. 新的 **单元测试** 文件应该遵守 PEP 8, 用小写加下划线格式的方法名, 例如 ``test_<被测试的方法名>_<状态>``. 有些老旧的模块有形如 ``CapWords`` 这样大写的方法名, 为了保持风格一致, 可以在 test 这个词和方法名之后, 用下划线分割名称中不同的逻辑成分. 比如一种可行的格式之一是 ``test<被测试的方法>_<状态>``.
 
 **文件名**
 
@@ -1176,7 +1176,7 @@ TODO (待办) 注释
 
 **NoneType**
 
-    在 Python 的类型系统中, ``NoneType`` 是 "一等" 类型. 在类型注解中, ``None`` 是 ``NoneType`` 的别名. 如果一个变量可能为 ``None``, 则必须声明这种情况! 你可以使用 ``|`` 这样的联合 (union) 类型表达式 (推荐在新的 Python 3.10+ 代码中使用) 或者老的 ``Optional`` 和 ``Union`` 语法.
+    在 Python 的类型系统中, ``NoneType`` 是 "一等" 类型. 在类型注解中, ``None`` 是 ``NoneType`` 的别名. 如果一个变量可能为 ``None``, 则必须声明这种情况! 你可以使用 ``|`` 这样的并集 (union) 类型表达式 (推荐在新的 Python 3.10+ 代码中使用) 或者老的 ``Optional`` 和 ``Union`` 语法.
 
     应该用显式的 ``X | None`` 替代隐式声明. 早期的 PEP 484 允许将 ``a: str = None`` 解释为 ``a: str | None = None``, 但这不再是推荐的行为.
 
@@ -1184,7 +1184,7 @@ TODO (待办) 注释
 
     .. code-block:: python
         
-        # 现代的联合写法.
+        # 现代的并集写法.
         def modern_or_union(a: str | int | None, b: str | None = None) -> str:
             ...
         # 采用 Union / Optional.
@@ -1376,7 +1376,7 @@ TODO (待办) 注释
 
 **有条件的导入**
 
-    仅在一些特殊情况下, 比如必须在运行时避免导入类型检查所需的模块时, 才能有条件地导入. 不推荐这种写法. 替代方案是重构代码, 使类型检查所需的模块可以在顶层导入.
+    仅在一些特殊情况下, 比如在运行时必须避免导入类型检查所需的模块, 才能有条件地导入. 不推荐这种写法. 替代方案是重构代码, 使类型检查所需的模块可以在顶层导入.
 
     可以把仅用于类型注解的导入放在 ``if TYPE_CHECKING:`` 语句块内.
 
