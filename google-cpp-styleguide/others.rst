@@ -898,7 +898,7 @@
 
 定义：
 
-    C++11 有众多语言和库上的`变革 <https://en.wikipedia.org/wiki/C%2B%2B11>`_ 。
+    C++11 有众多语言和库上的 `变革 <https://en.wikipedia.org/wiki/C%2B%2B11>`_ 。
 
 优点：
 
