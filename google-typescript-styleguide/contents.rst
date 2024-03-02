@@ -3,9 +3,10 @@ TypeScript 风格指南
 
 .. toctree::
     :caption: 目录
+    :maxdepth: 2
     :numbered:
 
-    preface
+    introduction
     syntax
     language
     source_organization
