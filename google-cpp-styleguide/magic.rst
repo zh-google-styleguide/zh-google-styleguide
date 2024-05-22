@@ -82,6 +82,6 @@ Google 用了很多自己实现的技巧 / 工具使 C++ 代码更加健壮, 我
 
 #. 把智能指针当成对象来看待的话, 就很好领会它与所指对象之间的关系了. 
 #. 原来 Rust 的 Ownership 思想是受到了 C++ 智能指针的很大启发啊. 
-#. ``scoped_ptr`` 和 ``auto_ptr`` 已过时.  现在是 ``shared_ptr`` 和 ``uniqued_ptr`` 的天下了. 
+#. ``scoped_ptr`` 和 ``auto_ptr`` 已过时.  现在是 ``shared_ptr`` 和 ``unique_ptr`` 的天下了. 
 #. 按本文来说, 似乎除了智能指针, 还有其它所有权机制, 值得留意. 
 #. Arch Linux 用户注意了, AUR 有对 cpplint 打包. 
