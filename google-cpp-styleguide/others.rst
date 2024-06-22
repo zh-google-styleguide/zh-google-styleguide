@@ -736,7 +736,7 @@
 
 .. tip::
 
-    适当使用 lambda 表达式。别用默认 lambda 捕获，所有捕获都要显式写出来。
+    适当使用 lambda 表达式。当 lambda 将转移当前作用域时，首选显式捕获。
 
 定义：
 
@@ -748,24 +748,97 @@
             return Weight(x) < Weight(y);
         });
 
-    C++11 首次提出 Lambdas, 还提供了一系列处理函数对象的工具，比如多态包装器（polymorphic wrapper） ``std::function``.
+    它们还允许通过名称显式或隐式使用默认捕获从封闭范围中捕获变量。显式捕获要求将每个变量作为值或引用捕获列出：
+
+    .. code-block:: c++
+
+        int weight = 3;
+        int sum = 0;
+        // Captures `weight` by value and `sum` by reference.
+        std::for_each(v.begin(), v.end(), [weight, &sum](int x) {
+          sum += weight * x;
+        });
+        
+    默认捕获隐式捕获 lambda 正文中引用的任何变量，包括 this 是否使用了任何成员：
+
+    .. code-block:: c++
+
+        const std::vector<int> lookup_table = ...;
+        std::vector<int> indices = ...;
+        // Captures `lookup_table` by reference, sorts `indices` by the value
+        // of the associated element in `lookup_table`.
+        std::sort(indices.begin(), indices.end(), [&](int a, int b) {
+          return lookup_table[a] < lookup_table[b];
+        });
+        
+    变量捕获还可以具有显式初始值设定项，该初始值设定项可用于按值捕获仅移动变量，或用于普通引用或值捕获无法处理的其他情况：
+
+    .. code-block:: c++
+
+        std::unique_ptr<Foo> foo = ...;
+        [foo = std::move(foo)] () {
+            ...
+        }
+
+    此类捕获（通常称为“初始化捕获”或“广义 lambda 捕获”）实际上不需要从封闭作用域中“捕获”任何内容，甚至不需要从封闭作用域中具有名称;此语法是定义 Lambda 对象成员的完全通用方法：
+
+    .. code-block:: c++
+
+        [foo = std::vector<int>({1, 2, 3})] () {
+          ...
+        }
 
 优点：
 
-    * 传函数对象给 STL 算法，Lambdas 最简易，可读性也好。
-    * Lambdas, ``std::functions`` 和 ``std::bind`` 可以搭配成通用回调机制（general purpose callback mechanism）；写接收有界函数为参数的函数也很容易了。
+    * 传函数对象给 STL 算法，Lambda 最简易，可读性也好。
+    * 适当使用默认捕获可以消除冗余，并突出显示默认捕获中的重要异常。
+    * Lambda, ``std::functions`` 和 ``std::bind`` 可以搭配成通用回调机制（general purpose callback mechanism）；写接收有界函数为参数的函数也很容易了。
 
 缺点：
 
-    * Lambdas 的变量捕获略旁门左道，可能会造成悬空指针。
-    * Lambdas 可能会失控；层层嵌套的匿名函数难以阅读。
+    * lambda 中的变量捕获可能是悬空指针错误的根源，尤其是当 lambda 逃逸到当前作用域时。
+    * 按值默认捕获可能会产生误导，因为它们不能防止悬空指针错误。按值捕获指针不会导致深度复制，因此它通常具有与按引用捕获相同的生存期问题。这在按值捕获 this 时尤其令人困惑，因为 的 this 用法通常是隐式的。
+    * 捕获实际上声明了新变量（无论捕获是否具有初始值设定项），但它们看起来与 C++ 中的任何其他变量声明语法完全不同。特别是，变量的类型没有位置，甚至没有 auto 占位符（尽管初始化捕获可以间接指示它，例如，使用强制转换）。这甚至可能使得很难将它们识别为声明。
+    * 初始化捕获本质上依赖于类型推导，并且存在许多与 auto 相同的缺点，但另一个问题是语法甚至没有提示读者正在进行推导。
+    * lambda 的使用可能会失控;非常长的嵌套匿名函数会使代码更难理解。
 
 结论：
 
-    * 按 format 小用 lambda 表达式怡情。
-    * 禁用默认捕获，捕获都要显式写出来。打比方，比起 ``[=](int x) {return x + n;}``, 您该写成 ``[n](int x) {return x + n;}`` 才对，这样读者也好一眼看出 ``n`` 是被捕获的值。
-    * 匿名函数始终要简短，如果函数体超过了五行，那么还不如起名（acgtyrant 注：即把 lambda 表达式赋值给对象），或改用函数。
-    * 如果可读性更好，就显式写出 lambd 的尾置返回类型，就像auto.
+    * 在适当的情况下使用 lambda 表达式，格式如下 `所述 <https://google.github.io/styleguide/cppguide.html#Formatting_Lambda_Expressions>`_。
+    * 如果 lambda 可能离开当前作用域，则首选显式捕获。例如：
+
+      .. code-block:: c++
+  
+          {
+            Foo foo;
+            ...
+            executor->Schedule([&] { Frobnicate(foo); });
+            ...
+          }
+          // BAD! The fact that the lambda makes use of a reference to `foo` and
+          // possibly `this` (if `Frobnicate` is a member function) may not be
+          // apparent on a cursory inspection. If the lambda is invoked after
+          // the function returns, that would be bad, because both `foo`
+          // and the enclosing object could have been destroyed.
+  
+      更喜欢写：
+  
+      .. code-block:: c++
+  
+          {
+            Foo foo;
+            ...
+            executor->Schedule([&foo] { Frobnicate(foo); })
+            ...
+          }
+          // BETTER - The compile will fail if `Frobnicate` is a member
+          // function, and it's clearer that `foo` is dangerously captured by
+          // reference.
+
+    * 仅当 lambda 的生存期明显短于任何潜在捕获时，才使用默认的引用捕获 （ [&] ）。
+    * 仅使用默认的按值 （ [=] ） 捕获作为绑定短 lambda 的几个变量的方法，其中捕获的变量集一目了然，并且不会导致隐式捕获 this 。（这意味着出现在非静态类成员函数中并在其正文中引用非静态类成员的 lambda 必须显式或 this 通过 [&] 捕获。不建议使用默认的按值捕获来编写长而复杂的 lambda。
+    * 仅使用捕获来实际捕获封闭范围中的变量。不要将捕获与初始值设定项一起使用来引入新名称，或实质性地更改现有名称的含义。相反，以传统方式声明一个新变量，然后捕获它，或者避免使用 lambda 简写并显式定义函数对象。
+    * 有关指定参数和返回类型的指导，请参阅 `类型推导 <https://google.github.io/styleguide/cppguide.html#Type_deduction>`_ 部分。
 
 .. _template-metaprogramming:
 
