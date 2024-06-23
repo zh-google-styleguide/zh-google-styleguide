@@ -38,3 +38,12 @@ use follow url relace REPLACE-MISSING-FILE-NAME to you want find and install mis
 
 https://packages.debian.org/search?searchon=contents&keywords=RELACE-MISSING-FILE-NAME&mode=path&suite=oldstable&arch=any
 
+2. If occuring FreeXXX font not found
+
+```sh
+# for ubuntu
+sudo apt install fonts-freefont-otf
+
+# for fedora
+sudo dnf install texlive-gnu-freefont
+```

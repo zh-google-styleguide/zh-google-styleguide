@@ -39,7 +39,7 @@ Windows 程序员有自己的编程习惯, 主要源于 Windows 头文件和其�
 
 然而, 在 Windows 上仍然有一些我们偶尔需要违反的规则:
 
-- 通常我们 :ref:`禁止使用多重继承 <multiple-inheritance>`, 但在使用 COM 和 ATL/WTL 类时可以使用多重继承. 为了实现 COM 或 ATL/WTL 类/接口, 你可能不得不使用多重实现继承.
+- 通常我们 :ref:`禁止使用多重继承 <inheritance>`, 但在使用 COM 和 ATL/WTL 类时可以使用多重继承. 为了实现 COM 或 ATL/WTL 类/接口, 你可能不得不使用多重实现继承.
 
 - 虽然代码中不应该使用异常, 但是在 ATL 和部分 STL（包括 Visual C++ 的 STL) 中异常被广泛使用. 使用 ATL 时, 应定义 ``_ATL_NO_EXCEPTIONS`` 以禁用异常. 你需要研究一下是否能够禁用 STL 的异常, 如果无法禁用, 可以启用编译器异常. (注意这只是为了编译 STL, 自己的代码里仍然不应当包含异常处理).
 

@@ -161,6 +161,7 @@ type属性
 HTML5将 `text/css <http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-type>`_ 和 `text/javascript <http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#attr-script-type>`_ 设置为默认值，在这种情况下指定type属性并不必要。甚至同样兼容老版本的浏览器。
 
 .. code-block:: html
+
   <!-- 不推荐 -->
   <link rel="stylesheet" href="//www.google.com/css/maia.css" type="text/css">
   
