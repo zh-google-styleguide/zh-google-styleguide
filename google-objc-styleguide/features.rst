@@ -99,7 +99,7 @@ Cocoa 和 Objective-C 特性
 
 Objective-C 2.0 以前，如果你在私有的 ``@interface`` 中声明了某个方法，但在 ``@implementation`` 中忘记定义这个方法，编译器不会抱怨（这是因为你没有在其它的类别中实现这个私有的方法）。解决文案是将方法放进指定类别的 ``@implemenation`` 中。
 
-如果你在使用 Objective-C 2.0，相反你应该使用 `类扩展 <http://developer.apple.com/documentation/Cocoa/Conceptual/ObjectiveC/Articles/chapter_4_section_5.html>`_ 来声明你的私有类别，例如：
+如果你在使用 Objective-C 2.0，相反你应该使用 `类扩展 <https://developer.apple.com/documentation/Cocoa/Conceptual/ObjectiveC/Articles/chapter_4_section_5.html>`_ 来声明你的私有类别，例如：
 
 .. code-block:: objc
 
@@ -121,7 +121,7 @@ Objective-C 的类别可以用来将一个大的 ``@implementation`` 拆分成�
 基于你所包括的头文件的编程语言，选择使用 ``#import`` 或是 ``#include``：
 
 * 当包含一个使用 Objective-C、Objective-C++ 的头文件时，使用 ``#import`` 。
-* 当包含一个使用标准 C、C++ 头文件时，使用 ``#include``。头文件应该使用 `#define 保护 <http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=The__define_Guard#The__define_Guard>`_。
+* 当包含一个使用标准 C、C++ 头文件时，使用 ``#include``。头文件应该使用 `#define 保护 <https://google-styleguide.googlecode.com/svn/trunk/cppguide.xml?showone=The__define_Guard#The__define_Guard>`_。
 
 一些 Objective-C 的头文件缺少 ``#define`` 保护，需要使用 ``#import`` 的方式包含。由于 Objective-C 的头文件只会被 Objective-C 的源文件及头文件包含，广泛地使用 ``#import`` 是可以的。
 
@@ -326,7 +326,7 @@ nil 检查
 
 
 
-使用 ``nil`` 的检查来检查应用程序的逻辑流程，而不是避免崩溃。Objective-C 运行时会处理向 ``nil`` 对象发送消息的情况。如果方法没有返回值，就没关系。如果有返回值，可能由于运行时架构、返回值类型以及 OS X 版本的不同而不同，参见 `Apple’s documentation <http://developer.apple.com/documentation/Cocoa/Conceptual/ObjectiveC/Articles/chapter_2_section_3.html>`_ 。
+使用 ``nil`` 的检查来检查应用程序的逻辑流程，而不是避免崩溃。Objective-C 运行时会处理向 ``nil`` 对象发送消息的情况。如果方法没有返回值，就没关系。如果有返回值，可能由于运行时架构、返回值类型以及 OS X 版本的不同而不同，参见 `Apple’s documentation <https://developer.apple.com/documentation/Cocoa/Conceptual/ObjectiveC/Articles/chapter_2_section_3.html>`_ 。
 
 注意，这和 C/C++ 中检查指针是否为 ‵‵NULL`` 很不一样，C/C++ 运行时不做任何检查，从而导致应用程序崩溃。因此你仍然需要保证你不会对一个 C/C++ 的空指针解引用。
 

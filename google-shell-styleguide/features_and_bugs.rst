@@ -33,7 +33,7 @@ test，[和[[
     # alnum character class followed by the string name.
     # Note that the RHS should not be quoted here.
     # For the gory details, see
-    # E14 at http://tiswww.case.edu/php/chet/bash/FAQ
+    # E14 at https://tiswww.case.edu/php/chet/bash/FAQ
     if [[ "filename" =~ ^[[:alnum:]]+name ]]; then
       echo "Match"
     fi

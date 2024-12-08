@@ -150,7 +150,7 @@ js语句要求以分号结尾，除非能够正确地推断分号的位置。在
         function foo() {}
     }
 
-虽然大多数脚本引擎支持功能区块内声明，但ECMAScript并未认可（见 `ECMA-262 <http://www.ecma-international.org/publications/standards/Ecma-262.htm>`_ ，第13条和第14）。若与他人的及EcmaScript所建议的不一致，即可视为不好的实现方式。ECMAScript只允许函数声明语句列表, 在根语句列表脚本或者函数。相反，使用一个变量初始化函数表达式在块内定义一个函数块：
+虽然大多数脚本引擎支持功能区块内声明，但ECMAScript并未认可（见 `ECMA-262 <https://www.ecma-international.org/publications/standards/Ecma-262.htm>`_ ，第13条和第14）。若与他人的及EcmaScript所建议的不一致，即可视为不好的实现方式。ECMAScript只允许函数声明语句列表, 在根语句列表脚本或者函数。相反，使用一个变量初始化函数表达式在块内定义一个函数块：
 
 ::
 
@@ -279,7 +279,7 @@ js语句要求以分号结尾，除非能够正确地推断分号的位置。在
 
 可以使用，但是要小心。
 
-创建闭包可能是JS最有用的和经常被忽视的功能。在 `这里 <http://jibbering.com/faq/notes/closures/>`_ 很好地描述说明了闭包的工作。
+创建闭包可能是JS最有用的和经常被忽视的功能。在 `这里 <https://jibbering.com/faq/notes/closures/>`_ 很好地描述说明了闭包的工作。
 
 要记住的一件事情，一个闭包的指针指向包含它的范围。因此，附加一个闭包的DOM元素，可以创建一个循环引用，所以，内存会泄漏。例如，下面的代码：
 
@@ -336,7 +336,7 @@ eval()函数
     var userOnline = false;
     var user = 'nusrat';
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('GET', 'http://chat.google.com/isUserOnline?user=' + user, false);
+    xmlhttp.open('GET', 'https://chat.google.com/isUserOnline?user=' + user, false);
     xmlhttp.send('');
     // 服务器返回：
     // userOnline = true;

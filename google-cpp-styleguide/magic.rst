@@ -14,7 +14,7 @@ Google 用了很多自己实现的技巧 / 工具使 C++ 代码更加健壮, 我
 
 所有权是一种登记／管理动态内存和其它资源的技术. 动态分配对象的所有主是一个对象或函数, 后者负责确保当前者无用时就自动销毁前者. 所有权有时可以共享, 此时就由最后一个所有主来负责销毁它. 甚至也可以不用共享, 在代码中直接把所有权传递给其它对象.
 
-智能指针是一个通过重载 ``*`` 和 ``->`` 运算符以表现得如指针一样的类. 智能指针类型被用来自动化所有权的登记工作, 来确保执行销毁义务到位. `std::unique_ptr <http://en.cppreference.com/w/cpp/memory/unique_ptr>`_ 是 C++11 新推出的一种智能指针类型, 用来表示动态分配出的对象的独一无二的所有权; 当 ``std::unique_ptr`` 离开作用域时, 对象就会被销毁. ``std::unique_ptr`` 不能被复制, 但可以把它移动（move）给新所有主. `std::shared_ptr <http://en.cppreference.com/w/cpp/memory/shared_ptr>`_ 同样表示动态分配对象的所有权, 但可以被共享, 也可以被复制; 对象的所有权由所有复制者共同拥有, 最后一个复制者被销毁时, 对象也会随着被销毁.
+智能指针是一个通过重载 ``*`` 和 ``->`` 运算符以表现得如指针一样的类. 智能指针类型被用来自动化所有权的登记工作, 来确保执行销毁义务到位. `std::unique_ptr <https://en.cppreference.com/w/cpp/memory/unique_ptr>`_ 是 C++11 新推出的一种智能指针类型, 用来表示动态分配出的对象的独一无二的所有权; 当 ``std::unique_ptr`` 离开作用域时, 对象就会被销毁. ``std::unique_ptr`` 不能被复制, 但可以把它移动（move）给新所有主. `std::shared_ptr <https://en.cppreference.com/w/cpp/memory/shared_ptr>`_ 同样表示动态分配对象的所有权, 但可以被共享, 也可以被复制; 对象的所有权由所有复制者共同拥有, 最后一个复制者被销毁时, 对象也会随着被销毁.
 
 **> 优点**
 
@@ -74,7 +74,7 @@ Google 用了很多自己实现的技巧 / 工具使 C++ 代码更加健壮, 我
 
 ``cpplint.py`` 是一个用来分析源文件, 能检查出多种风格错误的工具. 它不并完美, 甚至还会漏报和误报, 但它仍然是一个非常有用的工具. 在行尾加 ``// NOLINT``, 或在上一行加 ``// NOLINTNEXTLINE``, 可以忽略报错. 
 
-某些项目会指导你如何使用他们的项目工具运行 ``cpplint.py``. 如果你参与的项目没有提供, 你可以单独下载 `cpplint.py <http://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py>`_.
+某些项目会指导你如何使用他们的项目工具运行 ``cpplint.py``. 如果你参与的项目没有提供, 你可以单独下载 `cpplint.py <https://github.com/google/styleguide/blob/gh-pages/cpplint/cpplint.py>`_.
 
 
 译者（acgtyrant）笔记

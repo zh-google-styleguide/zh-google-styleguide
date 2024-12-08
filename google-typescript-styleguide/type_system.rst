@@ -275,7 +275,7 @@ TypeScript 支持使用 `类型别名 <https://www.typescriptlang.org/docs/handb
     // 应当这样做！
     const users: {[userName: string]: number} = ...;
 
-然而，相比使用上面的这种形式，在 TypeScript 中应当考虑使用 ES6 新增的 ``Map`` 与 ``Set`` 类型。因为 JavaScript 对象有一些 `令人困惑又不符合预期的行为 <http://2ality.com/2012/01/objects-as-maps.html>`_ ，而 ES6 的新增类型能够更明确地表达程序员的设计思路。此外， ``Map`` 类型的键和 ``Set`` 类型的元素都允许使用 ``string`` 以外的其他类型。
+然而，相比使用上面的这种形式，在 TypeScript 中应当考虑使用 ES6 新增的 ``Map`` 与 ``Set`` 类型。因为 JavaScript 对象有一些 `令人困惑又不符合预期的行为 <https://2ality.com/2012/01/objects-as-maps.html>`_ ，而 ES6 的新增类型能够更明确地表达程序员的设计思路。此外， ``Map`` 类型的键和 ``Set`` 类型的元素都允许使用 ``string`` 以外的其他类型。
 
 TypeScript 内建的 ``Record<Keys, ValueType>`` 允许使用已定义的一组键创建类型。它与关联数组的不同之处在于键是静态确定的。关于它的使用建议，参见 :ref:`ts-mapped-conditional-types` 一节。
 

@@ -21,24 +21,28 @@ Google 开源项目风格指南——中文版
 
 英文版项目维护的是在 Google 使用的编程风格指南。如果你正在修改的项目源自 Google，你可能会被引导至英文版项目页面，以了解项目所使用的风格。
 
-我们已经发布了七份 **中文版** 的风格指南:
+我们已经发布了 **9** 份 **中文版** 的风格指南:
 
-#. `Google C++ 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/>`_
+#. `Google C++ 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/>`_
 
-#. `Google Objective-C 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-objc-styleguide/>`_
+#. `Google Objective-C 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-objc-styleguide/>`_
 
-#. `Google Python 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-python-styleguide/>`_
+#. `Google Python 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-python-styleguide/>`_
 
 #. `Google JavaScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-javascript-styleguide/contents/>`_
 
-#. `Google Shell 风格指南 <http://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
+#. `Google Shell 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
 
 #. `Google JSON 风格指南 <https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md>`_
 
 #. `Google TypeScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-typescript-styleguide/contents/>`_
 
+#. `Google HTML/CSS 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-html-css-styleguide/contents/>`_
+
+#. `Google Java 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-java-styleguide/contents/>`_
+
 中文版项目采用 reStructuredText 纯文本标记语法，并使用 Sphinx 生成 HTML / CHM / PDF 等文档格式。
 
 * 英文版项目还包含 `cpplint <https://github.com/google/styleguide/tree/gh-pages/cpplint>`_ ——一个用来帮助适应风格准则的工具，以及 `google-c-style.el <https://raw.githubusercontent.com/google/styleguide/gh-pages/google-c-style.el>`_，Google 风格的 Emacs 配置文件。
 
-* 另外，招募志愿者翻译 `XML Document Format Style Guide <http://google.github.io/styleguide/xmlstyle.html>`_ ，有意者请联系 `Yang.Y <https://github.com/yangyubo>`_ 。
+* 另外，招募志愿者翻译 `XML Document Format Style Guide <https://google.github.io/styleguide/xmlstyle.html>`_ ，有意者请联系 `Yang.Y <https://github.com/yangyubo>`_ 。

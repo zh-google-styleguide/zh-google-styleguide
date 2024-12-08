@@ -4,9 +4,9 @@
 
 对于易维护的代码而言，命名规则非常重要。Objective-C 的方法名往往十分长，但代码块读起来就像散文一样，不需要太多的代码注释。
 
-当编写纯粹的 Objective-C 代码时，我们基本遵守标准的 `Objective-C naming rules <http://developer.apple.com/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html>`_，这些命名规则可能与 C++ 风格指南中的大相径庭。例如，Google 的 C++ 风格指南中推荐使用下划线分隔的单词作为变量名，而(苹果的)风格指南则使用驼峰命名法，这在 Objective-C 社区中非常普遍。
+当编写纯粹的 Objective-C 代码时，我们基本遵守标准的 `Objective-C naming rules <https://developer.apple.com/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html>`_，这些命名规则可能与 C++ 风格指南中的大相径庭。例如，Google 的 C++ 风格指南中推荐使用下划线分隔的单词作为变量名，而(苹果的)风格指南则使用驼峰命名法，这在 Objective-C 社区中非常普遍。
 
-任何的类、类别、方法以及变量的名字中都使用全大写的 `首字母缩写 <http://en.wikipedia.org/wiki/Initialism>`_。这遵守了苹果的标准命名方式，如 URL、TIFF 以及 EXIF。
+任何的类、类别、方法以及变量的名字中都使用全大写的 `首字母缩写 <https://en.wikipedia.org/wiki/Initialism>`_。这遵守了苹果的标准命名方式，如 URL、TIFF 以及 EXIF。
 
 当编写 Objective-C++ 代码时，事情就不这么简单了。许多项目需要实现跨平台的 C++ API，并混合一些 Objective-C、Cocoa 代码，或者直接以 C++ 为后端，前端用本地 Cocoa 代码。这就导致了两种命名方式直接不统一。
 
@@ -111,7 +111,7 @@ Objective-C 方法名
 
     方法名应该以小写字母开头，并混合驼峰格式。每个具名参数也应该以小写字母开头。
 
-方法名应尽量读起来就像句子，这表示你应该选择与方法名连在一起读起来通顺的参数名。（例如，``convertPoint:fromRect:`` 或 ``replaceCharactersInRange:withString:``）。详情参见 `Apple’s Guide to Naming Methods <http://developer.apple.com/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html>`_。
+方法名应尽量读起来就像句子，这表示你应该选择与方法名连在一起读起来通顺的参数名。（例如，``convertPoint:fromRect:`` 或 ``replaceCharactersInRange:withString:``）。详情参见 `Apple’s Guide to Naming Methods <https://developer.apple.com/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html>`_。
 
 访问器方法应该与他们 ``要获取的`` 成员变量的名字一样，但不应该以get作为前缀。例如：
 

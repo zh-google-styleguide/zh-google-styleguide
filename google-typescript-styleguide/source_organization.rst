@@ -30,7 +30,7 @@ TypeScript 代码必须使用路径进行导入。这里的路径既可以是相
 
 在 TypeScript 有两种组织代码的方式：命名空间（namespace）和模块（module）。
 
-不允许使用命名空间，在 TypeScript 中必须使用模块（即 `ES6 模块 <http://exploringjs.com/es6/ch_modules.html>`_ ）。也就是说，在引用其它文件中的代码时必须以 ``import {foo} from 'bar'`` 的形式进行导入和导出。
+不允许使用命名空间，在 TypeScript 中必须使用模块（即 `ES6 模块 <https://exploringjs.com/es6/ch_modules.html>`_ ）。也就是说，在引用其它文件中的代码时必须以 ``import {foo} from 'bar'`` 的形式进行导入和导出。
 
 不允许使用 ``namespace Foo { ... }`` 的形式组织代码。命名空间只能在所用的外部第三方库有要求时才能使用。如果需要在语义上对代码划分命名空间，应当通过分成不同文件的方式实现。
 

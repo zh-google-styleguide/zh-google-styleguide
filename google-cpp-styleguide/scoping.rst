@@ -268,7 +268,7 @@
 
 .. tip::
 
-    禁止使用 `静态储存周期 (static storage duration) <http://zh.cppreference.com/w/cpp/language/storage_duration#.E5.AD.98.E5.82.A8.E6.9C.9F>`_ 的变量, 除非它们可以 `平凡地析构 (trivially destructible) <https://zh.cppreference.com/w/cpp/types/is_destructible>`_. 简单来说, 就是析构函数 (destructor) 不会做任何事情, 包括成员和基类 (base) 的析构函数. 正式地说, 就是这一类型 (type) 没有用户定义的析构函数或虚析构函数 (virtual destructor), 且所有成员和基类也能平凡地析构. 函数的局部静态变量可以动态地初始化 (dynamic initialization) . 除了少数情况外, 不推荐动态初始化静态类成员变量或命名空间内的变量. 详情参见下文.
+    禁止使用 `静态储存周期 (static storage duration) <https://zh.cppreference.com/w/cpp/language/storage_duration#.E5.AD.98.E5.82.A8.E6.9C.9F>`_ 的变量, 除非它们可以 `平凡地析构 (trivially destructible) <https://zh.cppreference.com/w/cpp/types/is_destructible>`_. 简单来说, 就是析构函数 (destructor) 不会做任何事情, 包括成员和基类 (base) 的析构函数. 正式地说, 就是这一类型 (type) 没有用户定义的析构函数或虚析构函数 (virtual destructor), 且所有成员和基类也能平凡地析构. 函数的局部静态变量可以动态地初始化 (dynamic initialization) . 除了少数情况外, 不推荐动态初始化静态类成员变量或命名空间内的变量. 详情参见下文.
 
 作为经验之谈: 若只看全局变量的声明, 如果该语句可以作为常量表达式 (constexpr), 则满足以上要求.
 

@@ -8,7 +8,7 @@ HTML样式规则
 
 HTML5（HTML语法）是所有HTML文档的首选： ``<!DOCTYPE html>`` 。
 
-（推荐使用HTML，即text/html。不要使用XHTML。XHTML，即 `application/xhtml+xml <http://hixie.ch/advocacy/xhtml>`_，缺乏浏览器和基础结构的支持，并且优化的空间比HTML小。）
+（推荐使用HTML，即text/html。不要使用XHTML。XHTML，即 `application/xhtml+xml <https://hixie.ch/advocacy/xhtml>`_，缺乏浏览器和基础结构的支持，并且优化的空间比HTML小。）
 虽然HTML闭合标签没有问题，但是不要自闭合空标签。即写 ``<br>`` 而不是 ``<br />`` 。
 
 
@@ -19,7 +19,7 @@ HTML合法性
 
 使用合法的HTML代码，除非由于文件大小导致的不可达到的性能目标而不能使用。
 
-利用已用工具对合法性进行测试，例如 `W3C HTML validator <http://validator.w3.org/nu/>`_。
+利用已用工具对合法性进行测试，例如 `W3C HTML validator <https://validator.w3.org/nu/>`_。
 
 使用合法的HTML是一个可度量的基准质量属性，该属性有助于了解技术需求和约束，从而确保合理的HTML使用。
 
@@ -129,7 +129,7 @@ HTML合法性
 
 省略可选的标签（可选）。
 
-为了优化文件大小和可扫描，考虑省略可选标签。 `HTML5规范 <http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#syntax-tag-omission>`_ 定义了哪些标签可以被省略。
+为了优化文件大小和可扫描，考虑省略可选标签。 `HTML5规范 <https://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#syntax-tag-omission>`_ 定义了哪些标签可以被省略。
 
 （这种方法可能要求一段宽限期去建立一个更加广泛的准则，因为它和Web开发人员通常所了解的有着显著不同。考虑到一致性和简单性，最好省略所有可选标签。）
 
@@ -158,7 +158,7 @@ type属性
 
 引用样式表（除非不是使用CSS）和脚本（除非不是使用JavaScript）不要使用type属性。
 
-HTML5将 `text/css <http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-type>`_ 和 `text/javascript <http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#attr-script-type>`_ 设置为默认值，在这种情况下指定type属性并不必要。甚至同样兼容老版本的浏览器。
+HTML5将 `text/css <https://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-type>`_ 和 `text/javascript <https://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#attr-script-type>`_ 设置为默认值，在这种情况下指定type属性并不必要。甚至同样兼容老版本的浏览器。
 
 .. code-block:: html
 
