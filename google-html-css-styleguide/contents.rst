@@ -5,6 +5,7 @@ HTML/CSS 风格指南 - 内容目录
 
 .. toctree::
 
+    index
     background
     general_style_rules
     general_formatting_rules

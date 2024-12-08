@@ -29,17 +29,17 @@ Google 开源项目风格指南——中文版
 
 #. `Google Python 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-python-styleguide/>`_
 
-#. `Google JavaScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-javascript-styleguide/contents/>`_
+#. `Google JavaScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-javascript-styleguide/>`_
 
 #. `Google Shell 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
 
-#. `Google JSON 风格指南 <https://github.com/darcyliu/google-styleguide/blob/master/JSONStyleGuide.md>`_
+#. `Google JSON 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
 
-#. `Google TypeScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-typescript-styleguide/contents/>`_
+#. `Google TypeScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-typescript-styleguide/>`_
 
-#. `Google HTML/CSS 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-html-css-styleguide/contents/>`_
+#. `Google HTML/CSS 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-html-css-styleguide/>`_
 
-#. `Google Java 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-java-styleguide/contents/>`_
+#. `Google Java 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-java-styleguide/>`_
 
 中文版项目采用 reStructuredText 纯文本标记语法，并使用 Sphinx 生成 HTML / CHM / PDF 等文档格式。
 

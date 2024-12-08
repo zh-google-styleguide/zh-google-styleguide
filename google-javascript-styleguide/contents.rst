@@ -7,6 +7,7 @@ Javascript 风格指南 - 内容目录
 
 .. toctree::
 
+    index
     background
     javascript_language_rules.rst
     javascript_style_rules.rst

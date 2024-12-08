@@ -6,6 +6,7 @@ TypeScript 风格指南
     :maxdepth: 2
     :numbered:
 
+    index
     introduction
     syntax
     language
