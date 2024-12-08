@@ -8,7 +8,7 @@ CSS有效性
 
 使用有效的CSS代码，除非在处理css验证器bug或者是专有的语法时。
 
-使用诸如 `W3C CSS validator <http://jigsaw.w3.org/css-validator/>`_ 等工具验证测试。
+使用诸如 `W3C CSS validator <https://jigsaw.w3.org/css-validator/>`_ 等工具验证测试。
 
 使用有效的CSS代码是一个可衡量CSS代码质量的指标，可帮你找出不起作用可被删除的CSS代码，从而确保CSS的合理使用。
 
@@ -70,7 +70,7 @@ ID和class命名要尽可能简短，但必要的话就别怕长。
 
 除了必要情况下（例如辅助的类），不要将元素与id或class名称结合做为选择器。
 
-避免不必要的祖先选择器也是出于 `性能原因 <http://www.stevesouders.com/blog/2009/06/18/simplifying-css-selectors/>`_ 的考虑。
+避免不必要的祖先选择器也是出于 `性能原因 <https://www.stevesouders.com/blog/2009/06/18/simplifying-css-selectors/>`_ 的考虑。
 
 .. code-block:: css
   
@@ -87,7 +87,7 @@ ID和class命名要尽可能简短，但必要的话就别怕长。
 
 尽可能使用简写的属性书写方式。
 
-CSS提供了多种属性 `简写 <http://www.w3.org/TR/CSS21/about.html#shorthand>`_ 的方式（如 ``font`` ），即使只显式设置一个值，也应该尽可能地使用。
+CSS提供了多种属性 `简写 <https://www.w3.org/TR/CSS21/about.html#shorthand>`_ 的方式（如 ``font`` ），即使只显式设置一个值，也应该尽可能地使用。
 
 使用简写属性有助于提高代码效率及可读性。
 

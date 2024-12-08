@@ -161,7 +161,7 @@ C++ 文件要以 ``.cc`` 结尾, 头文件以 ``.h`` 结尾. 专门插入文本�
 
 **说明**
 
-所有具有静态存储类型的变量 (例如静态变量或全局变量, 参见 `存储类型 <http://en.cppreference.com/w/cpp/language/storage_duration#Storage_duration>`_) 都应当以此方式命名. 对于其他存储类型的变量, 如自动变量等, 这条规则是可选的. 如果不采用这条规则, 就按照一般的变量命名规则.
+所有具有静态存储类型的变量 (例如静态变量或全局变量, 参见 `存储类型 <https://en.cppreference.com/w/cpp/language/storage_duration#Storage_duration>`_) 都应当以此方式命名. 对于其他存储类型的变量, 如自动变量等, 这条规则是可选的. 如果不采用这条规则, 就按照一般的变量命名规则.
 
 .. _function-names:
 

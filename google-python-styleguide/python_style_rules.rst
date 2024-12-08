@@ -24,7 +24,7 @@ Python风格规范
 
 不要用反斜杠表示 `显式续行 (explicit line continuation) <https://docs.python.org/3/reference/lexical_analysis.html#explicit-line-joining>`_.
 
-应该利用 Python 的 `圆括号, 中括号和花括号的隐式续行 (implicit line joining) <http://docs.python.org/2/reference/lexical_analysis.html#implicit-line-joining>`_ . 如有需要, 你可以在表达式外围添加一对括号. 
+应该利用 Python 的 `圆括号, 中括号和花括号的隐式续行 (implicit line joining) <https://docs.python.org/2/reference/lexical_analysis.html#implicit-line-joining>`_ . 如有需要, 你可以在表达式外围添加一对括号. 
 
 正确:
 
@@ -108,14 +108,14 @@ Python风格规范
 .. code-block:: python
 
     # 详情参见
-    # http://www.example.com/us/developer/documentation/api/content/v2.0/csv_file_name_extension_full_specification.html
+    # https://www.example.com/us/developer/documentation/api/content/v2.0/csv_file_name_extension_full_specification.html
 
 错误:
 
 .. code-block:: python
 
     # 详情参见
-    # http://www.example.com/us/developer/documentation/api/content/\
+    # https://www.example.com/us/developer/documentation/api/content/\
     # v2.0/csv_file_name_extension_full_specification.html     
 
 注意上面各个例子中的缩进; 详情参见 :ref:`缩进 <indentation>` 章节的解释. 
@@ -242,9 +242,9 @@ Shebang行
 --------------------
 
 .. tip::
-    大部分 ``.py`` 文件不必以 ``#!`` 开始. 可以根据 `PEP-394 <http://www.python.org/dev/peps/pep-0394/>`_ , 在程序的主文件开头添加 ``#!/usr/bin/env python3`` (以支持 virtualenv) 或者 ``#!/usr/bin/python3``.
+    大部分 ``.py`` 文件不必以 ``#!`` 开始. 可以根据 `PEP-394 <https://www.python.org/dev/peps/pep-0394/>`_ , 在程序的主文件开头添加 ``#!/usr/bin/env python3`` (以支持 virtualenv) 或者 ``#!/usr/bin/python3``.
 
-(译者注: 在计算机科学中, `Shebang <http://en.wikipedia.org/wiki/Shebang_(Unix)>`_ (也称为Hashbang)是一个由井号和叹号构成的字符串行(#!), 其出现在文本文件的第一行的前两个字符. 在文件中存在Shebang的情况下, 类Unix操作系统的程序载入器会分析Shebang后的内容, 将这些内容作为解释器指令, 并调用该指令, 并将载有Shebang的文件路径作为该解释器的参数. 例如, 以指令#!/bin/sh开头的文件在执行时会实际调用/bin/sh程序.)
+(译者注: 在计算机科学中, `Shebang <https://en.wikipedia.org/wiki/Shebang_(Unix)>`_ (也称为Hashbang)是一个由井号和叹号构成的字符串行(#!), 其出现在文本文件的第一行的前两个字符. 在文件中存在Shebang的情况下, 类Unix操作系统的程序载入器会分析Shebang后的内容, 将这些内容作为解释器指令, 并调用该指令, 并将载有Shebang的文件路径作为该解释器的参数. 例如, 以指令#!/bin/sh开头的文件在执行时会实际调用/bin/sh程序.)
 
 内核会通过这行内容找到Python解释器, 但是Python解释器在导入模块时会忽略这行内容. 这行内容仅对需要直接运行的文件有效.
 
@@ -258,7 +258,7 @@ Shebang行
 
 **文档字符串**
 
-    Python 的文档字符串用于注释代码. 文档字符串是包、模块、类或函数里作为第一个语句的字符串. 可以用对象的 ``__doc__`` 成员自动提取这些字符串, 并为 ``pydoc`` 所用. (可以试试在你的模块上运行 ``pydoc`` 并观察结果). 文档字符串一定要用三重双引号 ``"""`` 的格式 (依据 `PEP-257 <http://www.python.org/dev/peps/pep-0257/>`_ ). 文档字符串应该是一行概述 (整行不超过 80 个字符), 以句号、问号或感叹号结尾. 如果要写更多注释 (推荐), 那么概述后面必须紧接着一个空行, 然后是剩下的内容, 缩进与文档字符串的第一行第一个引号对齐. 下面是更多有关文档字符串的格式规范. 
+    Python 的文档字符串用于注释代码. 文档字符串是包、模块、类或函数里作为第一个语句的字符串. 可以用对象的 ``__doc__`` 成员自动提取这些字符串, 并为 ``pydoc`` 所用. (可以试试在你的模块上运行 ``pydoc`` 并观察结果). 文档字符串一定要用三重双引号 ``"""`` 的格式 (依据 `PEP-257 <https://www.python.org/dev/peps/pep-0257/>`_ ). 文档字符串应该是一行概述 (整行不超过 80 个字符), 以句号、问号或感叹号结尾. 如果要写更多注释 (推荐), 那么概述后面必须紧接着一个空行, 然后是剩下的内容, 缩进与文档字符串的第一行第一个引号对齐. 下面是更多有关文档字符串的格式规范. 
 
 **模块**
 
@@ -325,7 +325,7 @@ Shebang行
     Returns: ("返回:")
         生成器应该用 "Yields:" ("生成:" )
 
-        描述返回值的类型和意义. 如果函数仅仅返回 ``None``, 这一小节可以省略. 如果文档字符串以 Returns (返回) 或者 Yields (生成) 开头 (例如 ``"""返回 Bigtable 的行, 类型是字符串构成的元组."""``) 且这句话已经足以描述返回值, 也可以省略这一小节. 不要模仿 Numpy 风格的文档 (`例子 <http://numpy.org/doc/stable/reference/generated/numpy.linalg.qr.html>`_). 他们在文档中记录作为返回值的元组时, 写得就像返回值是多个值且每个值都有名字 (没有提到返回的是元组). 应该这样描述此类情况: "返回: 一个元组 (mat_a, mat_b), 其中 mat_a 是..., 且 ...". 文档字符串中使用的辅助名称不需要和函数体的内部变量名一致 (因为这些名称不是 API 的一部分).
+        描述返回值的类型和意义. 如果函数仅仅返回 ``None``, 这一小节可以省略. 如果文档字符串以 Returns (返回) 或者 Yields (生成) 开头 (例如 ``"""返回 Bigtable 的行, 类型是字符串构成的元组."""``) 且这句话已经足以描述返回值, 也可以省略这一小节. 不要模仿 Numpy 风格的文档 (`例子 <https://numpy.org/doc/stable/reference/generated/numpy.linalg.qr.html>`_). 他们在文档中记录作为返回值的元组时, 写得就像返回值是多个值且每个值都有名字 (没有提到返回的是元组). 应该这样描述此类情况: "返回: 一个元组 (mat_a, mat_b), 其中 mat_a 是..., 且 ...". 文档字符串中使用的辅助名称不需要和函数体的内部变量名一致 (因为这些名称不是 API 的一部分).
 
     Raises: (抛出:)
         列出与接口相关的所有异常和异常描述. 用类似 Args (参数) 小节的格式，写成异常名+冒号+空格/换行, 并添加悬挂缩进. 不要在文档中记录违反 API 的使用条件时会抛出的异常 (因为这会让违背 API 时出现的效果成为 API 的一部分, 这是矛盾的).
@@ -453,7 +453,7 @@ Shebang行
 
 **块注释和行注释**
 
-    最后一种需要写注释的地方是代码中复杂的部分. 如果你可能在以后 `代码评审 (code review) <http://en.wikipedia.org/wiki/Code_review>`_ 时要解释某段代码, 那么现在就应该给这段代码加上注释. 应该在复杂的操作开始前写上若干行注释. 对于不是一目了然的代码, 应该在行尾添加注释. 
+    最后一种需要写注释的地方是代码中复杂的部分. 如果你可能在以后 `代码评审 (code review) <https://en.wikipedia.org/wiki/Code_review>`_ 时要解释某段代码, 那么现在就应该给这段代码加上注释. 应该在复杂的操作开始前写上若干行注释. 对于不是一目了然的代码, 应该在行尾添加注释. 
 
     .. code-block:: python
 
@@ -694,7 +694,7 @@ Shebang行
 
       import contextlib
       
-      with contextlib.closing(urllib.urlopen("http://www.python.org/")) as front_page:
+      with contextlib.closing(urllib.urlopen("https://www.python.org/")) as front_page:
           for line in front_page:
               print line
               

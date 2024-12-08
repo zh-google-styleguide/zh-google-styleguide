@@ -26,7 +26,7 @@ css文件书写按字母顺序排列的方式，容易记忆和维护，以达�
 
 缩进块内容。
 
-将包括嵌套及声明的 `块内容 <http://www.w3.org/TR/CSS21/syndata.html#block>`_ 进行缩进，以体现层次并提高可读性。
+将包括嵌套及声明的 `块内容 <https://www.w3.org/TR/CSS21/syndata.html#block>`_ 进行缩进，以体现层次并提高可读性。
 
 .. code-block:: css
 
@@ -84,7 +84,7 @@ CSS属性名结束
    
 在选择器和后面的声明块之间使用一个空格。
 
-最后一个选择器与表示 `声名块 <http://www.w3.org/TR/CSS21/syndata.html#rule-sets>`_ 开始的左大花括号在同行，中间有一个字符空格。
+最后一个选择器与表示 `声名块 <https://www.w3.org/TR/CSS21/syndata.html#rule-sets>`_ 开始的左大花括号在同行，中间有一个字符空格。
    
 表示开始的左大花括号和选择器在同行。
 
@@ -157,7 +157,7 @@ CSS引号
    
 在属性选择器及属性值中使用单引号（''）而不是双引号（""）。在 ``url（）`` 中不要使用引号。
 
-特例：如果你确实需要定义 ``@charset`` ，由于 `不允许使用单引号 <http://www.w3.org/TR/CSS21/syndata.html#charset>`_ ，故请使用双引号。
+特例：如果你确实需要定义 ``@charset`` ，由于 `不允许使用单引号 <https://www.w3.org/TR/CSS21/syndata.html#charset>`_ ，故请使用双引号。
 
 .. code-block:: css
 

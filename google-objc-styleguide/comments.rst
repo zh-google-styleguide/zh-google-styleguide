@@ -80,7 +80,7 @@
 
 当实例变量指向 ``CoreFoundation``、C++ 或者其它非 Objective-C 对象时，不论指针是否会被 ``retained``，都需要使用 ``__strong`` 和 ``__weak`` 类型修饰符明确指明。``CoreFoundation`` 和其它非 Objective-C 对象指针需要显式的内存管理，即便使用了自动引用计数或垃圾回收机制。当不允许使用 ``__weak`` 类型修饰符（比如，使用 clang 编译时的 C++ 成员变量），应使用注释替代说明。
 
-注意：Objective-C 对象中的 C++ 对象的自动封装，缺省是不允许的，参见 `这里 <http://chanson.livejournal.com/154253.html>`_ 的说明。
+注意：Objective-C 对象中的 C++ 对象的自动封装，缺省是不允许的，参见 `这里 <https://chanson.livejournal.com/154253.html>`_ 的说明。
 
 强引用及弱引用声明的例子：
 

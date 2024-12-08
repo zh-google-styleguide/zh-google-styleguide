@@ -524,7 +524,7 @@ Lambda函数
     
     举个例子, 一个特性不能仅仅用于获取和设置一个内部属性: 因为不涉及计算, 没有必要用特性 (应该把该属性设为公有). 而用特性来限制属性的访问或者计算 **简单** 的衍生值则是正确的: 这种逻辑简单明了.
     
-    应该用 ``@property`` `装饰器 (decorator) <http://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Function_and_Method_Decorators>`_ 来创建特性. 自行实现的特性装饰器属于威力过大的功能.
+    应该用 ``@property`` `装饰器 (decorator) <https://google-styleguide.googlecode.com/svn/trunk/pyguide.html#Function_and_Method_Decorators>`_ 来创建特性. 自行实现的特性装饰器属于威力过大的功能.
 
     特性的继承机制难以理解. 不要用特性实现子类能覆写 (override) 或扩展的计算功能.
     
@@ -607,7 +607,7 @@ True/False的求值
     通常会产生更清晰、更优雅的代码. 尤其是让熟练使用Lisp和Scheme(还有Haskell, ML等)的程序员感到舒适.
     
 缺点:
-    可能引发让人困惑的bug, 例如下面这个依据 `PEP-0227 <http://www.python.org/dev/peps/pep-0227/>`_ 改编的例子:
+    可能引发让人困惑的bug, 例如下面这个依据 `PEP-0227 <https://www.python.org/dev/peps/pep-0227/>`_ 改编的例子:
     
     .. code-block:: python
     

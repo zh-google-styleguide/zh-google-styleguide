@@ -15,5 +15,5 @@
 
 :项目主页:
 
-    - `Google Style Guide <http://google-styleguide.googlecode.com>`_
-    - `Google 开源项目风格指南 - 中文版 <http://github.com/zh-google-styleguide/zh-google-styleguide>`_
+    - `Google Style Guide <https://google-styleguide.googlecode.com>`_
+    - `Google 开源项目风格指南 - 中文版 <https://github.com/zh-google-styleguide/zh-google-styleguide>`_

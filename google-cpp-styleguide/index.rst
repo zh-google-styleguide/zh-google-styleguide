@@ -17,16 +17,16 @@
 
     .. line-block::
 
-        `YuleFox <http://www.yulefox.com>`_
+        `YuleFox <https://www.yulefox.com>`_
         `Yang.Y <https://github.com/yangyubo>`_
-        `acgtyrant <http://acgtyrant.com>`_
-        `lilinsanity <http://github.com/lilinsanity>`_
+        `acgtyrant <https://acgtyrant.com>`_
+        `lilinsanity <https://github.com/lilinsanity>`_
         `楼宇 <https://github.com/LouYu2015>`_
 
 :项目主页:
 
-    - `Google Style Guide <http://google-styleguide.googlecode.com>`_
-    - `Google 开源项目风格指南 - 中文版 <http://github.com/zh-google-styleguide/zh-google-styleguide>`_
+    - `Google Style Guide <https://google-styleguide.googlecode.com>`_
+    - `Google 开源项目风格指南 - 中文版 <https://github.com/zh-google-styleguide/zh-google-styleguide>`_
 
 译者前言
 --------------------
@@ -55,11 +55,11 @@ Google 经常会发布一些开源项目, 意味着会接受来自其他代码�
 
     - 2009-06 3.133 : YuleFox 的 1.0 版已经相当完善, 但原版在近一年的时间里, 其规范也发生了一些变化.
 
-        Yang.Y 与 YuleFox 一拍即合, 以项目的形式来延续中文版 : `Google 开源项目风格指南 - 中文版项目 <http://github.com/yangyubo/zh-google-styleguide>`_.
+        Yang.Y 与 YuleFox 一拍即合, 以项目的形式来延续中文版 : `Google 开源项目风格指南 - 中文版项目 <https://github.com/yangyubo/zh-google-styleguide>`_.
 
         主要变化是同步到 3.133 最新英文版本, 做部分勘误和改善可读性方面的修改, 并改进排版效果. Yang.Y 重新翻修, YuleFox 做后续评审.
 
-    - 2008-07 1.0 : 出自 `YuleFox 的 Blog <http://www.yulefox.com/?p=207>`_, 很多地方摘录的也是该版本.
+    - 2008-07 1.0 : 出自 `YuleFox 的 Blog <https://www.yulefox.com/?p=207>`_, 很多地方摘录的也是该版本.
 
 以下是正文.
 

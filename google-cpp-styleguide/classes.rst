@@ -252,7 +252,7 @@ C++ 中 ``struct`` 和 ``class`` 关键字的含义几乎一样. 我们自己为
 
 **定义**
 
-用户可以使用 ``operator`` 关键字来 `重载内置运算符 <http://en.cppreference.com/w/cpp/language/operators>`_ , 前提是其中一个参数是用户自定义类型. 用户还可以使用 ``operator""`` 定义一类新的字面量, 或者定义类型转换函数 (例如 ``operator bool()``).
+用户可以使用 ``operator`` 关键字来 `重载内置运算符 <https://en.cppreference.com/w/cpp/language/operators>`_ , 前提是其中一个参数是用户自定义类型. 用户还可以使用 ``operator""`` 定义一类新的字面量, 或者定义类型转换函数 (例如 ``operator bool()``).
 
 **优点**
 

@@ -12,7 +12,7 @@
 .. code-block:: html
 
   <!-- 不推荐 -->
-  <script src="http://www.google.com/js/gweb/analytics/autotrack.js"></script>
+  <script src="https://www.google.com/js/gweb/analytics/autotrack.js"></script>
   
   <!-- 推荐 -->
   <script src="//www.google.com/js/gweb/analytics/autotrack.js"></script>
@@ -21,7 +21,7 @@
 
   /* 不推荐 */
   .example {
-   background: url(http://www.google.com/images/example);
+   background: url(https://www.google.com/images/example);
   }
   
   /* 推荐 */

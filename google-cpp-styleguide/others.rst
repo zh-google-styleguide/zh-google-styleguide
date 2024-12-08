@@ -629,7 +629,7 @@
         auto x(3);  // 圆括号。
         auto y{3};  // 大括号。
 
-    它们不是同一回事——``x`` 是 ``int``, ``y`` 则是 ``std::initializer_list<int>``. 其它一般不可见的代理类型（acgtyrant 注：normally-invisible proxy types, 它涉及到 C++ 鲜为人知的坑：`Why is vector<bool> not a STL container? <http://stackoverflow.com/a/17794965/1546088>`_）也有大同小异的陷阱。
+    它们不是同一回事——``x`` 是 ``int``, ``y`` 则是 ``std::initializer_list<int>``. 其它一般不可见的代理类型（acgtyrant 注：normally-invisible proxy types, 它涉及到 C++ 鲜为人知的坑：`Why is vector<bool> not a STL container? <https://stackoverflow.com/a/17794965/1546088>`_）也有大同小异的陷阱。
 
     如果在接口里用 ``auto``, 比如声明头文件里的一个常量，那么只要仅仅因为程序员一时修改其值而导致类型变化的话——API 要翻天覆地了。
 
@@ -882,7 +882,7 @@
 
 定义:
 
-    `Boost 库集 <http://www.boost.org/>`_ 是一个广受欢迎, 经过同行鉴定, 免费开源的 C++ 库集.
+    `Boost 库集 <https://www.boost.org/>`_ 是一个广受欢迎, 经过同行鉴定, 免费开源的 C++ 库集.
 
 优点:
 
@@ -896,35 +896,35 @@
 
     为了向阅读和维护代码的人员提供更好的可读性, 我们只允许使用 Boost 一部分经认可的特性子集. 目前允许使用以下库:
 
-        - `Call Traits <http://www.boost.org/doc/libs/1_58_0/libs/utility/call_traits.htm>`_ : ``boost/call_traits.hpp``
+        - `Call Traits <https://www.boost.org/doc/libs/1_58_0/libs/utility/call_traits.htm>`_ : ``boost/call_traits.hpp``
 
-        - `Compressed Pair <http://www.boost.org/libs/utility/compressed_pair.htm>`_ : ``boost/compressed_pair.hpp``
+        - `Compressed Pair <https://www.boost.org/libs/utility/compressed_pair.htm>`_ : ``boost/compressed_pair.hpp``
 
-        - `<The Boost Graph Library (BGL) <http://www.boost.org/doc/libs/1_58_0/libs/graph/doc/index.html>`_ : ``boost/graph``, except serialization (``adj_list_serialize.hpp``) and parallel/distributed algorithms and data structures(``boost/graph/parallel/*`` and ``boost/graph/distributed/*``)
+        - `<The Boost Graph Library (BGL) <https://www.boost.org/doc/libs/1_58_0/libs/graph/doc/index.html>`_ : ``boost/graph``, except serialization (``adj_list_serialize.hpp``) and parallel/distributed algorithms and data structures(``boost/graph/parallel/*`` and ``boost/graph/distributed/*``)
 
-        - `Property Map <http://www.boost.org/libs/property_map/>`_ : ``boost/property_map.hpp``
+        - `Property Map <https://www.boost.org/libs/property_map/>`_ : ``boost/property_map.hpp``
 
-        - The part of `Iterator <http://www.boost.org/libs/iterator/>`_ that deals with defining iterators: ``boost/iterator/iterator_adaptor.hpp``, ``boost/iterator/iterator_facade.hpp``, and ``boost/function_output_iterator.hpp``
+        - The part of `Iterator <https://www.boost.org/libs/iterator/>`_ that deals with defining iterators: ``boost/iterator/iterator_adaptor.hpp``, ``boost/iterator/iterator_facade.hpp``, and ``boost/function_output_iterator.hpp``
 
-        - The part of `Polygon <http://www.boost.org/libs/polygon/>`_ that deals with Voronoi diagram construction and doesn't depend on the rest of Polygon: ``boost/polygon/voronoi_builder.hpp``, ``boost/polygon/voronoi_diagram.hpp``, and ``boost/polygon/voronoi_geometry_type.hpp``
+        - The part of `Polygon <https://www.boost.org/libs/polygon/>`_ that deals with Voronoi diagram construction and doesn't depend on the rest of Polygon: ``boost/polygon/voronoi_builder.hpp``, ``boost/polygon/voronoi_diagram.hpp``, and ``boost/polygon/voronoi_geometry_type.hpp``
 
-        - `Bimap <http://www.boost.org/libs/bimap/>`_ : ``boost/bimap``
+        - `Bimap <https://www.boost.org/libs/bimap/>`_ : ``boost/bimap``
 
-        - `Statistical Distributions and Functions <http://www.boost.org/libs/math/doc/html/dist.html>`_ : ``boost/math/distributions``
+        - `Statistical Distributions and Functions <https://www.boost.org/libs/math/doc/html/dist.html>`_ : ``boost/math/distributions``
 
-        - `Multi-index <http://www.boost.org/libs/multi_index/>`_ : ``boost/multi_index``
+        - `Multi-index <https://www.boost.org/libs/multi_index/>`_ : ``boost/multi_index``
 
-        - `Heap <http://www.boost.org/libs/heap/>`_ : ``boost/heap``
+        - `Heap <https://www.boost.org/libs/heap/>`_ : ``boost/heap``
 
-        - The flat containers from `Container <http://www.boost.org/libs/container/>`_: ``boost/container/flat_map``, and ``boost/container/flat_set``
+        - The flat containers from `Container <https://www.boost.org/libs/container/>`_: ``boost/container/flat_map``, and ``boost/container/flat_set``
 
     我们正在积极考虑增加其它 Boost 特性, 所以列表中的规则将不断变化.
 
     以下库可以用，但由于如今已经被 C++ 11 标准库取代，不再鼓励：
 
-        - `Pointer Container <http://www.boost.org/libs/ptr_container/>`_ : ``boost/ptr_container``, 改用 `std::unique_ptr <http://en.cppreference.com/w/cpp/memory/unique_ptr>`_
+        - `Pointer Container <https://www.boost.org/libs/ptr_container/>`_ : ``boost/ptr_container``, 改用 `std::unique_ptr <https://en.cppreference.com/w/cpp/memory/unique_ptr>`_
 
-        - `Array <http://www.boost.org/libs/array/>`_ : ``boost/array.hpp``, 改用 `std::array <http://en.cppreference.com/w/cpp/container/array>`_
+        - `Array <https://www.boost.org/libs/array/>`_ : ``boost/array.hpp``, 改用 `std::array <https://en.cppreference.com/w/cpp/container/array>`_
 
 6.23. C++11
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -959,14 +959,14 @@
 译者（acgtyrant）笔记
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. 实际上，`缺省参数会改变函数签名的前提是改变了它接收的参数数量 <http://www.zhihu.com/question/24439516/answer/27858964>`_，比如把 ``void a()`` 改成 ``void a(int b = 0)``, 开发者改变其代码的初衷也许是，在不改变「代码兼容性」的同时，又提供了可选 int 参数的余地，然而这终究会破坏函数指针上的兼容性，毕竟函数签名确实变了。
+#. 实际上，`缺省参数会改变函数签名的前提是改变了它接收的参数数量 <https://www.zhihu.com/question/24439516/answer/27858964>`_，比如把 ``void a()`` 改成 ``void a(int b = 0)``, 开发者改变其代码的初衷也许是，在不改变「代码兼容性」的同时，又提供了可选 int 参数的余地，然而这终究会破坏函数指针上的兼容性，毕竟函数签名确实变了。
 #. 此外把自带缺省参数的函数地址赋值给指针时，会丢失缺省参数信息。
-#. 我还发现 `滥用缺省参数会害得读者光只看调用代码的话，会误以为其函数接受的参数数量比实际上还要少。 <http://www.zhihu.com/question/24439516/answer/27896004>`_
+#. 我还发现 `滥用缺省参数会害得读者光只看调用代码的话，会误以为其函数接受的参数数量比实际上还要少。 <https://www.zhihu.com/question/24439516/answer/27896004>`_
 #. ``friend`` 实际上只对函数／类赋予了对其所在类的访问权限，并不是有效的声明语句。所以除了在头文件类内部写 friend 函数／类，还要在类作用域之外正式地声明一遍，最后在对应的 ``.cc`` 文件加以定义。
 #. 本风格指南都强调了「友元应该定义在同一文件内，避免代码读者跑到其它文件查找使用该私有成员的类」。那么可以把其声明放在类声明所在的头文件，定义也放在类定义所在的文件。
 #. 由于友元函数／类并不是类的一部分，自然也不会是类可调用的公有接口，于是我主张全集中放在类的尾部，即的数据成员之后，参考 :ref:`声明顺序 <declaration-order>` 。
-#. `对使用 C++ 异常处理应具有怎样的态度？ <http://www.zhihu.com/question/22889420>`_ 非常值得一读。
+#. `对使用 C++ 异常处理应具有怎样的态度？ <https://www.zhihu.com/question/22889420>`_ 非常值得一读。
 #. 注意初始化 const 对象时，必须在初始化的同时值初始化。
 #. 用断言代替无符号整型类型，深有启发。
 #. auto 在涉及迭代器的循环语句里挺常用。
-#. `Should the trailing return type syntax style become the default for new C++11 programs? <http://stackoverflow.com/questions/11215227/should-the-trailing-return-type-syntax-style-become-the-default-for-new-c11-pr>`_ 讨论了 auto 与尾置返回类型一起用的全新编码风格，值得一看。
+#. `Should the trailing return type syntax style become the default for new C++11 programs? <https://stackoverflow.com/questions/11215227/should-the-trailing-return-type-syntax-style-become-the-default-for-new-c11-pr>`_ 讨论了 auto 与尾置返回类型一起用的全新编码风格，值得一看。

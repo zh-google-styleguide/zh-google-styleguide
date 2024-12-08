@@ -13,7 +13,7 @@ Javascript风格规范
 
 * *保护* 属性和方法应该以无下划线开头命名（像公共属性和方法一样）。
 
-了解更多关于私有成员和保护成员的信息，请阅读 `可见性 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Visibility__private_and_protected_fields_>`_ 部分。
+了解更多关于私有成员和保护成员的信息，请阅读 `可见性 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Visibility__private_and_protected_fields_>`_ 部分。
 
 方法和函数参数
 ~~~~~~~~~~~~~~~~~
@@ -62,7 +62,7 @@ JavaScript没有原生的对封装和命名空间的支持。
       ...
     };
 
-很多JavaScript库，包括 `the Closure Library <https://developers.google.com/closure/library/?csw=1>`_ 和 `Dojo toolkit <http://dojotoolkit.org/>`_ 给你高级功能来声明命名空间。保持你的命名空间声明一致。
+很多JavaScript库，包括 `the Closure Library <https://developers.google.com/closure/library/?csw=1>`_ 和 `Dojo toolkit <https://dojotoolkit.org/>`_ 给你高级功能来声明命名空间。保持你的命名空间声明一致。
 
 ::
 
@@ -135,7 +135,7 @@ JavaScript没有原生的对封装和命名空间的支持。
       staticHelper(new MyClass());
     };
 
-不要为命名空间起本地别名。命名空间应该只能使用 `goog.scope <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#goog-scope>`_ 命名别名。
+不要为命名空间起本地别名。命名空间应该只能使用 `goog.scope <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#goog-scope>`_ 命名别名。
 
 ::
 
@@ -202,7 +202,7 @@ JavaScript没有原生的对封装和命名空间的支持。
 代码格式
 ----------
 
-我们原则上遵循 `C++格式规范 <http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Formatting>`_ ，并且进行以下额外的说明。
+我们原则上遵循 `C++格式规范 <https://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Formatting>`_ ，并且进行以下额外的说明。
 
 大括号
 ~~~~~~~~
@@ -400,7 +400,7 @@ JavaScript没有原生的对封装和命名空间的支持。
 更多的缩进
 ~~~~~~~~~~~~
 
-事实上，除了 `初始化数组和对象 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Array_and_Object_literals>`_ 和传递匿名函数外，所有被拆开的多行文本应与之前的表达式左对齐，或者以4个（而不是2个）空格作为一缩进层次。
+事实上，除了 `初始化数组和对象 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Array_and_Object_literals>`_ 和传递匿名函数外，所有被拆开的多行文本应与之前的表达式左对齐，或者以4个（而不是2个）空格作为一缩进层次。
 
 ::
 
@@ -591,7 +591,7 @@ JavaScript类型
 
 鼓励和强制执行的编译器。
 
-JSDoc记录类型时，要尽可能具体和准确。我们支持的类型是基于 `EcmaScript 4规范 <http://wiki.ecmascript.org/doku.php?id=spec:spec>`_ 。
+JSDoc记录类型时，要尽可能具体和准确。我们支持的类型是基于 `EcmaScript 4规范 <https://wiki.ecmascript.org/doku.php?id=spec:spec>`_ 。
 
 JavaScript类型语言
 ~~~~~~~~~~~~~~~~~~~
@@ -627,7 +627,7 @@ ES4提案包含指定JavaScript类型的语言。我们使用JsDoc这种语言�
     -
   * - 枚举类型
     - ``{goog.events.EventType}`` 字面量初始化对象的属性之一 ``goog.events.EventType`` 。
-    - 一个枚举必须被初始化为一个字面量对象，或作为另一个枚举的别名,加注 ``@enum`` JSDoc标记。这个属性是枚举实例。 `下面 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#enums>`_ 是枚举语法的定义。
+    - 一个枚举必须被初始化为一个字面量对象，或作为另一个枚举的别名,加注 ``@enum`` JSDoc标记。这个属性是枚举实例。 `下面 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#enums>`_ 是枚举语法的定义。
 
       请注意，这是我们的类型系统中为数不多的ES4规范以外的事情之一。
     -
@@ -704,13 +704,13 @@ ES4提案包含指定JavaScript类型的语言。我们使用JsDoc这种语言�
       带注释函数的可变数目参数。
     - 指定带注释函数接受一个可变数目的参数。
     -
-  * - 函数 `可选参数 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#optional>`_ 
+  * - 函数 `可选参数 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#optional>`_ 
     - ``{function(?string=, number=)}`` 
 
       一个函数，它接受一个可选的、可以为空的字符串和一个可选的数字作为参数。“=”只用于函数类型声明。
     - 指定函数的可选参数。
     -
-  * - 函数 `可选参数 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#optional>`_ （ ``@param`` 注释）
+  * - 函数 `可选参数 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#optional>`_ （ ``@param`` 注释）
     - ``@param {number=} opt_argument`` 
 
       ``number`` 类型的可选参数。
@@ -748,7 +748,7 @@ JavaScript中的类型
     - ::
 
         new Number(true)
-    - `Number对象 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
+    - `Number对象 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
   * - string
     - ::
 
@@ -761,7 +761,7 @@ JavaScript中的类型
 
           new String('Hello')
           new String(42)
-    - `String对象 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
+    - `String对象 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
   * - boolean
     - ::
 
@@ -773,7 +773,7 @@ JavaScript中的类型
     - ::
 
         new Boolean(true)
-    - `Boolean对象 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
+    - `Boolean对象 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
   * - RegExp
     - ::
 
@@ -843,7 +843,7 @@ JavaScript中的类型
           function(x, y) {
             return x * y;
           }
-    - `Function对象 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
+    - `Function对象 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Wrapper_objects_for_primitive_types>`_ 
   * - function(number, number): number
     - ::
 
@@ -1053,8 +1053,8 @@ JavaScript中的类型
 
 使用JSDoc。
 
-我们使用 `c++的注释风格 <http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Comments>`_ 。
-所有的文件、类、方法和属性都应该用合适的 `JSDoc <https://code.google.com/p/jsdoc-toolkit/>`_ 的 `标签 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JSDoc_Tag_Reference>`_ 和 `类型 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 注释。除了直观的方法名称和参数名称外，方法的描述、方法的参数以及方法的返回值也要包含进去。
+我们使用 `c++的注释风格 <https://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Comments>`_ 。
+所有的文件、类、方法和属性都应该用合适的 `JSDoc <https://code.google.com/p/jsdoc-toolkit/>`_ 的 `标签 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JSDoc_Tag_Reference>`_ 和 `类型 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 注释。除了直观的方法名称和参数名称外，方法的描述、方法的参数以及方法的返回值也要包含进去。
 
 行内注释应该使用 ``//`` 的形式。
 
@@ -1063,7 +1063,7 @@ JavaScript中的类型
 注释语法
 ~~~~~~~~~~
 
-JSDoc的语法基于 `JavaDoc <http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html>`_ ，许多编译工具从JSDoc注释中获取信息从而进行代码验证和优化，所以这些注释必须符合语法规则。
+JSDoc的语法基于 `JavaDoc <https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html>`_ ，许多编译工具从JSDoc注释中获取信息从而进行代码验证和优化，所以这些注释必须符合语法规则。
 
 ::
 
@@ -1143,12 +1143,12 @@ JSDoc中的HTML
     * </ul>
     */
 
-`JavaDoc <http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html>`_ 风格指南对于如何编写良好的doc注释是非常有帮助的。
+`JavaDoc <https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html>`_ 风格指南对于如何编写良好的doc注释是非常有帮助的。
 
 顶层/文件层注释
 ~~~~~~~~~~~~~~~~~~
 
-`版权声明 <http://google-styleguide.googlecode.com/svn/trunk/copyright.html>`_ 和作者信息是可选的。顶层注释的目的是为了让不熟悉代码的读者了解文件中有什么。它需要描述文件内容，依赖关系以及兼容性的信息。例如：
+`版权声明 <https://google-styleguide.googlecode.com/svn/trunk/copyright.html>`_ 和作者信息是可选的。顶层注释的目的是为了让不熟悉代码的读者了解文件中有什么。它需要描述文件内容，依赖关系以及兼容性的信息。例如：
 
 ::
 
@@ -1160,7 +1160,7 @@ JSDoc中的HTML
 Class评论
 ~~~~~~~~~~~
 
-类必须记录说明与描述和 `一个类型的标签 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#constructor-tag>`_ ，标识的构造函数。类必须加以描述，若是构造函数则需标注出。
+类必须记录说明与描述和 `一个类型的标签 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#constructor-tag>`_ ，标识的构造函数。类必须加以描述，若是构造函数则需标注出。
 
 ::
 
@@ -1278,7 +1278,7 @@ JSDoc标签参考
 
       当一个方法被标记为 ``@const`` ，意味着这个方法不仅不可以被覆盖，而且也不能在子类中重写。
 
-      ``@const`` 的更多信息，请看 `常量 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Constants>`_ 部分
+      ``@const`` 的更多信息，请看 `常量 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Constants>`_ 部分
   * - @constructor
     - @constructor
 
@@ -1603,7 +1603,7 @@ JSDoc标签参考
         };
     - 给方法、函数、构造函数的参数添加文档说明。
 
-      `参数类型 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 一定要写在大括号里。如果类型被省略，编译器将不做类型检测。
+      `参数类型 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 一定要写在大括号里。如果类型被省略，编译器将不做类型检测。
   * - @private
     - @private
       @private {type}
@@ -1617,7 +1617,7 @@ JSDoc标签参考
         * @private {!Array.<Function>}
         */
         this.handlers\_ = [];
-    - 与方法或属性名结尾使用一个下划线来联合表明该成员是 `私有的 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Visibility__private_and_protected_fields_>`_ 。随着工具对 ``@private`` 的认可，结尾的下划线可能最终被废弃。
+    - 与方法或属性名结尾使用一个下划线来联合表明该成员是 `私有的 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Visibility__private_and_protected_fields_>`_ 。随着工具对 ``@private`` 的认可，结尾的下划线可能最终被废弃。
   * - @protected
     - @protected
       @protected {type}
@@ -1635,7 +1635,7 @@ JSDoc标签参考
         goog.ui.Component.prototype.setElementInternal = function(element) {
           // ...
         };
-    - 用来表明成员或属性是 ``受保护的 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Visibility__private_and_protected_fields_>``_ 。成员或属性应使用没有跟随下划线的名称。
+    - 用来表明成员或属性是 ``受保护的 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Visibility__private_and_protected_fields_>``_ 。成员或属性应使用没有跟随下划线的名称。
   * - @return
     - @return {Type} Description
 
@@ -1652,7 +1652,7 @@ JSDoc标签参考
         };
     - 在方法或函数调用时使用，来说明返回类型。给布尔值写注释时，写成类似“这个组件是否可见”比“如果组件可见则为true，否则为false”要好。如果没有返回值，不使用 ``@return`` 标签。
 
-      `类型 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 名称必须包含在大括号内。如果省略类型，编译器将不会检查返回值的类型。
+      `类型 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 名称必须包含在大括号内。如果省略类型，编译器将不会检查返回值的类型。
   * - @see
     - @see Link
 
@@ -1734,7 +1734,7 @@ JSDoc标签参考
         goog.bind = function(fn, thisObj, var_args) {
           ...
         };
-    - 这个注释可以用来声明一个 `模板类型名 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Template_types>`_ 。
+    - 这个注释可以用来声明一个 `模板类型名 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Template_types>`_ 。
   * - @this
     - @this Type
       @this {Type}
@@ -1766,7 +1766,7 @@ JSDoc标签参考
        * @type {string}
        */
       var hexId = hexId;
-    - 标识变量，属性或表达式的 `类型 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 。大多数类型不需要大括号，但有些项目为了保持一致性而要求所有类型都使用大括号。
+    - 标识变量，属性或表达式的 `类型 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#JsTypes>`_ 。大多数类型不需要大括号，但有些项目为了保持一致性而要求所有类型都使用大括号。
   * - @typedef
     - @typedef
 
@@ -1780,7 +1780,7 @@ JSDoc标签参考
         goog.readNumber = function(x) {
           ...
         }
-    - 使用此注释来声明一个更 `复杂的类型 <http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Typedefs>`_ 的别名。
+    - 使用此注释来声明一个更 `复杂的类型 <https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml#Typedefs>`_ 的别名。
 
 你也许在第三方代码中看到其他类型JSDoc注释，这些注释出现在 `JSDoc Toolkit标签的参考 <https://code.google.com/p/jsdoc-toolkit/wiki/TagReference>`_ ，但目前在谷歌的代码中不鼓励使用。你应该将他们当作“保留”字，他们包括：
 
