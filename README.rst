@@ -33,7 +33,7 @@ Google 开源项目风格指南——中文版
 
 #. `Google Shell 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
 
-#. `Google JSON 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
+#. `Google JSON 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-javascript-styleguide/>`_
 
 #. `Google TypeScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-typescript-styleguide/>`_
 
