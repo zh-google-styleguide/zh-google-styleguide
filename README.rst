@@ -21,7 +21,7 @@ Google 开源项目风格指南——中文版
 
 英文版项目维护的是在 Google 使用的编程风格指南。如果你正在修改的项目源自 Google，你可能会被引导至英文版项目页面，以了解项目所使用的风格。
 
-我们已经发布了 **9** 份 **中文版** 的风格指南:
+我们已经发布了 **8** 份 **中文版** 的风格指南:
 
 #. `Google C++ 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-cpp-styleguide/>`_
 
@@ -29,11 +29,9 @@ Google 开源项目风格指南——中文版
 
 #. `Google Python 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-python-styleguide/>`_
 
-#. `Google JavaScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-javascript-styleguide/>`_
-
 #. `Google Shell 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-shell-styleguide/>`_
 
-#. `Google JSON 风格指南 <https://zh-google-styleguide.readthedocs.org/en/latest/google-javascript-styleguide/>`_
+#. `Google JavaScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-javascript-styleguide/>`_
 
 #. `Google TypeScript 风格指南 <https://zh-google-styleguide.readthedocs.io/en/latest/google-typescript-styleguide/>`_
 
